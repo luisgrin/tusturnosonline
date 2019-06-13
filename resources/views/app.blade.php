@@ -29,7 +29,7 @@
         <div class="container">
           <div class="navbar-brand">
             <a class="navbar-item" @click="homeClick" href="#">
-              <img src="/img/logo.svg" alt="Tusturnosonline">
+              <img src="/img/logo.png" alt="Tusturnosonline">
             </a>
             <div class="menu-bg"></div>
             <div class="menu-burger">☰</div>
@@ -59,7 +59,7 @@
           </div>
           <div class="navbar-brand">
             <a class="navbar-item" @click="homeClick" href="#">
-              <img src="/img/logo.svg" alt="Tusturnosonline">
+              <img src="/img/logo.png" alt="Tusturnosonline">
             </a>
           </div>
           <div class="navbar-menu">
