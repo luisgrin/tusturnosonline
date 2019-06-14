@@ -595,17 +595,7 @@ blockquote {
 }
 
 .input, .select, .textarea {
-  height: 35px!important;
-  padding: 5px 8px; 
-  border:none;
-  background-color: white;
-  color: #674a04;     
-  border-radius: 8px; 
-  box-shadow: inset 0 2px 2px rgba(0,0,0,0.25);
-  font-size: 16px;
-  line-height: 14px;
-  font-style: italic;
-  font-weight: 400;
+  border-width:2px;
 }
 
 .textarea {

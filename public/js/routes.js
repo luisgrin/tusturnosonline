@@ -39,12 +39,12 @@ const Contact = {
 }
 
 const SignIn = {
-  template: '#signin',
+  template: '#login',
   methods: {
     submit : function({type, target}){
       if(!this.$root.processing){
         this.$root.processing = true
-        this.$http.post('/api/auth/signin', this.data, {emulateJSON:true}).then(function(res){
+        this.$http.post('/api/auth/login', this.data, {emulateJSON:true}).then(function(res){
           if(res.data.status === 'success'){
             this.data = res.data
             this.$root.snackbar('success','La sesión fue iniciada correctamente. Redirigiendo...')
@@ -1075,7 +1075,7 @@ const NotFound = {
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    {path: '/', component: SignIn, meta : { title: 'Puntoweberplast'}},
+    {path: '/', component: SignIn, meta : { title: 'Tusturnosonline'}},
     {path: '/opener', component: Opener, meta : { title: 'Redirigiendo...'}},
     {path: '/sign-in', component: SignIn,  meta : { title: 'Iniciar sesión'}},
     {path: '/recover-password', component: RecoverPassword,  meta : { title: 'Recuperar contraseña'}},
@@ -1083,18 +1083,7 @@ const router = new VueRouter({
     {path: '/session-ended', component: SessionEnded, meta : { title: 'Sesión finalizada'}},
     {path: '/session-expired', component: SessionExpired, meta : { title: 'Sesión expirada'}},
     {path: '/contact', component: Contact, meta : { title: 'Contacto'}},    
-    {path: '/account', component: Account, meta : { title: 'Puntoweberplast', requiresAuth: true}},
-    {path: '/formular-color-y-cotizar', component: FormularColor, meta : { title: 'Formular color y cotizar', icon:'/img/formular-o.png',  customNavbar:true, requiresAuth: true}},
-    {path: '/formular-color-y-cotizar-datos', component: FormularColorDatos, meta : { title: 'Formular color y cotizar', icon:'/img/formular-o.png',  customNavbar:true, requiresAuth: true}},
-    {path: '/formular-color-y-cotizar-cotizacion', component: FormularColorCotizacion, meta : { title: 'Formular color y cotizar', icon:'/img/formular-o.png',  customNavbar:true, requiresAuth: true}},
-    {path: '/base-de-datos-para-cotizar', component: BaseDeDatos, meta : { title: 'Base de datos para cotizar', icon:'/img/basededatos-o.png',  customNavbar:true, requiresAuth: true}},
-    {path: '/cotizaciones-realizadas', component: CotizacionesRealizadas, meta : { title: 'Cotizaciones realizadas', icon:'/img/cotizaciones-o.png',  customNavbar:true, requiresAuth: true}},
-    {path: '/formulas-propias', component: FormulasPropias, meta : { title: 'Fórmulas propias', icon:'/img/formulas-o.png', customNavbar:true, requiresAuth: true}},
-    {path: '/formulas-propias/historico', component: Historico, meta : { title: 'Fórmulas propias', icon:'/img/formulas-o.png', customNavbar:true, requiresAuth: true}},
-    {path: '/formulas-propias/cargar-formulas-propias', component: CargarFormulasPropias, meta : { title: 'Fórmulas propias', icon:'/img/formulas-o.png', customNavbar:true, requiresAuth: true}},
-    {path: '/color/*', component: Color,  meta : { title: 'Formular color y cotizar',  icon:'/img/formular-o.png', customNavbar:true, requiresAuth: true}},
-    {path: '/quote/*', component: Quote,  meta : { title: 'Cotizaciones realizadas', icon:'/img/cotizaciones-o.png', customNavbar:true, requiresAuth: true}},
-    {path: '/formula/*', component: FormulaPropia,  meta : { title: 'Fórmula propia', icon:'/img/formulas-o.png', customNavbar:true, requiresAuth: true}},
+    {path: '/account', component: Account, meta : { title: 'Tusturnosonline', requiresAuth: true}},
     {path: '/edit', component: EditAccount,  meta : { title: 'Mi cuenta', requiresAuth: true}},
     {path: '/password', component: ChangePassword,  meta : { title: 'Cambiar contraseña', requiresAuth: true}},
     {path: "*", component: Section, meta : { title: ''}}

@@ -1303,8 +1303,8 @@
     </div>
   </script>
 
-  <script type="text/x-template" id="signin">
-    <div v-if="!$root.loading">
+  <script type="text/x-template" id="login">
+    <div>
       <div class="container is-padded-top" v-if="$root.token().token">
         <div class="inline-background hero-system fadeIn">
           <div class="content hero fadeIn">
