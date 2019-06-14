@@ -335,6 +335,20 @@ blockquote {
   margin-bottom: 0;
 }
 
+.is-told {
+}
+
+.is-told::before {
+  /*content: '🙆'*/
+  content: '🙋';
+  margin-right: 0.5rem;
+}
+
+.is-tell::before {
+  content: '📧';
+  margin-right: 0.5rem;
+}
+
 .is-padded-top {
   padding-top: 4rem!important;
   margin-top: 0.75rem;
@@ -446,7 +460,7 @@ blockquote {
 
 .is-half-bg1 {
   background-color: #9993;
-  background-image: url(/img/bg2.png);
+  background-image: url(/img/auto-speed.png);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center bottom;

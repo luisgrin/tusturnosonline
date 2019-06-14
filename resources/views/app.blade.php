@@ -11,7 +11,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="manifest" href="/manifest.json">
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" type="image/x-icon">
 
   <!-- Styles -->
@@ -1332,9 +1332,6 @@
               <div class="column is-half is-padded-top">
                 <div class="">
                   <h3 class="is-uppercase">Bienvenido</h3>
-                  <div class="has-text-centered is-hidden-mobile">
-                    <img src="/img/bg1.jpg">
-                  </div>
                 </div>
                 <form class="form has-text-left" @submit.prevent="submit">
                   <div class="field">
@@ -1380,7 +1377,7 @@
           <div class="content columns fadeIn">
             <div class="column is-half is-padded-top">
               <h3 class="is-uppercase">Recupera tu cuenta</h3>
-              <p class="is-uppercase">Por favor ingresa tu e-mail.</p>
+              <p class="is-uppercase is-told float">Por favor ingresa tu e-mail.</p>
               <form class="form has-text-left" @submit.prevent="submit">
                 <div class="field">
                   <label class="label">Email</label>
@@ -1400,7 +1397,7 @@
                 </div-->
               </form>
               <div class="group-control">&nbsp;</div>
-              <blockquote>Te enviaremos instrucciones a tu casilla de e-mail. </blockquote>
+              <blockquote class="is-tell">Te enviaremos instrucciones a tu e-mail. </blockquote>
             </div>
             <div class="column is-half-bg1">
             </div>      

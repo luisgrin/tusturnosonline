@@ -1209,9 +1209,15 @@ const app = new Vue({ router: router,
       });
     },
     scrollDown: function(){
+      var scrollpos = $(window).scrollTop();
       var body = $("html, body");
-      body.stop().animate({scrollTop:$(document).height()}, 500, 'swing', function() { 
-      });
+      if(scrollpos < $(window).height() * 0.65){
+        body.stop().animate({scrollTop:$(window).height() * 0.65}, 500, 'swing', function() {           
+        })
+      } else {
+        body.stop().animate({scrollTop:$(document).height()}, 500, 'swing', function() {   
+        })
+      }    
     },
     checkFlags:function(route){
       this.hideSignIn = false
