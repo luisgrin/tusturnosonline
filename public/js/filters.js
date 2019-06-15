@@ -105,7 +105,7 @@ var filters = {
   },
   refreshToken : function() {
     $.server({
-      url: '/v1/auth/token',
+      url: '/api/auth/refresh',
       success: function(res) {
         if(res.token) {
           localStorage.setItem("token", JSON.stringify(res))
@@ -145,43 +145,6 @@ var filters = {
     }
   }
 }
-
-$(document).on({
-    mouseenter: function (e) {
-      var container = $(this).attr('magnify-container'),
-      image = $(this).attr('magnify-image')
-      if(!$('.magnify-box').length){
-        $(container).append($.templates('#magnifybox').render())
-      }
-      $('.magnify-box').css({'background-image':'url(' + image + ')', left: e.pageX + 20,top: e.pageY - $('.magnify-box').height() / 2})
-      $('.magnify-box').fadeIn('slow')
-    },
-    mouseleave: function (e) {
-      $('.magnify-box').fadeOut('fast')
-    }
-}, ".is-magnify");
-
-
-$(document).on('click','.modal-button',function(e){
-  $('html').addClass('is-clipped');
-  $('.modal').removeClass('is-active');
-  $('#'+$(this).data('target')).addClass('is-active');
-})
-
-$(document).on('click','.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button',function(e){
-  $('html').removeClass('is-clipped');
-  $('.modal').each(function () {
-    $(this).removeClass('is-active');
-  });
-})
-
-$(document).on('click','.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button',function(e){
-  $('html').removeClass('is-clipped');
-  $('.modal').each(function () {
-    $(this).removeClass('is-active');
-  });
-})
-
 $(document).on('click','.notification .delete',function(){
   $(this).parents('.notification').fadeOut();
 })
@@ -217,37 +180,6 @@ $(document).on('click',"a:not([href*=':'])",function(event){
     event.preventDefault()
   }  
 })
-
-document.addEventListener('DOMContentLoaded', function () {
-
-  if(!localStorage.getItem("tosagree")){
-    document.querySelector('.tosprompt').classList.add('slidein')
-  } else {
-    document.querySelector('.tosprompt').style.display = 'none';
-  }
-
-  // Get all "navbar-burger" elements
-  var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-
-  // Check if there are any navbar burgers
-  if ($navbarBurgers.length > 0) {
-
-    // Add a click event on each of them
-    $navbarBurgers.forEach(function ($el) {
-      $el.addEventListener('click', function () {
-
-        // Get the target from the "data-target" attribute
-        var target = $el.dataset.target;
-        var $target = document.getElementById(target);
-
-        // Toggle the class on both the "navbar-burger" and the "navbar-menu"
-        $el.classList.toggle('is-active');
-        $target.classList.toggle('is-active');
-        document.querySelector('.navbar-brand').classList.toggle('is-active');
-      });
-    });
-  }
-});
 
 $.extend({
   server: function(options) {

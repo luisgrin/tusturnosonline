@@ -9,7 +9,7 @@ INSERT INTO `opciones` (`id`, `nom`, `valor`, `created_at`, `updated_at`) VALUES
 (1,	'APP_TITLE',	'Tusturnosonline',	'2018-08-14 12:13:03',	'2018-08-14 12:13:03'),
 (2,	'APP_IMAGE',	'https://tusturnosonline.com/img/logo.png',	'2019-05-19 13:47:39',	'2019-05-19 13:47:39'),
 (3,	'APP_AUTHOR',	'Oxean web development team',	'2018-08-14 15:26:07',	'2018-08-14 15:26:07'),
-(6,	'APP_INFO',	'Tusturnosonline te permite cotizar con Weber y muchas cosas mas.',	'2018-08-14 15:27:05',	'2018-08-14 15:27:05'),
+(6,	'APP_INFO',	'Tusturnosonline te permite obtener turnosy muchas otras cosas mas.',	'2018-08-14 15:27:05',	'2018-08-14 15:27:05'),
 (8,	'MAIL_FROM_NAME',	'Tusturnosonline.com',	'2018-08-14 15:27:48',	'2018-08-14 15:27:48'),
 (9,	'MAIL_SMTP_ACCOUNT',	'replacewithyouraccount@gmail.com',	'2018-08-14 15:27:57',	'2018-08-14 15:27:57'),
 (10,	'MAIL_SMTP_PASSWORD',	'********',	'2018-08-14 15:28:05',	'2018-08-14 15:28:05'),

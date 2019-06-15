@@ -131,35 +131,35 @@
         <div class="content hero-system fadeIn">
           <div class="columns is-menu is-vcentered is-dial has-text-centered">
             <div class="column">
-              <a href="/formular-color-y-cotizar">
+              <a href="/clientes">
                 <div class="item">
-                  <img src="/img/formular-o.png">
+                  <span class="is-size-2">👥</span>
                 </div>
-                <h4>Formular<br>color y<br>cotizar</h4>
+                <h4>CRM<br>Clientes</h4>
               </a>
             </div>
             <div class="column">
-              <a href="/base-de-datos-para-cotizar">
+              <a href="/atributos">
                 <div class="item">
-                  <img src="/img/basededatos-o.png">
+                  <span class="is-size-2">🔖</span>
                 </div>
-                <h4>Base de<br>datos para<br>cotizar</h4>
+                <h4>CRM<br>Atributos</h4>
               </a>
             </div>
             <div class="column">
-              <a href="/cotizaciones-realizadas">
+              <a href="/carga">
                 <div class="item">
-                  <img src="/img/cotizaciones-o.png">
+                  <span class="is-size-2">📙</span>
                 </div>
-                <h4>Cotizaciones<br>realizadas</h4>
+                <h4>Carga<br>de datos</h4>
               </a>
             </div>
             <div class="column">
-              <a href="/formulas-propias">
+              <a href="/edit">
                 <div class="item">
-                  <img src="/img/formulas-o.png">
+                  <span class="is-size-2">👤</span>
                 </div>
-                <h4>Fórmulas<br>propias</h4>
+                <h4>Mi<br>cuenta</h4>
               </a>
             </div>
           </div>
@@ -1397,15 +1397,27 @@
                 </div>
                 <form class="form has-text-left" @submit.prevent="submit">
                   <div class="field">
-                    <!--label class="label">Email</label-->
                     <div class="control">
-                      <input v-model="data.email" class="input" type="email" placeholder="Usuario" autofocus required>
+                      <input v-model="data.name" class="input" type="text" placeholder="Nombre completo" autofocus required>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="control">
+                      <input v-model="data.email" class="input" type="email" placeholder="Email" required>
                     </div>
                   </div>
                   <div class="field">
                     <!--label class="label">Contraseña</label-->
                     <div class="control">
                       <input v-model="data.password" class="input" type="password" placeholder="********" required>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="control">
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="acceptTerms">
+                        Acepto los <a href="/terminos-y-condiciones">términos y condiciones de Tusturnosonline APP.</a>
+                      </label>
                     </div>
                   </div>
                   <div class="field">
