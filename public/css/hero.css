@@ -297,10 +297,6 @@ blockquote {
   min-height: 5.5rem;
 }
 
-.navbar-brand .navbar-item {
-  padding-left: 0.5rem;
-}
-
 .navbar-brand.is-active {
   background-color: white;
 }
@@ -1804,7 +1800,6 @@ footer li:before {
 
   .hero-body {
     padding: 3rem 1rem;
-    padding-top: 6rem;
   }
 
   .navbar-tabs ul {
@@ -2108,7 +2103,7 @@ footer li:before {
 
 @media screen and (max-width: 769px) {
   h1,h2,h3,h4,h5,h6 {
-    font-size: 150%;
+    font-size: 125%;
   }
   .has-action-space {
     padding-bottom: 12rem;
@@ -2119,16 +2114,6 @@ footer li:before {
   .is-dial .column {
     width: 50%;
     float: left;
-  }
-  .hero-system {
-    margin-left: 0;
-    padding-left: 0;
-  }
-  .hero-body {
-    padding-left: 0;
-  }
-  .navbar-brand .navbar-item {
-    margin-left: -0.5rem;
   }
   .custom-navbar .section-tag-container {
     max-width: 200px;

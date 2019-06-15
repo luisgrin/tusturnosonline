@@ -69,6 +69,48 @@ const SignIn = {
   }
 }
 
+const SignUp = {
+  template: '#signup',
+  methods: {
+    submit : function({type, target}){
+      if(!this.acceptTerms){
+        this.messageType = 'is-danger'
+        this.$root.snackbar('error','Debes aceptar nuestros términos y condiciones')
+      } else {
+        this.$root.loading = true
+
+        this.$http.post('/api/v2/auth/signup', data, {emulateJSON:true}).then(function(res){
+          this.data = res.data.data
+          this.loading = false
+          this.messageType = 'is-success'
+          this.message = "An e-mail was sent to your email address. Please click on the link to activate your account."
+          setTimeout(function(){
+            self.loading = false
+            self.message = ""
+            self.messageType = ""
+            app.$router.push('/sign-in')
+          },15000)
+          //helper.is_loaded()
+        }, function(error){
+          this.loading = false
+          this.messageType = 'is-danger'
+          this.message = error.statusText
+          console.log(error.statusText)
+        })
+      }
+    },
+    token: function(){
+      return $.parseJSON(localStorage.getItem("token")) || {}
+    }    
+  },
+  data: function() {
+    return{
+      acceptTerms:false,
+      data:{}
+    }
+  }
+}
+
 const RecoverPassword = {
   template: '#recoverpassword',
   methods: {
@@ -985,7 +1027,7 @@ const Section = {
   mounted: function() {
     this.$root.loading = true 
     var self = this
-    this.$http.post('/api/sections'+location.pathname, {}, {emulateJSON:true}).then(function(res){
+    this.$http.post('/api/secciones'+location.pathname, {}, {emulateJSON:true}).then(function(res){
       this.data = res.data
 
       if(this.data.posts){
@@ -1078,6 +1120,7 @@ const router = new VueRouter({
     {path: '/', component: SignIn, meta : { title: 'Tusturnosonline'}},
     {path: '/opener', component: Opener, meta : { title: 'Redirigiendo...'}},
     {path: '/sign-in', component: SignIn,  meta : { title: 'Iniciar sesión'}},
+    {path: '/sign-up', component: SignUp,  meta : { title: 'Crear cuenta'}},
     {path: '/recover-password', component: RecoverPassword,  meta : { title: 'Recuperar contraseña'}},
     {path: '/update-password', component: UpdatePassword,  meta : { title: 'Actualizar contraseña'}},
     {path: '/session-ended', component: SessionEnded, meta : { title: 'Sesión finalizada'}},
@@ -1211,8 +1254,8 @@ const app = new Vue({ router: router,
     scrollDown: function(){
       var scrollpos = $(window).scrollTop();
       var body = $("html, body");
-      if(scrollpos < $(window).height() * 0.65){
-        body.stop().animate({scrollTop:$(window).height() * 0.65}, 500, 'swing', function() {           
+      if(scrollpos < $(window).height() * 0.9){
+        body.stop().animate({scrollTop:$(window).height() * 0.9}, 500, 'swing', function() {           
         })
       } else {
         body.stop().animate({scrollTop:$(document).height()}, 500, 'swing', function() {   

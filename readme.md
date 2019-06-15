@@ -1,8 +1,8 @@
-## Laravel API Boilerplate (JWT Edition) for Laravel 5.8
+## Tusturnosonline APP for Laravel 5.8
 
 [![Build Status](https://travis-ci.org/francescomalatesta/laravel-api-boilerplate-jwt.svg?branch=master)](https://travis-ci.org/francescomalatesta/laravel-api-boilerplate-jwt)
 
-Laravel API Boilerplate is a "starter kit" you can use to build your first API in seconds. As you can easily imagine, it is built on top of the awesome Laravel Framework. This version is built on Laravel 5.8!
+Tusturnosonline APP is a "starter kit" you can use to build your first API in seconds. As you can easily imagine, it is built on top of the awesome Laravel Framework. This version is built on Laravel 5.8!
 
 It is built on top of three big guys:
 
@@ -14,10 +14,14 @@ What I made is really simple: an integration of these three packages and a setup
 
 ## Installation
 
-1. run `composer create-project francescomalatesta/laravel-api-boilerplate-jwt myNextProject`;
-2. have a coffee, nothing to do here;
+1. run `composer install`;
+2. run `cat .env.example > .env' and edit your environment variables;
 
-Once the project creation procedure will be completed, run the `php artisan migrate` command to install the required tables.
+Once the project creation procedure will be completed and the database access properly adjusted, run the `php artisan migrate` command to install the required tables.
+
+Then seed the options and sections tables
+`cat database/seed_opciones.sql | mysql -u root -p tusturnosonline`
+`cat database/seed_secciones.sql | mysql -u root -p tusturnosonline`
 
 ## Usage
 

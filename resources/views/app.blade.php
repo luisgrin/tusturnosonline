@@ -107,15 +107,10 @@
   <script type="text/x-template" id="section">
     <div class="section-container">
       <div v-if="data.slug === '/'" v-html="data.content"></div>
-      <div v-if="data.slug != '/'" class="hero-picture fadein" v-if="data.picture" :style="'background-image:url(\'' + data.picture + '\')'">
+      <div v-if="data.slug != '/'" class="hero-picture fadein" v-if="data.pic1_url" :style="'background-image:url(\'' + data.pic1_url + '\')'">
         <div class="hero-text">
           <h1 class="is-uppercase" v-html="data.title"></h1>
           <p class="subtitle" v-html="data.intro"></p>
-          <div v-if="data.button_link" class="content">
-            <a class="button section-button" bypass="true" :href="data.button_link" :title="data.button_text">
-              <span v-html="data.button_label"></span>
-            </a>
-          </div>          
         </div>
       </div>
       <div v-if="data.slug != '/'" class="hero-body">
@@ -123,7 +118,7 @@
           <div class="content">
             <h3 class="is-uppercase" v-html="data.title"></h3>
             <div class="is-uppercase" v-html="data.intro"></div>
-            <div v-html="data.content"></div>
+            <div v-html="data.content_html"></div>
           </div>
         </div>  
       </div>
@@ -1353,11 +1348,75 @@
                   </div>    
                   <div class="field">
                     <div class="control">
-                      <a href="/recover-password" class="button is-text" data-balloon="Regain access to your account in two easy steps" data-balloon-length="fit" data-balloon-pos="right">Olvidé mi clave</a>
+                      <a href="/sign-up" class="button is-text">No tengo cuenta</a>
                     </div>
-                    <!--div class="control">
-                      <a href="/sign-up" class="button is-link" data-balloon="Create your account in fifteen seconds" data-balloon-length="fit" data-balloon-pos="right">Create an account</a>
-                    </div-->
+                    <div class="control">
+                      <a href="/recover-password" class="button is-text">Olvidé mi clave</a>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="column is-half-bg1">  
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-template" id="signup">
+    <div>
+      <div class="container is-padded-top" v-if="$root.token().token">
+        <div class="inline-background hero-system fadeIn">
+          <div class="content hero fadeIn">
+            <h3>Ya tienes una sesión iniciada</h3> 
+            <p>¿Qué deseas hacer?</p>
+            <div class="columns has-text-centered is-vcentered">
+              <div class="column is-hidden-mobile"></div>
+              <div class="column is-hidden-mobile"></div>
+              <div class="column">
+                <button @click="$root.endSessionWithConfirm()" class="button is-text">Cerrar sesión</button>            
+              </div>
+              <div class="column">
+                <a href="/account" class="button is-link">Llevame a Inicio</a>
+              </div>
+              <div class="column is-hidden-mobile"></div>
+              <div class="column is-hidden-mobile"></div>
+            </div>        
+          </div>
+        </div>
+      </div>
+      <div v-if="!$root.token().token" class="hero">
+        <div class="hero-body">
+          <div class="container">
+            <div class="content columns fadeIn">
+              <div class="column is-half is-padded-top">
+                <div class="">
+                  <h3 class="is-uppercase">Crear una cuenta</h3>
+                </div>
+                <form class="form has-text-left" @submit.prevent="submit">
+                  <div class="field">
+                    <!--label class="label">Email</label-->
+                    <div class="control">
+                      <input v-model="data.email" class="input" type="email" placeholder="Usuario" autofocus required>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <!--label class="label">Contraseña</label-->
+                    <div class="control">
+                      <input v-model="data.password" class="input" type="password" placeholder="********" required>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="control">
+                      <button type="submit" class="button is-success is-fullwidth" :class="{'is-loading' : $root.processing}">Crear cuenta</button>
+                    </div>
+                  </div>    
+                  <div class="field">
+                    <div class="control">
+                      <a href="/sign-in" class="button is-text">Ya tengo cuenta</a>
+                    </div>
                   </div>
                 </form>
               </div>

@@ -1,6 +1,11 @@
 <?php
 
 use Dingo\Api\Routing\Router;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+use App\Opcion;
+use App\Seccion;
 
 /** @var Router $api */
 $api = app(Router::class);
@@ -37,9 +42,24 @@ $api->version('v1', function (Router $api) {
     });
 
     $api->post('/navitems', function() {
+        $footer = App\Opcion::where('nom','APP_FOOTER')->first();
+        $navitems = App\Seccion::where('is_navitem',1)->select(['slug','title'])->get();
+
         return response()->json([
-            'message' => 'This is a simple example of item returned by your APIs. Everyone can see it.'
+            'footer' => $footer->valor,
+            'navitems' => $navitems,
         ]);
+    });
+
+    $api->post('/secciones/{slug}', function($slug) {
+
+        $section = App\Seccion::where('slug','/'.$slug)->first();
+
+        if(!$section) {
+            throw new NotFoundHttpException();
+        }
+
+        return response()->json($section);
     });
 
     $api->get('hello', function() {
