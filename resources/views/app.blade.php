@@ -84,7 +84,7 @@
 
       <div class="scrollmap">
         <a href="#" @click="scrollUp" class="navbar-item up"></a>
-        <a href="#" @click="scrollDown" class="navbar-item down"></a>
+        <a href="#" @click="scrollDown" class="navbar-item active down"></a>
       </div>
 
       <div class="ui-snackbar ui-snackbar--is-inactive">

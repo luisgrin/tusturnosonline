@@ -1162,13 +1162,11 @@ router.afterEach(function (to, from, next) {
   setTimeout(function() {
     var ref = to.path.split('/').join('_')
     var token = $.parseJSON(localStorage.getItem("token")) || {}
-    var offset = getOffset()
     $('.navbar-brand').removeClass('is-active')
     $('.navbar-end .navbar-tabs li').removeClass('is-active')
     $('.navbar-end .navbar-tabs ul').find('a[href="' + to.path + '"]').parent().addClass('is-active')
     $('.navbar-menu, .navbar-burger').removeClass('is-active')
     $('.ui-snackbar').removeClass('ui-snackbar--is-active').addClass('ui-snackbar--is-inactive')
-    $('.wp-action-space, .navbar').css({'left': offset + 'px'})
     if(to.meta.customNavbar){
       $('.custom-navbar .title').html(to.meta.title)
       $('.custom-navbar .icon').attr('src',to.meta.icon)
@@ -1210,7 +1208,6 @@ const app = new Vue({ router: router,
     }
   },
   mounted: function() {
-    adjustPadding()
   },
   created: function () {
     this.$http.post('/api/navitems', {}, {emulateJSON:true}).then(function(res){
@@ -1254,8 +1251,8 @@ const app = new Vue({ router: router,
     scrollDown: function(){
       var scrollpos = $(window).scrollTop();
       var body = $("html, body");
-      if(scrollpos < $(window).height() * 0.9){
-        body.stop().animate({scrollTop:$(window).height() * 0.9}, 500, 'swing', function() {           
+      if(scrollpos < $(window).height() * 0.75){
+        body.stop().animate({scrollTop:$(window).height() * 0.75}, 500, 'swing', function() {           
         })
       } else {
         body.stop().animate({scrollTop:$(document).height()}, 500, 'swing', function() {   
