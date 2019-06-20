@@ -24,7 +24,6 @@ const Contact = {
         }, function(error){
           this.$root.loading = false
           this.$root.snackbar('error',error.statusText)
-          console.log(error.statusText)
         })
       }
     }
@@ -46,7 +45,6 @@ const SignIn = {
         this.$root.processing = true
         this.$http.post('/api/auth/login', this.data, {emulateJSON:true}).then(function(res){
           if(res.data.status === 'ok'){
-            console.log(res.data)
             localStorage.setItem("token", JSON.stringify(res.data))
             this.$root.snackbar('success','La sesión fue iniciada correctamente. Redirigiendo...')
             setTimeout(function(){
@@ -139,25 +137,18 @@ const UpdatePassword = {
     submit : function({type, target}){
       if(!this.$root.loading){
         this.$root.loading = true
-        var self = this
-        var data = {}
-
-        $.map( $(target).serializeArray(), function( i ) {
-          data[i.name] = i.value
-        })
-
-        this.$http.post('/api/auth/update-password', data, {emulateJSON:true}).then(function(res){
+        this.$http.post('/api/auth/update-password', this.data, {emulateJSON:true}).then(function(res){
           this.data = res.data
           if(res.data.status === 'success'){
-            self.$root.loading = false
-            self.$root.snackbar('success','Actualizaste correctamente tu contraseña. Te redirigiremos a la sección de ingreso. Por favor inicia sesión.')
+            this.$root.loading = false
+            this.$root.snackbar('success','Actualizaste correctamente tu contraseña. Te redirigiremos a la sección de ingreso. Por favor inicia sesión.')
             setTimeout(function(){
-              self.$root.loading = false
+              this.$root.loading = false
               app.$router.push('/sign-in')
             },10000)
           } else {
-            self.$root.loading = false
-            self.$root.snackbar('error',res.data.message)
+            this.$root.loading = false
+            this.$root.snackbar('error',res.data.message)
           }
         }, function(error){
           console.log(error.statusText)
@@ -168,6 +159,121 @@ const UpdatePassword = {
   data: function() {
     return{
       token:null,
+      data:{}
+    }
+  }
+}
+
+const Clientes = {
+  template: '#clientes',
+  name: 'clientes',
+  mounted: function(){
+    this.$root.message = ''
+    this.$root.loading = true
+    this.$http.get('/api/clientes', {}, {emulateJSON:true}).then(function(res){
+      this.$root.loading = false
+      this.data = res.data
+    })
+  },
+  methods: {
+    remove:function({type,target}){
+      var self = this
+      if(!this.$root.processing){
+        $(target).addClass('is-loading')
+        if(confirm("Una vez confirmado los datos no se podrán recuperar. ¿Estás seguro que deseas eliminar esta fórmula?")){
+          this.$root.processing = true
+          if(target.id){
+            self.$http.post('/v1/account/colord', {id:target.id}, {emulateJSON:true}).then(function(res){
+              if(res.data.status==='success'){
+                this.$root.snackbar('success','Se ha eliminado correctamente la fórmula propia.')
+                self.$http.post('/v1/account/colors', {}, {emulateJSON:true}).then(function(res){
+                  self.data = res.data
+                })    
+              }
+              self.$root.processing = false
+              $('.input').removeClass('is-loading')
+            })
+          }
+        }
+      }
+    },
+    more:function({type,target}){
+      if(target.id){
+        this.$router.push('/color/' + target.id)
+      }
+    }
+  },
+  data: function() {
+    return{
+      data:{}
+    }
+  }
+}
+
+const Cliente = {
+  template: '#cliente',
+  name: 'cliente',
+  mounted: function(){
+    this.$root.message = ''
+    this.$root.loading = true
+    this.$http.get('/api/clientes/' + location.pathname.split('/').reverse()[0], {}, {emulateJSON:true}).then(function(res){
+      this.$root.loading = false
+      this.data = res.data
+    })
+  },
+  methods: {
+  },
+  data: function() {
+    return{
+      data:{}
+    }
+  }
+}
+
+const Atributos = {
+  template: '#atributos',
+  name: 'atributos',
+  mounted: function(){
+    this.$root.message = ''
+    this.$root.loading = false
+  },
+  methods: {
+  },
+  data: function() {
+    return{
+      data:{}
+    }
+  }
+}
+
+const Atributo = {
+  template: '#atributo',
+  name: 'atributo',
+  mounted: function(){
+    this.$root.message = ''
+    this.$root.loading = false
+  },
+  methods: {
+  },
+  data: function() {
+    return{
+      data:{}
+    }
+  }
+}
+
+
+const Carga = {
+  template: '#carga',
+  name: 'carga',
+  mounted: function(){
+    this.$root.message = ''
+    this.$root.loading = false
+  },
+  methods: {
+  },
+  data: function() {
+    return{
       data:{}
     }
   }
@@ -184,7 +290,7 @@ const Account = {
   },
   data: function() {
     return{
-      data:{message:'',status:''}
+      data:{}
     }
   }
 }
@@ -284,13 +390,7 @@ const EditAccount = {
     submit : function({type, target}){
       if(!this.$root.loading){
         this.$root.loading = true
-        var data = {}
-
-        $.map( $(target).serializeArray(), function( i ) {
-          data[i.name] = i.value
-        })
-
-        this.$http.post('/api/account/update', data, {emulateJSON:true}).then(function(res){
+        this.$http.post('/api/account/update', this.data, {emulateJSON:true}).then(function(res){
           this.data = res.data
           var token = $.parseJSON(localStorage.getItem("token")) || {}
 
@@ -306,7 +406,6 @@ const EditAccount = {
         }, function(error){
           this.$root.loading = false
           this.$root.snackbar('error',error.statusText)
-          console.log(error.statusText)
         })
       }
     }
@@ -314,6 +413,7 @@ const EditAccount = {
   data: function() {
     return{
       acceptTerms:false,      
+      data:{},
       hash : location.hash.replace('#','')
     }
   }
@@ -338,7 +438,6 @@ const ChangePassword = {
         }, function(error){
           this.$root.loading = false
           this.$root.snackbar('error',error.statusText)
-          console.log(error.statusText)
         })
       }
     }
@@ -371,7 +470,6 @@ const Section = {
 
       self.$root.loading = false
     }, function(error){
-      //helper.is_loaded()
       $('.hero-body').html($.templates('#notfound').render())
       self.$root.loading = false
       console.log(error.statusText)
@@ -451,11 +549,16 @@ const router = new VueRouter({
     {path: '/opener', component: Opener, meta : { title: 'Redirigiendo...'}},
     {path: '/sign-in', component: SignIn,  meta : { title: 'Iniciar sesión'}},
     {path: '/sign-up', component: SignUp,  meta : { title: 'Crear cuenta'}},
-    {path: '/recover-password', component: RecoverPassword,  meta : { title: 'Recuperar contraseña'}},
-    {path: '/update-password', component: UpdatePassword,  meta : { title: 'Actualizar contraseña'}},
+    {path: '/recover-password', component: RecoverPassword,  meta : { title: 'Recuperar cuenta'}},
+    {path: '/update-password', component: UpdatePassword,  meta : { title: 'Actualizar cuenta'}},
     {path: '/session-ended', component: SessionEnded, meta : { title: 'Sesión finalizada'}},
     {path: '/session-expired', component: SessionExpired, meta : { title: 'Sesión expirada'}},
     {path: '/contact', component: Contact, meta : { title: 'Contacto'}},    
+    {path: '/clientes', component: Clientes, meta : { title: 'Clientes', requiresAuth: true}},
+    {path: '/clientes/*', component: Cliente, meta : { title: 'Cliente', requiresAuth: true}},
+    {path: '/atributos', component: Atributos, meta : { title: 'Atributos', requiresAuth: true}},
+    {path: '/atributos/*', component: Atributo, meta : { title: 'Atributos', requiresAuth: true}},
+    {path: '/carga', component: Carga, meta : { title: 'Carga', requiresAuth: true}},
     {path: '/account', component: Account, meta : { title: 'Tusturnosonline', requiresAuth: true}},
     {path: '/edit', component: EditAccount,  meta : { title: 'Mi cuenta', requiresAuth: true}},
     {path: '/password', component: ChangePassword,  meta : { title: 'Cambiar contraseña', requiresAuth: true}},
@@ -468,7 +571,7 @@ router.beforeEach(function (to, from, next) {
   var token = $.parseJSON(localStorage.getItem("token")) || {}
 
   if(token.token){
-    filters.refreshToken()
+    //filters.refreshToken()
   }
 
   setTimeout(function() {
@@ -611,21 +714,6 @@ const app = new Vue({ router: router,
       setTimeout(() => {
         document.querySelector('.tosprompt').style.display = 'none';
       },1000)
-    },
-    unitLabel : function(value){
-      var unit = '';
-      if(value==='g'){
-        unit = 'gramos'
-      } else if(value==='ml'){
-        unit = 'mililitros'
-      } else if(value==='y'){
-        unit = 'onzas'
-      } else if(value==='p'){
-        unit = 'pulsos'
-      } else if(value==='f'){
-        unit = 'fracción'
-      }
-      return unit
-    },
+    }
   }
 }).$mount('#app')

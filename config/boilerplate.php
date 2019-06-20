@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     // these options are related to the sign-up procedure
     'sign_up' => [
 
@@ -50,5 +49,4 @@ return [
             'password' => 'required|confirmed'
         ]
     ]
-
 ];

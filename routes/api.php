@@ -6,6 +6,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use App\Opcion;
 use App\Seccion;
+use App\Cliente;
+use App\Atributo;
+use App\ClienteAtributo;
 
 /** @var Router $api */
 $api = app(Router::class);
@@ -39,9 +42,33 @@ $api->version('v1', function (Router $api) {
                 ]);
             }
         ]);
+
+        $api->get('clientes', function() {
+            $data = App\Cliente::where('user_id',Auth::user()->id)->get();
+            return response()->json($data);
+        });
+
+        $api->get('clientes/{id}', function($id) {
+            $data = App\Cliente::where('user_id',Auth::user()->id)
+                ->where('id',$id)
+                ->first();    
+            return response()->json($data);
+        });
+
+        $api->get('atributos', function() {
+            $data = App\Atributo::where('user_id',Auth::user()->id)->get();
+            return response()->json($data);
+        });
+
+        $api->get('atributos/{id}', function($id) {
+            $data = App\Atributo::where('user_id',Auth::user()->id)
+                ->where('id',$id)
+                ->first();    
+            return response()->json($data);
+        });
     });
 
-    $api->post('/navitems', function() {
+    $api->post('navitems', function() {
         $footer = App\Opcion::where('nom','APP_FOOTER')->first();
         $navitems = App\Seccion::where('is_navitem',1)->select(['slug','title'])->get();
 
@@ -51,16 +78,14 @@ $api->version('v1', function (Router $api) {
         ]);
     });
 
-    $api->post('/secciones/{slug}', function($slug) {
-
+    $api->post('secciones/{slug}', function($slug) {
         $section = App\Seccion::where('slug','/'.$slug)->first();
-
         if(!$section) {
             throw new NotFoundHttpException();
         }
-
         return response()->json($section);
     });
+
 
     $api->get('hello', function() {
         return response()->json([

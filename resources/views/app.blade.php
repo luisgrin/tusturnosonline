@@ -177,319 +177,33 @@
       </div>
     </div>      
   </script>
-
-  <script type="text/x-template" id="formulaspropias">
-    <div class="has-action-space">
-      <div class="container is-padded-top">
-        <div class="content hero-system fadeIn">
-          <div class="columns is-menu is-vcentered is-dial has-text-centered">
-            <div class="column is-hidden-mobile"></div>
-            <div class="column">
-              <a href="/formulas-propias/historico">
-                <div class="item">
-                  <img src="/img/formulas-o.png">
-                </div>
-                <h4>Histórico</h4>
-              </a>
-            </div>
-            <div class="column">
-              <a href="/formulas-propias/cargar-formulas-propias">
-                <div class="item">
-                  <img src="/img/formulas-o.png">
-                </div>
-                <h4>Cargar<br>Fórmulas<br>propias</h4>
-              </a>
-            </div>
-            <div class="column is-hidden-mobile"></div>
-          </div>
-        </div>
-      </div>
-      <div class="content">
-        <div class="columns is-vcentered wp-action-space fadeIn">
-          <div class="column">
-            <div class="control has-text-centered">
-              <router-link class="button" to="/account">Volver al menú principal</router-link>
-            </div>
-          </div>    
-        </div>
-      </div>
-    </div>      
-  </script>
-
-  <script type="text/x-template" id="quote">
-    <div class="has-action-space">
-      <div class="container is-padded-top">
-        <div class="content hero-system">
-          <div class="columns has-text-centered fadeIn">
-            <div class="column">
-              <h4 class="is-uppercase">Cotización realizada</h4>
-              <form class="form is-dark is-condensed has-text-left">
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Cliente</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="quote.customer" class="input" type="text" placeholder="Ingresá tu nombre" readonly>
-                  </div>
-                </div>
-
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Textura</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="quote.textures" class="input" type="text" placeholder="Textura" readonly>
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Color</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="quote.colors" class="input" type="text" placeholder="Color" readonly>
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Nro. de Baldes</label>
-                  </div>
-                  <div class="column is-2">
-                    <input v-model="quote.qty" class="input" type="text" placeholder="8" readonly>
-                  </div>
-                  <div class="column has-text-right">
-                    <label class="label">Tamaño</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="quote.packs" class="input" type="text" placeholder="8" readonly>
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Costo unitario</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="quote.unit_price" class="input" type="text" placeholder="$" readonly>
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Costo total</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="quote.subtotal" class="input" type="text" placeholder="$" readonly>
-                  </div>
-                </div>
-                <div v-if="quote.discount" class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Bonificación (%)</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="quote.discount" class="input" type="text" placeholder="%" readonly="">
-                  </div>
-                </div>
-                <div v-if="quote.subtotal_discount" class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Costo total con Bonificación</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="quote.subtotal_discount" class="input" type="text" placeholder="$" readonly="">
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Costo total con IVA</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="quote.total" class="input" type="text" placeholder="$" readonly>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="content">
-        <div class="columns is-vcentered wp-action-space fadeIn">
-          <div class="column">
-            <div class="control has-text-centered">
-              <button class="button" href="#" @click="download" :uuid="quote.uuid">Imprimir cotización</button> &nbsp;
-              <router-link class="button" :to="'/color/' + quote.uuid">Formular</router-link>
-            </div>
-          </div>    
-        </div>
-      </div>
-    </div>
-  </script>
-
-  <script type="text/x-template" id="color">
-    <div class="has-action-space">
-      <div class="container is-padded-top">
-        <div class="content hero-system">
-          <div class="columns has-text-centered fadeIn">
-            <div class="column">
-              <h4 class="is-uppercase">Formular</h4>
-              <form class="form is-dark is-condensed has-text-left">
-                <input type="hidden" v-model="performance">
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Cliente</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="data.quote.customer" class="input" type="text" placeholder="Ingresá tu nombre" readonly>
-                  </div>
-                </div>
-
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Nro. de baldes</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="data.quote.qty" class="input" type="text" placeholder="Nro. de baldes" readonly>
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Envase</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="data.quote.packs" class="input" type="text" placeholder="Envase" readonly>
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Color</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="data.quote.colors" class="input" type="text" placeholder="Color" readonly="">
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Equipo</label>
-                  </div>
-                  <div class="column">
-                    <select v-model="mac_id" @change="updateMac()" class="select" id="mac">
-                      <option v-for="mac in data.machines" :value="mac.id" v-html="mac.title"></option>
-                    </select>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-          <div v-if="mac_id" class="has-action-space">
-            <div class="is-weberbox">
-              <div class="columns is-vcentered is-dark padless-bottom">
-                <div class="column">
-                  <img src="/img/logo.png" width="180">
-                </div>
-                <div class="column is-3 has-text-right">
-                  <div class="columns is-vcentered">
-                    <div class="column has-text-right is-hidden-mobile">
-                      <span class="is-uppercase has-text-centered has-text-weight-semibold">Textura</span>
-                    </div>
-                    <div>
-                      <span class="input has-text-centered has-text-style-normal has-text-weight-semibold" :style="'background-color:#' + data.quote.texture_hexcode" v-html="data.quote.textures"></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="column is-2 has-text-left">
-                  <div class="columns is-vcentered">
-                    <div class="column has-text-right is-hidden-mobile">
-                      <span class="is-uppercase has-text-weight-semibold">Base</span>
-                    </div>
-                    <div>
-                      <span class="input has-text-centered has-text-style-normal has-text-weight-semibold" v-html="data.quote.bases"></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="column is-1"></div>
-              </div>
-              <div v-show="data.machine.units" class="is-dark is-cotizacionesrealizadas fadeIn">
-                <div class="columns is-hidden-mobile">
-                  <div class="column">
-                    <div class="input has-background-black has-text-weight-semibold has-text-centered has-text-style-normal is-uppercase">Colorantes</div>
-                  </div>
-                  <div class="column" v-for="(unit,index3) in data.machine.units">
-                    <div class="input has-background-black has-text-weight-semibold has-text-centered has-text-style-normal is-uppercase" v-html="$root.unitLabel(unit)"></div>
-                  </div>
-                </div>
-                <div class="columns" v-for="(formula,index) in data.formulas">
-                  <div class="column">
-                    <div class="input has-text-style-normal has-text-centered" :style="'background-color:#' + formula.hexcode">
-                      <span class="has-text-white has-text-weight-semibold" :class="{ 'has-text-black' : formula.colorant == 'AXX' || formula.colorant == 'KX' }" v-html="formula.colorant"></span>
-                    </div>
-                  </div>
-                  <div class="column" v-for="(amount,index2) in formula.amounts">
-                    <div class="input has-text-centered has-text-style-normal" v-html="amount"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="column has-text-centered">
-              <a class="button" @click="download" :uuid="data.quote.uuid">Guardar e imprimir fórmula</a>
-            </div>
-          </div>
-        </div>  
-      </div>
-      <div class="content">
-        <div class="columns is-vcentered wp-action-space fadeIn">
-          <div class="column is-hidden-mobile"></div>
-          <div class="column has-text-centered is-dark">
-            <div class="columns">
-              <div class="column padless-bottom">
-                <div class="input is-uppercase has-text-style-normal is-size-6 has-text-weight-semibold has-text-centered has-text-white">Observaciones</div>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column">
-                <textarea class="textarea input comments" v-model="data.quote.comments"></textarea>
-              </div>
-            </div>
-          </div>    
-          <div class="column is-hidden-mobile"></div>
-        </div>
-      </div>
-    </div>              
-  </script>
-
-  <script type="text/x-template" id="historico">
+  <script type="text/x-template" id="clientes">
     <div class="has-action-space">
       <div class="container is-padded-top">
         <div class="content hero-system is-dark fadeIn">
           <div class="columns is-vcentered">
             <div class="column has-text-centered">
-              <h3>Histórico</h3>
-              <label class="is-size-5"><span class="has-text-danger" v-html="$root.token().first_name"></span> <span class="has-text-danger" v-html="$root.token().last_name"></span>, <span v-if="data.colors.length">éstas son las fórmulas que creaste</span><span v-if="!data.colors.length">todavía no creaste fórmulas</span></label>
+              <h3>Clientes</h3>
+              <label class="is-size-5">
+                <span v-if="data.length">Estos son tus clientes</span>
+                <span v-if="!data.length">Todavía no tienes clientes</span>
+              </label>
             </div>
           </div>
           <div class="has-text-centered is-cotizacionesrealizadas">
-            <div v-if="data.colors.length">
+            <div v-if="data.length">
               <div class="columns is-hidden-mobile">
-                <div class="column has-text-centered">Producto</div>
-                <div class="column has-text-centered">Base</div>
-                <div class="column has-text-centered">Color</div>
-                <div class="column has-text-centered">Fecha</div>
-                <div class="column"></div>
+                <div class="column has-text-centered">Nombre</div>
                 <div class="column"></div>
               </div>
-              <div class="columns" v-for="color in data.colors">
+              <div class="columns" v-for="item in data">
                 <div class="column">
-                  <div class="input has-text-weight-semibold has-text-style-normal is-size-6" :style="'background-color:#' + color.texture_hexcode" v-html="color.texture"></div>
+                  <router-link :to="'/clientes/' + item.id">
+                  <div class="input is-size-6" v-html="item.nom"></div>
+                  </router-link>
                 </div>
                 <div class="column">
-                  <div class="input is-size-6" v-html="color.base"></div>
-                </div>
-                <div class="column">
-                  <div class="input is-size-6" v-html="color.title"></div>
-                </div>
-                <div class="column">
-                  <div class="input is-size-6" v-html="color.created"></div>
-                </div>
-                <div class="column">
-                  <router-link :to="'/formula/' + color.id" class="input has-text-centered has-text-style-normal">Ver mas</router-link>
-                </div>
-                <div class="column">
-                  <a class="input has-text-centered has-background-danger has-text-style-normal" @click="remove" :id="color.id">Eliminar</a>
+                  <a class="input has-text-centered has-background-danger has-text-style-normal" @click="remove" :id="item.id">Eliminar</a>
                 </div>
                 <hr class="is-hidden-tablet"></div>
               </div>
@@ -501,7 +215,7 @@
         <div class="columns is-vcentered wp-action-space fadeIn">
           <div class="column">
             <div class="control has-text-centered">
-              <router-link class="button" to="/formulas-propias">Volver a Fórmulas propias</router-link>
+              <router-link class="button" to="/account">Volver a Menú Principal</router-link>
             </div>
           </div>    
         </div>
@@ -509,7 +223,93 @@
     </div>    
   </script>
 
-  <script type="text/x-template" id="cargarformulaspropias">
+  <script type="text/x-template" id="cliente">
+    <div class="has-action-space">
+      <div class="container is-padded-top">
+        <div class="content hero-system fadeIn">
+          <div class="columns has-text-centered">
+            <div class="column">
+              <div class="">
+                <h4>Cliente</h4>
+              </div>
+              <!--pre v-html="data.colorants"></pre-->
+              <form class="form is-dark is-condensed is-basededatos has-text-left" @submit.prevent="submit">
+                <input type="submit" id="submitbutton" hidden>
+                <div class="columns is-vcentered">
+                  <div class="column is-4">
+                    <label class="label">Nombre</label>
+                  </div>
+                  <div class="column">
+                    <input v-model="data.nom" class="input" type="text" placeholder="Ingrese un nombre" required>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="columns is-vcentered wp-action-space fadeIn">
+          <div class="column">
+            <div class="control has-text-centered">
+              <router-link class="button" to="/account">Volver a Menú Principal</router-link>
+              <button type="button" @click="$('#submitbutton').click()" class="button" :class="{'is-loading' : $root.loading}">Guardar valores</button>
+            </div>
+          </div>    
+        </div>
+      </div>
+    </div>
+  </script>
+
+
+  <script type="text/x-template" id="atributos">
+    <div class="has-action-space">
+      <div class="container is-padded-top">
+        <div class="content hero-system is-dark fadeIn">
+          <div class="columns is-vcentered">
+            <div class="column has-text-centered">
+              <h3>Atributos</h3>
+            </div>
+          </div>
+          <div class="has-text-centered is-cotizacionesrealizadas">
+            <div v-if="data.length">
+              <div class="columns is-hidden-mobile">
+                <div class="column has-text-centered">Nombre</div>
+                <div class="column"></div>
+                <div class="column"></div>
+              </div>
+              <div class="columns" v-for="cliente in data">
+                <div class="column">
+                  <div class="input has-text-weight-semibold has-text-style-normal is-size-6" v-html="cliente.id"></div>
+                </div>
+                <div class="column">
+                  <div class="input is-size-6" v-html="cliente.nom"></div>
+                </div>
+                <div class="column">
+                  <router-link :to="'/clientes/' + cliente.id" class="input has-text-centered has-text-style-normal">Ver mas</router-link>
+                </div>
+                <div class="column">
+                  <a class="input has-text-centered has-background-danger has-text-style-normal" @click="remove" :id="cliente.id">Eliminar</a>
+                </div>
+                <hr class="is-hidden-tablet"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="columns is-vcentered wp-action-space fadeIn">
+          <div class="column">
+            <div class="control has-text-centered">
+              <router-link class="button" to="/account">Volver a Menú Principal</router-link>
+            </div>
+          </div>    
+        </div>
+      </div>
+    </div>    
+  </script>
+
+  <script type="text/x-template" id="atributo">
     <div class="has-action-space">
       <div class="container is-padded-top">
         <div class="content hero-system fadeIn">
@@ -523,93 +323,13 @@
                 <input type="submit" id="submitbutton" hidden>
                 <div class="columns is-vcentered">
                   <div class="column is-4">
-                    <label class="label">Color</label>
+                    <label class="label">Nombre</label>
                   </div>
                   <div class="column">
-                    <input v-model="color.title" class="input" type="text" placeholder="Ingrese un título" required>
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Textura</label>
-                  </div>
-                  <div class="column">
-                    <select v-model="color.texture_id" @change="setTexture" class="select" required="">
-                      <option v-for="(texture,index) in data.textures" :value="texture.id" :code="texture.code" :hexcode="texture.hexcode" v-html="texture.title"></option>
-                    </select>
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Base</label>
-                  </div>
-                  <div class="column">
-                    <select v-model="color.base_id" @change="setBase" class="select" required="">
-                      <option v-for="(base,index) in data.bases" :value="base.id" :code="base.code" v-html="'BASE ' + base.code"></option>
-                    </select>
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Equipo</label>
-                  </div>
-                  <div class="column">
-                    <select v-model="mac_id" @change="updateMac()" class="select" id="mac">
-                      <option v-for="mac in data.machines" :value="mac.id" v-html="mac.title"></option>
-                    </select>
+                    <input v-model="cliente.nom" class="input" type="text" placeholder="Ingrese un nombre" required>
                   </div>
                 </div>
               </form>
-            </div>
-          </div>
-          <div class="has-action-space">
-            <div v-if="selection.texture.code && selection.base.code && mac_id" class="is-weberbox">
-              <div class="columns is-vcentered is-dark padless-bottom">
-                <div class="column">
-                  <img src="/img/logo.png" width="180">
-                </div>
-                <div class="column is-3 has-text-right">
-                  <div class="columns is-vcentered">
-                    <div class="column has-text-right is-hidden-mobile">
-                      <span class="is-uppercase has-text-centered has-text-weight-semibold">Textura</span>
-                    </div>
-                    <div>
-                      <span class="input has-text-centered has-text-style-normal has-text-weight-semibold" :style="'background-color:#' + selection.texture.hexcode" v-html="selection.texture.code"></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="column is-2 has-text-left">
-                  <div class="columns is-vcentered">
-                    <div class="column has-text-right is-hidden-mobile">
-                      <span class="is-uppercase has-text-weight-semibold">Base</span>
-                    </div>
-                    <div>
-                      <span class="input has-text-centered has-text-style-normal has-text-weight-semibold" v-html="selection.base.code"></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="column is-1"></div>
-              </div>
-              <div v-show="data.units" class="is-dark is-cotizacionesrealizadas fadeIn">
-                <div class="columns">
-                  <div class="column is-hidden-mobile">
-                    <div class="input has-background-black has-text-weight-semibold has-text-centered has-text-style-normal is-uppercase">Colorantes</div>
-                  </div>
-                  <div class="column" v-for="(unit,index3) in data.units">
-                    <div class="input has-background-black has-text-weight-semibold has-text-centered has-text-style-normal is-uppercase" v-html="$root.unitLabel(unit)"></div>
-                  </div>
-                </div>
-                <div class="columns" v-for="(colorant,index) in data.colorants">
-                  <div class="column">
-                    <div class="input has-text-style-normal has-text-centered" :style="'background-color:#' + colorant.hexcode">
-                      <span class="has-text-white has-text-weight-semibold" :class="{ 'has-text-black' : colorant.code == 'AXX' || colorant.code == 'KX' }" v-html="colorant.code"></span>
-                    </div>
-                  </div>
-                  <div class="column" v-for="(unit,index2) in data.units">
-                    <input class="input" v-model="color.units[colorant.id][unit]" type="number" step="0.001">
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -618,585 +338,13 @@
         <div class="columns is-vcentered wp-action-space fadeIn">
           <div class="column">
             <div class="control has-text-centered">
-              <!-- router-link class="button" to="/formular-color-y-cotizar">Volver</router-link> &nbsp; -->
-              <router-link class="button" to="/formulas-propias">Volver a Fórmulas propias</router-link>
+              <router-link class="button" to="/account">Volver a Menú Principal</router-link>
               <button type="button" @click="$('#submitbutton').click()" class="button" :class="{'is-loading' : $root.loading}">Guardar valores</button>
             </div>
           </div>    
         </div>
       </div>
     </div>
-  </script>
-
-  <script type="text/x-template" id="formulapropia">
-    <div class="has-action-space">
-      <div class="container is-padded-top">
-        <div class="content hero-system">
-          <div class="columns has-text-centered fadeIn">
-            <div class="column">
-              <h4 class="is-uppercase">Fórmula propia</h4>
-              <form class="form is-dark is-condensed has-text-left">
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Color</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="data.color.title" class="input" type="text" placeholder="Color" readonly>
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Equipo</label>
-                  </div>
-                  <div class="column">
-                    <select v-model="mac_id" @change="updateMac()" class="select" id="mac">
-                      <option v-for="mac in data.machines" :value="mac.id" v-html="mac.title"></option>
-                    </select>
-                  </div>
-                </div>                
-              </form>
-            </div>
-          </div>
-          <div class="has-action-space">
-            <div class="is-weberbox">
-              <div class="columns is-dark">
-                <div class="column">
-                  <img src="/img/logo.png" width="180">
-                </div>
-                <div class="column is-3">
-                  <div class="columns is-vcentered">
-                    <div class="column has-text-right is-hidden-mobile">
-                      <span class="is-uppercase has-text-centered has-text-weight-semibold">Textura</span>
-                    </div>
-                    <div class="column is-5">
-                      <span class="input has-text-centered has-text-style-normal has-text-weight-semibold" :style="'background-color:#' + data.color.texture_hexcode" v-html="data.color.texture"></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="column is-3">
-                  <div class="columns is-vcentered">
-                    <div class="column has-text-right is-hidden-mobile">
-                      <span class="is-uppercase has-text-weight-semibold">Base</span>
-                    </div>
-                    <div class="column is-5">
-                      <span class="input has-text-centered has-text-style-normal has-text-weight-semibold" v-html="data.color.base"></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div v-show="data.machine.units" class="is-dark is-cotizacionesrealizadas fadeIn">
-                <div class="columns is-hidden-mobile">
-                  <div class="column">
-                    <div class="input has-background-black has-text-weight-semibold has-text-centered has-text-style-normal is-uppercase">Colorantes</div>
-                  </div>
-                  <div v-for="(unit,index3) in data.machine.units" class="column">
-                    <div class="input has-background-black has-text-weight-semibold has-text-centered has-text-style-normal is-uppercase" v-html="$root.unitLabel(unit)"></div>
-                  </div>
-                </div>
-                <div class="columns" v-for="(formula,index) in data.formulas">
-                  <div class="column">
-                    <div class="input has-text-style-normal has-text-centered" :style="'background-color:#' + formula.hexcode">
-                      <span class="has-text-white has-text-weight-semibold" :class="{ 'has-text-black' : formula.colorant == 'AXX' || formula.colorant == 'KX' }" v-html="formula.colorant"></span>
-                    </div>
-                  </div>
-                  <div class="column" v-for="(amount,index2) in formula.amounts">
-                    <div class="input has-text-centered has-text-style-normal" v-html="amount"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="column has-text-centered">
-              <a class="button" @click="download" :colid="data.color.id" :colttl="data.color.title">Imprimir fórmula</a>
-            </div>            
-          </div>
-        </div>  
-      </div>
-      <div class="content">
-        <div class="columns is-vcentered wp-action-space fadeIn">
-          <div class="column">
-            <div class="control has-text-centered">
-              <router-link class="button" to="/formulas-propias/historico">Volver a Histórico</router-link>
-            </div>
-          </div>    
-        </div>
-      </div>
-    </div>              
-  </script>
-
-  <script type="text/x-template" id="cotizacionesrealizadas">
-    <div class="has-action-space">
-      <div class="container is-padded-top">
-
-        <div v-if="!data.quotes.length" class="content hero-system is-dark fadeIn">
-          <div class="columns is-vcentered">
-            <div class="column has-text-centered">
-              <label class="is-size-5"><span class="has-text-danger">No se encontraron cotizaciones</span></label>
-            </div>
-          </div>
-        </div>
-        <div v-if="data.quotes.length" class="content hero-system is-dark is-cotizacionesrealizadas fadeIn">
-          <div class="columns is-vcentered">
-            <div class="column has-text-right">
-              <label class="is-size-5">Cotizaciones realizadas a:</label>
-            </div>
-            <div class="column has-text-left">
-              <select v-model="selection.customer" @change="filterCustomer" class="select" id="customer">
-                <option value="">Todos</option>
-                <option v-for="customer in data.customers" :value="customer" v-html="customer"></option>
-              </select>
-            </div>
-          </div>
-          <div>
-            <div class="columns is-vcentered is-hidden-mobile">
-              <div class="column has-text-centered">
-                <span>Producto</span>
-              </div>
-              <div class="column has-text-centered">
-                <span>Cantidad<br>de baldes</span>
-              </div>
-              <div class="column has-text-centered">
-                <span>Color</span>
-              </div>
-              <div class="column has-text-centered">
-                <span>Fecha</span>
-              </div>
-              <div class="column has-text-centered">
-                <span>Tipo de<br>usuario</span>
-              </div>
-              <div class="column has-text-centered">
-                <span>Informe de<br>cotización</span>
-              </div>
-            </div>
-            <div class="columns" v-for="quote in data.quotes">
-              <div class="column">
-                <!--div>
-                  <pre v-html="quote"></pre>
-                </div-->
-                <div class="input has-text-weight-semibold has-text-style-normal is-size-6" :style="'background-color:#' + quote.texture_hexcode" v-html="quote.textures"></div>
-              </div>
-              <div class="column">
-                <div class="input is-size-6" v-html="quote.qty"></div>
-              </div>
-              <div class="column">
-                <div class="input is-size-6" v-html="quote.colors"></div>
-              </div>
-              <div class="column">
-                <div class="input is-size-6" v-html="quote.created"></div>
-              </div>
-              <div class="column">
-                <div class="input is-size-6" v-html="quote.consumer"></div>
-              </div>
-              <div class="column">
-                <a class="input has-text-centered has-text-style-normal" @click="more" :id="quote.uuid">Ver más</a>
-              </div>
-              <hr class="is-hidden-tablet"></div>
-            </div>
-            <div class="columns is-vcentered fadeIn">
-              <div class="column is-4 has-text-right">
-                <label>Descargar excel desde el día</label>
-              </div>
-              <div class="column is-2">
-                <input v-model="selection.date_since" class="input" type="text" placeholder="5/5/19" value="7/5/19">
-              </div>
-              <div class="column has-text-right">
-                <label>Hasta el día</label>
-              </div>
-              <div class="column is-2">
-                <input v-model="selection.date_until" class="input" type="text" placeholder="25/5/19" value="8/5/19">
-              </div>
-              <div class="column is-2">
-                <button class="button has-background-success is-uppercase" @click="excel"><span class="has-text-white">Descargar</span></button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="content">
-        <div class="columns is-vcentered wp-action-space fadeIn">
-          <div class="column">
-            <div class="control has-text-centered">
-              <router-link class="button" to="/account">Volver al menú principal</router-link>
-            </div>
-          </div>    
-        </div>
-      </div>
-    </div> 
-  </script>
-
-  <script type="text/x-template" id="formularcolor">
-    <div class="has-action-space">
-      <div class="container is-padded-top fadeIn">
-        <div class="content hero-system">
-          <div v-if="data.status != 'success'">
-            <h4 class="has-text-centered">Debes establecer los costos de los productos primero</h4>
-          </div>
-          <div v-if="data.status == 'success'">
-            <h4 class="has-text-centered">Elige un producto para comenzar</h4>
-            <div v-if="data.status == 'success'" class="columns is-multiline has-text-centered is-vcentered is-menu">
-              <div v-for="group in data.groups" class="column is-6">
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <img :src="group[0].pic1_url">
-                  </div>
-                  <div class="column has-text-centered">
-                    <div v-for="item in group" class="is-formularcolor" :class="{ 'selected' : item.id == selected }">
-                      <div class="columns is-mobile">
-                        <div class="column is-2">
-                          <div class="is-formularcolor-sample is-picture is-magnify" magnify-container=".has-action-space" :magnify-image="item.pic2_url"  :style="'background-image:url(' + item.pic2_url + ')'"></div>
-                        </div>
-                        <div class="column is-10 has-text-left">
-                          <a href="#" class="wp-button" @click="select" :json="JSON.stringify(item)" v-html="item.title"></a>
-                          <span class="wp-description has-text-left" v-html="item.description"></span>  
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div v-if="data.status == 'success'" class="content">
-        <div class="columns is-vcentered wp-action-space fadeIn">
-          <div class="column">
-            <div class="control has-text-centered">
-              <!--router-link class="button" to="/account">Volver</router-link> &nbsp; -->
-              <a class="button" @click="submit" :class="{'is-loading' : $root.loading}">Continuar</a>
-            </div>
-          </div>    
-        </div>
-      </div>
-    </div>    
-  </script>
-
-  <script type="text/x-template" id="formularcolordatos">
-    <div class="has-action-space">
-      <div class="container is-padded-top">
-        <div class="content hero-system">
-          <div class="columns has-text-centered fadeIn">
-            <div class="column">
-              <h4>Ingresá tus datos</h4>
-              <form class="form is-dark is-condensed has-text-left" @submit.prevent="submit">
-                <div class="columns is-vcentered">
-                  <div class="column">
-                    <label class="label">Ingresá m2 o número de baldes</label>
-                  </div>
-                  <div class="column is-2">
-                    <span class="is-italic">M2</span>
-                    <input v-model="m2" @change="updateM2()" @keyup="updateM2()" class="input" type="number" min="1" max="9999" step="0.1" placeholder="M2" autofocus required>
-                  </div>
-                  <div class="column is-2">
-                    <span class="is-italic">Envase</span>
-                    <select v-model="pack_id" @change="updatePack()" class="select" id="pack" required>
-                      <option value="undefined" selected="selected">Envase</option>
-                      <option v-for="pack in data.packs" :value="pack.id" v-html="pack.title"></option>
-                    </select>
-                  </div>
-                  <div class="column is-2">
-                    <span class="is-italic">Baldes</span>
-                    <input ref="qty"  v-model="qty" @change="updateQty()" @keyup="updateQty()" class="input" type="number" min="0.1" max="999.0" step="0.1" placeholder="Baldes" required>
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Color</label>
-                  </div>
-                  <div class="column">
-                    <select ref="color_id" v-model="quote.color_id" class="select" id="color" required>
-                      <option value="" selected>Elegí un color</option>
-                      <option v-for="color in data.colors" :value="color.id" v-html="color.title"></option>
-                    </select>
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Nombre</label>
-                  </div>
-                  <div class="column">
-                    <input ref="first_name" v-model="quote.first_name" class="input" type="text" placeholder="Ingresá tu nombre" required>
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Apellido</label>
-                  </div>
-                  <div class="column">
-                    <input ref="last_name" v-model="quote.last_name" class="input" type="text" placeholder="Ingresá tu apellido" required>
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Tipo de usuario</label>
-                  </div>
-                  <div class="column">
-                    <select ref="consumer" v-model="quote.consumer" name="consumer" class="select" required>
-                      <option value="" selected>Elegí un tipo de usuario</option>         
-                      <option v-for="usertype in data.usertypes" :value="usertype.title" v-html="usertype.title"></option>
-                    </select>
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Teléfono</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="quote.phone" class="input" type="text" placeholder="Tel.">
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Email</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="quote.email" class="input" type="email" placeholder="@">
-                  </div>
-                </div>   
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="content">
-        <div class="columns is-vcentered wp-action-space fadeIn">
-          <div class="column">
-            <div class="control has-text-centered">
-              <!--router-link class="button" to="/formular-color-y-cotizar">Volver</router-link> &nbsp; -->
-              <button type="submit" class="button" @click="submit" :class="{'is-loading' : $root.loading}">Continuar</button>
-            </div>
-          </div>    
-        </div>
-      </div>
-    </div>
-  </script>
-
-  <script type="text/x-template" id="formularcolorcotizacion">
-    <div class="has-action-space">
-      <div class="container is-padded-top fadeIn">
-        <div class="content hero-system">
-          <div class="columns has-text-centered">
-            <div class="column">
-              <h4 class="is-uppercase">Cotización</h4>
-              <form class="form is-dark is-condensed has-text-left">
-                <input type="hidden" v-model="performance">
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Cliente</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="quote.customer" class="input" type="text" placeholder="Ingresá tu nombre" readonly>
-                  </div>
-                </div>
-
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Textura</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="quote.textures" class="input" type="text" placeholder="Textura" readonly>
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Color</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="quote.colors" class="input" type="text" placeholder="Color" readonly>
-                  </div>
-                </div>
-                <!--div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Envase</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="quote.packs" class="input" type="text" placeholder="Envase" required>
-                  </div>
-                </div-->
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Nro. de Baldes</label>
-                  </div>
-                  <div class="column is-2">
-                    <input v-model="selection.qty" class="input" type="number" min="1" max="99" placeholder="8" required>
-                  </div>
-                  <div class="column has-text-right">
-                    <label class="label">Tamaño</label>
-                  </div>
-                  <div class="column">
-                    <select v-model="selection.pack_id" class="select" id="pack">
-                      <option v-for="pack in packs" :value="pack.id" v-html="pack.title"></option>
-                    </select>
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Costo unitario</label>
-                  </div>
-                  <div class="column">
-                    <div class="control" :class="{ 'is-loading' : $root.processing }">
-                      <input v-model="quote.unit_price" class="input" type="text" placeholder="$" readonly>
-                    </div>
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Costo total</label>
-                  </div>
-                  <div class="column">
-                    <div class="control" :class="{ 'is-loading' : $root.processing }">
-                      <input v-model="quote.subtotal" class="input" type="text" placeholder="$" readonly>
-                    </div>
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Bonificación (%)</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="selection.discount" class="input" type="number" min="1" max="99" placeholder="%">
-                  </div>
-                </div>
-                <div v-if="quote.subtotal_discount != '0,00'" class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Costo total con Bonificación</label>
-                  </div>
-                  <div class="column">
-                    <input v-model="quote.subtotal_discount" class="input" type="text" placeholder="$" readonly>
-                  </div>
-                </div>
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <label class="label">Costo total con IVA</label>
-                  </div>
-                  <div class="column">
-                    <div class="control" :class="{ 'is-loading' : $root.processing }">
-                      <input v-model="quote.total" class="input" type="text" placeholder="$" readonly>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="content">
-        <div class="columns is-vcentered wp-action-space fadeIn">
-          <div class="column">
-            <div class="control has-text-centered">
-              <button class="button" href="#" @click="download" :uuid="quote.uuid">Imprimir cotización</button> &nbsp;
-              <router-link class="button" :to="'/color/' + quote.uuid">Formular</router-link>
-            </div>
-          </div>    
-        </div>
-      </div>
-    </div>
-  </script>
-
-  <script type="text/x-template" id="basededatos">
-    <div class="has-action-space">
-      <div class="container is-padded-top">
-        <div class="content hero-system fadeIn">
-          <div class="columns has-text-centered">
-            <div class="column">
-              <div class="">
-                <h4>Base de datos para cotizar</h4>
-                <p>Costos AR$/envase</p>
-              </div>
-              <form class="form is-dark is-basededatos has-text-left" @submit.prevent="submit">
-                <div class="columns is-multiline">
-                  <div v-for="item in data.colorants" class="column is-mobile is-4">
-                    <div class="columns is-vcentered">
-                      <div class="column">
-                        <label class="label"><span>Colorante</span> <span class="is-uppercase" v-html="item.code"></span></label>
-                      </div>
-                      <div class="column">
-                        <input v-model="inputs.user_colorants[item.id]" class="input" type="number" placeholder="ARS" required>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="">
-                  <small>Envase* = 0,946 L</small>
-                </div>
-                <hr>
-                <div class="columns is-vcentered">
-                  <div class="column is-2">
-                    <label>Envase</label>
-                    <select v-model="selection.pack" class="select">
-                      <option v-for="(pack,index) in data.packs" :value="pack.id" v-html="pack.title"></option>
-                    </select>
-                  </div>
-                </div>
-                <div class="is-condensed">
-                  <div class="columns">
-                    <div class="column is-7">
-                      <div v-for="(pack,pindex) in data.packs" v-show="selection.pack === pack.id" class="fadeIn">
-                        <div class="columns">
-                          <div class="column is-2"></div>
-                          <div v-for="base in data.bases" class="column has-text-centered">
-                            <span class="is-uppercase">Base</span> <span class="is-uppercase" v-html="base.title"></span>
-                          </div>
-                        </div>
-                        <div class="columns is-vcentered" v-for="texture in data.textures" v-show="texture.type_id === pack.ttype_id">
-                          <div v-html="texture.code" class="column is-2 has-text-weight-semibold has-text-centered" :style="'color:#' + texture.hexcode"></div>
-                          <div v-for="base in data.bases" class="column">
-                            <input v-model="inputs.user_textures[pack.id][base.id][texture.id]" class="input" type="number" placeholder="ARS" required>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="column bottom-left">
-                      <div class="columns is-vcentered">
-                        <div class="column">
-                          <label class="label"><span>Margen (%)</span></label>
-                        </div>
-                        <div class="column">
-                          <input v-model="inputs.margen" class="input has-background-black" type="number" placeholder="%" required>
-                        </div>
-                      </div>
-                      <div class="columns is-vcentered">
-                        <div class="column">
-                          <label class="label"><span>IVA (%)</span></label>
-                        </div>
-                        <div class="column">
-                          <input v-model="inputs.iva" class="input has-background-black" type="number" placeholder="%" required>
-                        </div>
-                      </div>
-                      <div class="columns is-vcentered">
-                        <div class="column">
-                          <label class="label"><span>Fecha lista de precios bases</span></label>
-                        </div>
-                        <div class="column">
-                          <input v-model="data.dates.textures" class="input has-background-info" type="text" placeholder="" required>
-                        </div>
-                      </div>
-                      <div class="columns is-vcentered">
-                        <div class="column">
-                          <label class="label"><span>Fecha lista de precios colorantes</span></label>
-                        </div>
-                        <div class="column">
-                          <input v-model="data.dates.colorants" class="input has-background-success" type="text" placeholder="" required>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="content">
-        <div class="columns is-vcentered wp-action-space fadeIn">
-          <div class="column">
-            <div class="control has-text-centered">
-              <!-- router-link class="button" to="/formular-color-y-cotizar">Volver</router-link> &nbsp; -->
-              <button type="button" @click="submit" class="button" :class="{'is-loading' : $root.processing}">Guardar valores</button>
-            </div>
-          </div>    
-        </div>
-      </div>
-    </div>                
   </script>
 
   <script type="text/x-template" id="editaccount">
@@ -1215,13 +363,13 @@
                 <div class="field">
                   <label class="label">Nombre</label>
                   <div class="control">
-                    <input class="input" name="first_name" type="text" placeholder="John" :value="$root.token().first_name" autofocus required>
+                    <input v-model="data.first_name" class="input" type="text" placeholder="Nombre" :value="$root.token().first_name" autofocus required>
                   </div>
                 </div>
                 <div class="field">
                   <label class="label">Apellido</label>
                   <div class="control">
-                    <input class="input" type="text" name="last_name" placeholder="Doe" :value="$root.token().last_name" required>
+                    <input v-model="data.last_name" class="input" type="text" placeholder="Apellido" :value="$root.token().last_name" required>
                   </div>
                 </div>
               </div>
@@ -1230,25 +378,21 @@
             <div class="field">
               <label class="label">Email</label>
               <div class="control">
-                <input class="input" type="email" name="email" placeholder="johndoe@gmail.com" :value="$root.token().email" required>
+                <input v-model="data.email" class="input" type="email" placeholder="micuenta@gmail.com" :value="$root.token().email" required>
               </div>
               <p class="help is-danger is-hidden">El email no es válido</p>
             </div>
 
-            <div class="field is-horizontal">
+            <!--div class="field is-horizontal">
               <div class="field-body">
                 <div class="field">
                   <label class="label">Bio</label>
                   <div class="control">
-                    <textarea class="textarea" name="bio" placeholder="I'm John. I love mountains."></textarea>
+                    <textarea v-model="data.first_name" class="textarea" name="bio" placeholder="Escribe tu biografía aquí."></textarea>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div class="field" v-if="message && message.length">
-              <p class="help" :class="messageType" v-html="message"></p>
-            </div>
+            </div-->
 
             <div class="field">
               <div class="control">
@@ -1491,7 +635,7 @@
                 <div class="field">
                   <label class="label">Nueva contraseña</label>
                   <div class="control">
-                    <input class="input" type="password" name="password" placeholder="********" required>
+                    <input v-model="data.password" class="input" type="password" placeholder="********" required>
                   </div>
                 </div>
                 <div class="field">
@@ -1693,6 +837,8 @@
   <script src="/js/bulma.js"></script>
   <script src="/js/filters.js"></script>
   <script src="/js/scrollmap.js"></script>
+  <script src="/js/exif.js"></script>
+  <script src="/js/binaryajax.js"></script>
   <script src="/js/vue.min.js" type="text/javascript"></script>  
   <script src="/js/vue-router.js" type="text/javascript"></script>  
   <script src="/js/vue-resource.min.js" type="text/javascript"></script>  
