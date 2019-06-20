@@ -85,7 +85,7 @@ const SignUp = {
           this.$root.snackbar('success','Tu cuenta ha sido creada con éxito. Redirigiendo')
           setTimeout(function(){
             app.$router.push('/account')
-          },5000)
+          },3000)
         }, function(error){
           this.$root.snackbar('error',error.statusText)
         })
@@ -579,15 +579,15 @@ const app = new Vue({ router: router,
       });
     },
     scrollDown: function(){
-      var scrollpos = $(window).scrollTop();
+      var scrollpos = $(window).scrollTop() + 1;
       var body = $("html, body");
-      if(scrollpos < $(window).height() * 0.75){
-        body.stop().animate({scrollTop:$(window).height() * 0.75}, 500, 'swing', function() {           
+      if(scrollpos < $(window).height() * 0.65){
+        body.stop().animate({scrollTop:$(window).height() * 0.65}, 500, 'swing', function() {           
         })
       } else {
         body.stop().animate({scrollTop:$(document).height()}, 500, 'swing', function() {   
         })
-      }    
+      }
     },
     checkFlags:function(route){
       this.hideSignIn = false

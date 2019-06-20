@@ -32,7 +32,7 @@
               <img src="/img/logo.png" alt="Tusturnosonline">
             </a>
             <div class="menu-bg"></div>
-            <div class="menu-burger">☰</div>
+            <div class="menu-burger">🍔</div>
             <div class="menu-items">
               <a href="/"><img src="/img/logo.png"></a>
               <div class="menu-links">
@@ -77,14 +77,14 @@
           </div>
         </div>
       </nav>
-
+      
       <keep-alive exclude="quote,color,account,formularcolor,formularcolordatos,formularcolorcotizacion,basededatos,cotizacionesrealizadas,cargarformulaspropias,formulapropia,historico,contact">
         <router-view :key="$route.fullPath"></router-view>
       </keep-alive>
 
       <div class="scrollmap">
-        <a href="#" @click="scrollUp" class="navbar-item up"></a>
-        <a href="#" @click="scrollDown" class="navbar-item active down"></a>
+        <a href="#" @click="scrollUp" class="navbar-item up"><span>👆</span></a>
+        <a href="#" @click="scrollDown" class="navbar-item active down"><span>👇</span></a>
       </div>
 
       <div class="ui-snackbar ui-snackbar--is-inactive">

@@ -10,7 +10,7 @@
 
   $(document).on('click','.menu-burger, .menu-items',function() {
     $('.menu-bg, .menu-items, .menu-burger').toggleClass('fs');
-    $('.menu-burger').text() == "☰" ? $('.menu-burger').text('✕') : $('.menu-burger').text('☰');      
+    $('.menu-burger').text() == "🍔" ? $('.menu-burger').text('✕') : $('.menu-burger').text('🍔');
   });
 
   if(!localStorage.getItem("tosagree")){

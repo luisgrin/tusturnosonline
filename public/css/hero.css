@@ -786,12 +786,12 @@ blockquote {
   -webkit-transform-origin: center;
           transform-origin: center;
 }
-
+/*
 .menu-burger.fs {
   -webkit-transform: rotate(-180deg) translateY(10px);
           transform: rotate(-180deg) translateY(10px);
 }
-
+*/
 .menu-items {
   display: flex;
   align-items: center;
@@ -811,11 +811,6 @@ blockquote {
   z-index: 9999;
 }
 
-.menu-items img {
-  max-height: 3.5rem;
-  height: 3.5rem;
-}
-
 .menu-links {
   padding: 1rem;
 }
@@ -828,7 +823,7 @@ blockquote {
 }
 
 .menu-items img{
-  max-width: 20rem;
+  max-width: 15rem;
 }
 .menu-items div {
   -webkit-transition: 1s;
@@ -1358,15 +1353,7 @@ blockquote {
   margin-bottom: 2rem;
 }
 
-.strip {
-  width: 3%;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  background-color: #ffeb00;
-  content: "";
-  z-index: 1031;
-}
+/* scrollmap */
 
 .scrollmap {
   position: fixed;
@@ -1379,13 +1366,12 @@ blockquote {
 .scrollmap > a {
   display: block;
   opacity: 0;
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 3rem;
+  height: 3rem;
   padding-left: 0.25rem; 
   margin:0.5rem;
-  border-radius: 7px;
-  background-color: rgba(0,0,0,0.1);
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(0,0,0,0.25);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -1396,19 +1382,16 @@ blockquote {
 }
 
 .scrollmap > a:hover {
-  background-color: #ffeb00;
+  background-color: #009133;
 }
 
 .scrollmap > a.active {
   opacity: 1;
 }
 
-.scrollmap .up {
-  background-image: url('/img/select-i.png');
-}
-
-.scrollmap .down {
-  background-image: url('/img/select.png');
+.scrollmap > a span {
+  font-size: 25px;
+  padding-left: 0.5rem;
 }
 
 .intro {
@@ -1953,6 +1936,7 @@ footer li:before {
     opacity: 1;
   }
 }
+
 @-webkit-keyframes change {
   0%, 12.66%, 100% {
     -webkit-transform: translate3d(0, 0, 0);
