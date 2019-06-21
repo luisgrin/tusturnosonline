@@ -399,6 +399,17 @@
                 <button class="button is-success is-fullwidth" :class="{'is-loading' : $root.loading}">Actualizar</button>
               </div>
             </div>    
+            <div class="field">
+              <div class="control">
+                <a href="/password" class="button is-text">🔑 Cambiar contraseña</a>
+              </div>
+              <div class="control">
+                <a href="/recover-password" class="button is-text">😱 Olvidé mi clave</a>
+              </div>
+              <div class="control">
+                <a href="/account" class="button is-text">🏁 Volver a Menú Principal</a>
+              </div>
+            </div>
           </form>
         </div>
       </div>
@@ -406,36 +417,41 @@
   </script>
 
   <script type="text/x-template" id="changepassword">
-    <div class="hero-body">
+    <div class="hero-body is-pin">
       <div class="container has-text-left">
         <div class="content fadeIn">
-          <h3 class="is-uppercase">Change password</h3>
-          <p class="is-uppercase">Confirm your password reset.</p>
+          <h3 class="is-uppercase">🔑 Cambiar contraseña</h3>
+          <p class="is-uppercase">Ingresa tu actual contraseña seguida de la nueva contraseña.</p>
           <form class="form has-text-left" @submit.prevent="submit">
             <div class="field is-horizontal">
               <div class="field-body">
                 <div class="field">
-                  <label class="label">Current Password</label>
+                  <label class="label">Contraseña actual</label>
                   <div class="control">
-                    <input class="input" name="password" type="password" placeholder="********" value="" autofocus required>
+                    <input v-model="data.password" class="input" type="password" placeholder="********" value="" autofocus required>
                   </div>
                 </div>
                 <div class="field">
-                  <label class="label">New Password</label>
+                  <label class="label">Nueva contraseña</label>
                   <div class="control">
-                    <input class="input" type="password" name="new_password" placeholder="********" value="" required>
+                    <input v-model="data.new_password" class="input" type="password" placeholder="********" value="" required>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="field" v-if="message && message.length">
-              <p class="help" :class="messageType" v-html="message"></p>
+            <div class="field">
+              <div class="control">
+                <button type="submit" class="button is-success is-fullwidth" :class="{'is-loading' : $root.loading}">Change password</button>
+              </div>
             </div>
             <div class="field">
               <div class="control">
-                <button class="button is-success is-fullwidth" :class="{'is-loading' : $root.loading}">Change password</button>
+                <a href="/edit" class="button is-text">Volver a Mi Cuenta</a>
               </div>
-            </div>    
+              <div class="control">
+                <a href="/account" class="button is-text">Volver a Menú Principal</a>
+              </div>
+            </div>
           </form>
         </div>
       </div>
@@ -501,6 +517,10 @@
                 </form>
               </div>
               <div class="column is-half-bg1">  
+                <div class="is-half-container">
+                  <h1 class="has-text-berry">Ahorra tiempo y costos gestionando online</h1>
+                  <p class="has-text-berry"><a href="/sign-up" class="has-text-berry">Consigue tu cuenta en <em>Tusturnosonline APP</em> ahora.</a>.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -577,6 +597,10 @@
                 </form>
               </div>
               <div class="column is-half-bg1">  
+                <div class="is-half-container">
+                  <h1 class="has-text-berry">Casos de estudio</h1>
+                  <p class="has-text-berry"><a href="/sign-up" class="has-text-berry">Echa un vistazo a los <a href="/casosdeestudio">casos de estudio</a> que seleccionamos para vos.  Consigue tu cuenta en <em>Tusturnosonline APP</em> ahora.</a>.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -591,7 +615,7 @@
         <div class="container">
           <div class="content columns fadeIn">
             <div class="column is-half is-padded-top">
-              <h3 class="is-uppercase">Recupera tu cuenta</h3>
+              <h3 class="is-uppercase">😱 ¿Olvidaste tu contraseña? Tranquilo. Recupera tu cuenta ahora. </h3>
               <p class="is-uppercase is-told float">Por favor ingresa tu e-mail.</p>
               <form class="form has-text-left" @submit.prevent="submit">
                 <div class="field">
@@ -602,7 +626,7 @@
                 </div>
                 <div class="field">
                   <div class="control">
-                    <button type="submit" class="button is-success is-fullwidth" :class="{'is-loading' : $root.processing}">Recuperar contraseña</button>
+                    <button type="submit" class="button is-success is-fullwidth" :class="{'is-loading' : $root.processing}">Recuperar cuenta</button>
                   </div>
                 </div>    
                 <!--div class="field">
@@ -612,9 +636,13 @@
                 </div-->
               </form>
               <div class="group-control">&nbsp;</div>
-              <blockquote class="is-tell">Te enviaremos instrucciones a tu e-mail. </blockquote>
+              <blockquote class="is-tell">Te enviaremos instrucciones a tu e-mail. Por favor síguelas con atención.  </blockquote>
             </div>
             <div class="column is-half-bg1">
+              <div class="is-half-container">
+                <h1 class="has-text-berry">Get you fast banana today</h1>
+                <p class="has-text-berry"><a href="/sign-up" class="has-text-berry">Registra tu cuenta hoy de forma gratuita.</a>.</p>
+              </div>
             </div>      
           </div>
         </div>
@@ -651,6 +679,10 @@
               </form>
             </div>
             <div class="column is-half-bg1">
+              <div class="is-half-container">
+                <h1 class="has-text-berry">Empieza a trabajar profesionalmente hoy</h1>
+                <p class="has-text-berry"><a href="/sign-up" class="has-text-berry">Consigue tu cuenta en <em>Tusturnosonline APP</em> ahora.</a>.</p>
+              </div>
             </div>      
           </div>
         </div>
@@ -722,6 +754,10 @@
               </form>
             </div>
             <div class="column is-half-bg1">
+              <div class="is-half-container">
+                <h1 class="has-text-berry">¿Estás cansado de los paradigmas antiguos de sofware?</h1>
+                <p><a href="/sign-up" class="has-text-berry">Consigue tu cuenta en <em>Tusturnosonline APP</em> ahora.</a>.</p>
+              </div>
             </div>      
           </div>
         </div>

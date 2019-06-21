@@ -455,12 +455,29 @@ blockquote {
 }
 
 .is-half-bg1 {
+  position: relative;
   background-color: #9993;
-  background-image: url(/img/logo.png);
-  background-size: contain;
+  background-image: url(/img/banana-background-hue.jpg);
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center bottom;
   min-height: 5rem;
+}
+
+.is-half-bg1 .is-half-container {
+  padding: 1rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.is-half-bg1 .is-half-container h1 {
+  text-shadow: 0 3px 3px #e3e3e3e6;
+} 
+
+.is-half-bg1 .is-half-container p {
+  text-shadow: 0 2px 2px #e3e3e3e6;
 }
 
 .button {
@@ -623,6 +640,10 @@ blockquote {
 .has-background-darkgreen {
   background-color: #01534f !important;
 } 
+
+.has-text-berry {
+  color: #7b7ea2!important;
+}
 
 .is-dark .input {
   border:none;

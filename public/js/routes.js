@@ -425,16 +425,9 @@ const ChangePassword = {
     submit : function({type, target}){
       if(!this.$root.loading){
         this.$root.loading = true
-        var data = {}
-
-        $.map( $(target).serializeArray(), function( i ) {
-          data[i.name] = i.value
-        })
-
-        this.$http.post('/api/account/password', data, {emulateJSON:true}).then(function(res){
+        this.$http.post('/api/account/password', this.data, {emulateJSON:true}).then(function(res){
           this.$root.loading = false
           this.$root.snackbar(res.data.messageType,res.data.message)
-          //helper.is_loaded()
         }, function(error){
           this.$root.loading = false
           this.$root.snackbar('error',error.statusText)
@@ -444,6 +437,7 @@ const ChangePassword = {
   },
   data: function() {
     return{
+      data:{},
       acceptTerms:false,      
       hash : location.hash.replace('#','')
     }
