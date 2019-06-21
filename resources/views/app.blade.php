@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="/css/hero.css">
   <link rel="stylesheet" href="/css/snackbar.css">
   <link rel="stylesheet" href="/css/gibson.css">
+  <link rel="stylesheet" href="/css/source-sans-pro.css">
 </head>
 <body>
   <div id="app">
@@ -37,13 +38,13 @@
               <a href="/"><img src="/img/logo.png"></a>
               <div class="menu-links">
                 <p v-if="$root.token().token">
-                  <a href="/account">🏁 Volver a Menú Principal</a>
-                  <a href="/clientes">👥 Clientes</a>
-                  <a href="/atributos">🔖 Atributos</a>
-                  <a href="/carga">📙 Carga</a>
+                  <a href="/account"><span>🏁</span> Volver a Menú Principal</a>
+                  <a href="/clientes"><span>👥</span> CRM Cliente</a>
+                  <a href="/atributos"><span>🔖</span> CRM Atributo</a>
+                  <a href="/carga"><span>📙</span> Carga</a>
                   <hr>
-                  <a href="/edit">👤 Mi cuenta</a>
-                  <a href="/password">🔑 Cambiar contraseña</a>
+                  <a href="/edit"><span>👤</span> Mi cuenta</a>
+                  <a href="/password"><span>🔑</span> Cambiar contraseña</a>
                   <hr>
                 </p>
                 <a v-for="navitem in $root.navitems" :href="navitem.slug" v-html="navitem.title"></a>
@@ -145,7 +146,7 @@
                 <div class="item">
                   <span class="is-size-2">👥</span>
                 </div>
-                <h4>CRM<br>Clientes</h4>
+                <h4>CRM<br>Cliente</h4>
               </a>
             </div>
             <div class="column">
@@ -153,7 +154,7 @@
                 <div class="item">
                   <span class="is-size-2">🔖</span>
                 </div>
-                <h4>CRM<br>Atributos</h4>
+                <h4>CRM<br>Atributo</h4>
               </a>
             </div>
             <div class="column">
@@ -169,7 +170,7 @@
                 <div class="item">
                   <span class="is-size-2">👤</span>
                 </div>
-                <h4>Mi<br>cuenta</h4>
+                <h4>Mi cuenta</h4>
               </a>
             </div>
           </div>
@@ -193,14 +194,14 @@
         <div class="content hero-system is-dark fadeIn">
           <div class="columns is-vcentered">
             <div class="column has-text-centered">
-              <h3>👥 Clientes</h3>
+              <h3>👥 CRM Cliente</h3>
               <label class="is-size-5">
                 <span v-if="data.length">Estos son tus clientes</span>
                 <span v-if="!data.length">Todavía no tienes clientes</span>
               </label>
             </div>
           </div>
-          <div class="has-text-centered is-cotizacionesrealizadas">
+          <div class="has-text-centered is-grid">
             <div v-if="data.length">
               <div class="columns is-hidden-mobile">
                 <div class="column has-text-centered">Nombre</div>
@@ -215,7 +216,15 @@
                 <div class="column">
                   <a class="input has-text-centered has-background-danger has-text-style-normal" @click="remove" :id="item.id">Eliminar</a>
                 </div>
-                <hr class="is-hidden-tablet"></div>
+                <hr class="is-hidden-tablet" />
+              </div>
+              <div class="columns">
+                <div class="column">
+                  <input v-model="item.nom" type="text" class="input is-size-6" />
+                </div>
+                <div class="column">
+                  <a class="input has-text-centered has-background-success has-text-style-normal" @click="add">Agregar</a>
+                </div>
               </div>
             </div>
           </div>
@@ -263,7 +272,7 @@
           <div class="column">
             <div class="control has-text-centered">
               <router-link class="button" to="/account">🏁 Volver a Menú Principal</router-link>
-              <button type="button" @click="$('#submitbutton').click()" class="button" :class="{'is-loading' : $root.loading}">Guardar valores</button>
+              <button type="button" @click="$('#submitbutton').click()" class="button" :class="{'is-loading' : $root.loading}">💾 Guardar valores</button>
             </div>
           </div>    
         </div>
@@ -278,10 +287,10 @@
         <div class="content hero-system is-dark fadeIn">
           <div class="columns is-vcentered">
             <div class="column has-text-centered">
-              <h3>🔖 Atributos</h3>
+              <h3>🔖 CRM Atributo</h3>
             </div>
           </div>
-          <div class="has-text-centered is-cotizacionesrealizadas">
+          <div class="has-text-centered is-grid">
             <div v-if="data.length">
               <div class="columns is-hidden-mobile">
                 <div class="column has-text-centered">Nombre</div>
@@ -311,7 +320,7 @@
         <div class="columns is-vcentered wp-action-space fadeIn">
           <div class="column">
             <div class="control has-text-centered">
-              <router-link class="button" to="/account">🏁 Volver a Menú Principal</router-link>
+              <router-link class="button" to="/clientes">👥 Volver a CRM Cliente</router-link>
             </div>
           </div>    
         </div>
@@ -349,7 +358,7 @@
           <div class="column">
             <div class="control has-text-centered">
               <router-link class="button" to="/account">🏁 Volver a Menú Principal</router-link>
-              <button type="button" @click="$('#submitbutton').click()" class="button" :class="{'is-loading' : $root.loading}">Guardar valores</button>
+              <button type="button" @click="$('#submitbutton').click()" class="button" :class="{'is-loading' : $root.loading}">💾 Guardar valores</button>
             </div>
           </div>    
         </div>
@@ -406,7 +415,7 @@
 
             <div class="field">
               <div class="control">
-                <button class="button is-success is-fullwidth" :class="{'is-loading' : $root.loading}">Actualizar</button>
+                <button class="button is-success is-fullwidth" :class="{'is-loading' : $root.loading}">💾 Actualizar</button>
               </div>
             </div>    
             <div class="field">
@@ -625,13 +634,13 @@
         <div class="container">
           <div class="content columns fadeIn">
             <div class="column is-half is-padded-top">
-              <h3 class="is-uppercase">😱 ¿Olvidaste tu contraseña? Tranquilo. Recupera tu cuenta ahora. </h3>
+              <h3 class="is-uppercase">Respira profundo. 😃 <br>Ahora recupera tu cuenta. </h3>
               <p class="is-uppercase is-told float">Por favor ingresa tu e-mail.</p>
               <form class="form has-text-left" @submit.prevent="submit">
                 <div class="field">
                   <label class="label">Email</label>
                   <div class="control">
-                    <input v-model="data.email" class="input" type="email" placeholder="johndoe@gmail.com" autofocus required>
+                    <input v-model="data.email" class="input" type="email" placeholder="micuenta@gmail.com" autofocus required>
                   </div>
                 </div>
                 <div class="field">
@@ -667,7 +676,7 @@
           <div class="content columns fadeIn">
             <div class="column is-half is-padded-top">
               <h3 class="is-uppercase">Recupera tu cuenta</h3>
-              <p class="is-uppercase">Actualiza tu contraseña.</p>
+              <p class="is-uppercase">💾 Actualiza tu contraseña.</p>
               <form class="form has-text-left" @submit.prevent="submit">
                 <input type="hidden" name="token" :value="token" />
                 <div class="field">
@@ -678,7 +687,7 @@
                 </div>
                 <div class="field">
                   <div class="control">
-                    <button type="submit" class="button is-success is-fullwidth" :class="{'is-loading' : $root.loading}">Actualizar contraseña</button>
+                    <button type="submit" class="button is-success is-fullwidth" :class="{'is-loading' : $root.loading}">💾 Actualizar contraseña</button>
                   </div>
                 </div>    
                 <!--div class="field">

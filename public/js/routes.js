@@ -177,25 +177,32 @@ const Clientes = {
   },
   methods: {
     remove:function({type,target}){
-      var self = this
       if(!this.$root.processing){
-        $(target).addClass('is-loading')
         if(confirm("Una vez confirmado los datos no se podrán recuperar. ¿Estás seguro que deseas eliminar esta fórmula?")){
           this.$root.processing = true
           if(target.id){
-            self.$http.post('/v1/account/colord', {id:target.id}, {emulateJSON:true}).then(function(res){
+            this.$http.post('/v1/account/colord', {id:target.id}, {emulateJSON:true}).then(function(res){
               if(res.data.status==='success'){
                 this.$root.snackbar('success','Se ha eliminado correctamente la fórmula propia.')
-                self.$http.post('/v1/account/colors', {}, {emulateJSON:true}).then(function(res){
-                  self.data = res.data
+                this.$http.post('/v1/account/colors', {}, {emulateJSON:true}).then(function(res){
+                  this.data = res.data
                 })    
               }
-              self.$root.processing = false
-              $('.input').removeClass('is-loading')
+              this.$root.processing = false
             })
           }
         }
       }
+    },
+    add:function({type,target}){
+      this.$root.processing = true
+      this.$http.post('/api/cliente', this.item, {emulateJSON:true}).then(function(res){
+        if(res.data.status==='success'){
+          this.$root.snackbar('success','Se ha agregado correctamente el cliente.')
+          this.data.push(res.data)
+        }
+        this.$root.processing = false
+      })
     },
     more:function({type,target}){
       if(target.id){
@@ -205,7 +212,8 @@ const Clientes = {
   },
   data: function() {
     return{
-      data:{}
+      data:{},
+      item:{}
     }
   }
 }
@@ -348,13 +356,13 @@ const EditAccount = {
           xhr.setRequestHeader('Authorization', 'Bearer ' + token.token); 
         },          
         xhr: function() {
-          var myXhr = $.ajaxSettings.xhr();
+          var myXhr = $.ajaxSettings.xhr()
           if(myXhr.upload){
             myXhr.upload.addEventListener('progress',function(e){
               if(e.lengthComputable){
-                var max = e.total;
-                var current = e.loaded;
-                var percentage = (current * 100)/max;
+                var max = e.total
+                var current = e.loaded
+                var percentage = (current * 100)/max
 
                 console.log("subiendo : " + parseInt(percentage))
 
@@ -565,7 +573,9 @@ router.beforeEach(function (to, from, next) {
   var token = $.parseJSON(localStorage.getItem("token")) || {}
 
   if(token.token){
-    //filters.refreshToken()
+    setTimeout(() => {
+      filters.refreshToken()  
+    },3000)
   }
 
   setTimeout(function() {

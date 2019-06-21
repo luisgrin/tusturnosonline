@@ -3,7 +3,8 @@
 use Dingo\Api\Routing\Router;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
+//use Illuminate\Support\Facade;
+use Illuminate\Http\Request;
 use App\Opcion;
 use App\Seccion;
 use App\Cliente;
@@ -47,6 +48,24 @@ $api->version('v1', function (Router $api) {
             $data = App\Cliente::where('user_id',Auth::user()->id)->get();
             return response()->json($data);
         });
+
+        $api->post('cliente', function(Request $request) {
+            $data = $request->all();
+            $data['user_id'] = Auth::user()->id;
+            $item = new App\Cliente($data);
+            if(!$item->save()) {
+                throw new HttpException(500);
+            }
+            return response()->json($item);
+        });
+
+        $api->post('cliente/{id}', function($id) {
+            $data = App\Cliente::find($id);
+            if(empty($data) OR !$data->save($request->all())){
+                throw new HttpException(500);
+            }
+            return response()->json($data);
+        });            
 
         $api->get('clientes/{id}', function($id) {
             $data = App\Cliente::where('user_id',Auth::user()->id)

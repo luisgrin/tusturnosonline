@@ -104,6 +104,7 @@ var filters = {
     },200)
   },
   refreshToken : function() {
+    console.log("refresh Token")
     $.server({
       url: '/api/auth/refresh',
       success: function(res) {

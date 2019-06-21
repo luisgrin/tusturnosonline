@@ -5,6 +5,7 @@ html,body {
 }
 
 h1, h2, h3, h4, h5, h6 {
+  font-family: 'Source Sans Pro', monospace;
 }
 
 a {
@@ -465,6 +466,7 @@ blockquote {
 }
 
 .is-half-bg1 .is-half-container {
+  background-color: #fff6;
   padding: 1rem;
   position: absolute;
   bottom: 0;
@@ -724,7 +726,7 @@ blockquote {
   margin-right: 0;
 }
 
-.is-cotizacionesrealizadas tr , .is-cotizacionesrealizadas td {
+.is-grid tr , .is-grid td {
   width:14%;
 }
 
@@ -772,8 +774,8 @@ blockquote {
   font-size: 25px;
   text-align: center;
   border-radius: 100%;
-  right: 1.25rem;
-  top: 1.25rem;
+  right: 19px;
+  top: 26px;
   z-index: 9;
 }
 
@@ -782,8 +784,8 @@ blockquote {
   pointer-events: none;
   -webkit-transition: .3s;
   transition: .3s;
-  right: 2.75rem;
-  top: 2.75rem;
+  right: 44px;
+  top: 44px;
   -webkit-transform: translate3d(50%, -50%, 0);
           transform: translate3d(50%, -50%, 0);
   -webkit-transform-origin: center center;
@@ -797,8 +799,6 @@ blockquote {
 }
 
 .menu-burger {
-  margin-top: 6px;
-  margin-left: 1px;
   color: #777878;
   -webkit-user-select: none;
   cursor: pointer;
@@ -837,11 +837,26 @@ blockquote {
 }
 
 .menu-items a:not(.button) {
-  font-size: 18px;
-  font-weight: 600;  
-  color: #444;
+  font-family: 'Source Sans Pro', monospace;
+  font-size: 20px;
+  font-weight: 400;  
+  color: #b9b9b9;
   display: block;
   text-transform: uppercase;
+  transition: color 0.5s linear;
+}
+
+.menu-items a:not(.button) span {
+  opacity: 0.25;
+  transition: opacity 0.5s linear;
+}
+
+.menu-items a:not(.button):hover {
+  color: black;
+}
+
+.menu-items a:not(.button):hover span {
+  opacity: 1
 }
 
 .menu-items hr {
@@ -1225,13 +1240,13 @@ blockquote {
   margin-bottom: 0;
 }
 
-.is-cotizacionesrealizadas .columns, 
+.is-grid .columns, 
 .is-weberbox .columns {
   padding: 0;
   margin: 0;
 }
 
-.is-cotizacionesrealizadas .column, 
+.is-grid .column, 
 .is-weberbox .column {
   padding: 0.25rem;
   margin: 0;
@@ -1952,6 +1967,10 @@ footer li:before {
   padding: 0.75rem;
   height: 120px;
   width: 120px;
+}
+
+.is-dial .item span {
+  text-shadow: 0 0 25px white;
 }
 
 @-webkit-keyframes opacity {
