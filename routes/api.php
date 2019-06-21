@@ -59,6 +59,13 @@ $api->version('v1', function (Router $api) {
             return response()->json($item);
         });
 
+        $api->delete('cliente/{id}', function($id) {
+            $deleted = App\Cliente::where('user_id', Auth::user()->id)
+                ->where('id',$id)
+                ->delete();
+            return response()->json($deleted);
+        });
+
         $api->post('cliente/{id}', function($id) {
             $data = App\Cliente::find($id);
             if(empty($data) OR !$data->save($request->all())){

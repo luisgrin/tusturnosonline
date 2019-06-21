@@ -181,12 +181,17 @@ const Clientes = {
         if(confirm("Una vez confirmado los datos no se podrán recuperar. ¿Estás seguro que deseas eliminar esta fórmula?")){
           this.$root.processing = true
           if(target.id){
-            this.$http.post('/v1/account/colord', {id:target.id}, {emulateJSON:true}).then(function(res){
-              if(res.data.status==='success'){
+            this.$http.delete('/api/cliente/' + target.id, {}, {emulateJSON:true}).then(function(res){
+              if(res.data){
                 this.$root.snackbar('success','Se ha eliminado correctamente la fórmula propia.')
-                this.$http.post('/v1/account/colors', {}, {emulateJSON:true}).then(function(res){
-                  this.data = res.data
-                })    
+                var data2 = []
+                this.data.forEach((item) => {
+                  if(item.id != target.id){
+                    data2.push(item)
+                  }
+                })       
+
+                this.data = data2         
               }
               this.$root.processing = false
             })
@@ -197,9 +202,10 @@ const Clientes = {
     add:function({type,target}){
       this.$root.processing = true
       this.$http.post('/api/cliente', this.item, {emulateJSON:true}).then(function(res){
-        if(res.data.status==='success'){
+        if(res.data.id){
           this.$root.snackbar('success','Se ha agregado correctamente el cliente.')
           this.data.push(res.data)
+          this.item = {}
         }
         this.$root.processing = false
       })
@@ -212,7 +218,7 @@ const Clientes = {
   },
   data: function() {
     return{
-      data:{},
+      data:[],
       item:{}
     }
   }
