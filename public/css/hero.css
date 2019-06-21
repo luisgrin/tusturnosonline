@@ -820,11 +820,11 @@ blockquote {
   position: fixed;
   /*font-weight: bold;*/
   width: 100%;
-  text-align: center;
+  text-align: left;
   opacity: 0;
   -webkit-transition: .4s;
   transition: .4s;
-  margin-top: 100px;
+  margin-top: 30px;
   margin-left: -2.25rem;
   -webkit-transform: translateY(-200%);
           transform: translateY(-200%);
@@ -837,12 +837,17 @@ blockquote {
 }
 
 .menu-items a:not(.button) {
-  font-size: 25px;
-  font-weight: 400;  
-  color: #777878;
+  font-size: 18px;
+  font-weight: 600;  
+  color: #444;
   display: block;
+  text-transform: uppercase;
 }
 
+.menu-items hr {
+  background-color: whitesmoke;
+  margin: 0.75rem 0;
+}
 .menu-items img{
   max-width: 15rem;
 }
@@ -860,9 +865,8 @@ blockquote {
 }
 .menu-items.fs div {
   opacity: 1;
-  margin-top: 75px;
+  margin-top: 10px;
 }
-
 
 /* spinner */
 

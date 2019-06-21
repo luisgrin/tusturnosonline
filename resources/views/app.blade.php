@@ -36,6 +36,16 @@
             <div class="menu-items">
               <a href="/"><img src="/img/logo.png"></a>
               <div class="menu-links">
+                <p v-if="$root.token().token">
+                  <a href="/account">🏁 Volver a Menú Principal</a>
+                  <a href="/clientes">👥 Clientes</a>
+                  <a href="/atributos">🔖 Atributos</a>
+                  <a href="/carga">📙 Carga</a>
+                  <hr>
+                  <a href="/edit">👤 Mi cuenta</a>
+                  <a href="/password">🔑 Cambiar contraseña</a>
+                  <hr>
+                </p>
                 <a v-for="navitem in $root.navitems" :href="navitem.slug" v-html="navitem.title"></a>
               </div>
               <a href="#" v-if="$root.token().token" @click="$root.endSessionWithConfirm()" class="button">Cerrar sesión</a>
@@ -183,7 +193,7 @@
         <div class="content hero-system is-dark fadeIn">
           <div class="columns is-vcentered">
             <div class="column has-text-centered">
-              <h3>Clientes</h3>
+              <h3>👥 Clientes</h3>
               <label class="is-size-5">
                 <span v-if="data.length">Estos son tus clientes</span>
                 <span v-if="!data.length">Todavía no tienes clientes</span>
@@ -215,7 +225,7 @@
         <div class="columns is-vcentered wp-action-space fadeIn">
           <div class="column">
             <div class="control has-text-centered">
-              <router-link class="button" to="/account">Volver a Menú Principal</router-link>
+              <router-link class="button" to="/account">🏁 Volver a Menú Principal</router-link>
             </div>
           </div>    
         </div>
@@ -252,7 +262,7 @@
         <div class="columns is-vcentered wp-action-space fadeIn">
           <div class="column">
             <div class="control has-text-centered">
-              <router-link class="button" to="/account">Volver a Menú Principal</router-link>
+              <router-link class="button" to="/account">🏁 Volver a Menú Principal</router-link>
               <button type="button" @click="$('#submitbutton').click()" class="button" :class="{'is-loading' : $root.loading}">Guardar valores</button>
             </div>
           </div>    
@@ -268,7 +278,7 @@
         <div class="content hero-system is-dark fadeIn">
           <div class="columns is-vcentered">
             <div class="column has-text-centered">
-              <h3>Atributos</h3>
+              <h3>🔖 Atributos</h3>
             </div>
           </div>
           <div class="has-text-centered is-cotizacionesrealizadas">
@@ -301,7 +311,7 @@
         <div class="columns is-vcentered wp-action-space fadeIn">
           <div class="column">
             <div class="control has-text-centered">
-              <router-link class="button" to="/account">Volver a Menú Principal</router-link>
+              <router-link class="button" to="/account">🏁 Volver a Menú Principal</router-link>
             </div>
           </div>    
         </div>
@@ -338,7 +348,7 @@
         <div class="columns is-vcentered wp-action-space fadeIn">
           <div class="column">
             <div class="control has-text-centered">
-              <router-link class="button" to="/account">Volver a Menú Principal</router-link>
+              <router-link class="button" to="/account">🏁 Volver a Menú Principal</router-link>
               <button type="button" @click="$('#submitbutton').click()" class="button" :class="{'is-loading' : $root.loading}">Guardar valores</button>
             </div>
           </div>    
@@ -351,7 +361,7 @@
     <div class="hero-body is-pin">
       <div class="container has-text-left">
         <div class="content fadeIn">
-          <h3 class="is-uppercase">Mi Cuenta</h3>
+          <h3 class="is-uppercase">👤 Mi Cuenta</h3>
           <p class="is-uppercase">Mantiene tus datos al día.</p>
           <div class="badge account-picture">
             <input hidden="true" id="uploads" type="file" @change="onFileChange" name="uploads[]" optional="true" accept="image/*">
@@ -446,10 +456,10 @@
             </div>
             <div class="field">
               <div class="control">
-                <a href="/edit" class="button is-text">Volver a Mi Cuenta</a>
+                <a href="/edit" class="button is-text">👤 Mi Cuenta</a>
               </div>
               <div class="control">
-                <a href="/account" class="button is-text">Volver a Menú Principal</a>
+                <a href="/account" class="button is-text">🏁 Volver a Menú Principal</a>
               </div>
             </div>
           </form>
@@ -511,7 +521,7 @@
                       <a href="/sign-up" class="button is-text">No tengo cuenta</a>
                     </div>
                     <div class="control">
-                      <a href="/recover-password" class="button is-text">Olvidé mi clave</a>
+                      <a href="/recover-password" class="button is-text">😱 Olvidé mi clave</a>
                     </div>
                   </div>
                 </form>
