@@ -324,7 +324,6 @@ const Atributo = {
   }
 }
 
-
 const Carga = {
   template: '#carga',
   name: 'carga',

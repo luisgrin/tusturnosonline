@@ -374,6 +374,36 @@
     </div>
   </script>
 
+  <script type="text/x-template" id="carga">
+    <div class="container is-padded-top">
+      <div class="content hero-system fadeIn">
+        <div class="columns has-text-centered">
+          <div class="column">
+            <div class="columns">
+              <div class="column">
+                <h4>Elegí equipo e ingresá los datos de tu fórmula</h4>
+              </div>
+              <div class="column">
+              </div>
+            </div>
+            <!--pre v-html="data.colorants"></pre-->
+            <form class="form is-dark is-condensed is-basededatos has-text-left" @submit.prevent="submit">
+              <input type="submit" id="submitbutton" hidden>
+              <div class="columns is-vcentered">
+                <div class="column is-4">
+                  <label class="label">Nombre</label>
+                </div>
+                <div class="column">
+                  <input v-model="cliente.nom" class="input" type="text" placeholder="Ingrese un nombre" required>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </script>
+
   <script type="text/x-template" id="editaccount">
     <div class="hero-body is-pin">
       <div class="container has-text-left">

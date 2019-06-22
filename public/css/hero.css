@@ -468,7 +468,7 @@ blockquote {
 
 .is-half-bg1 .is-half-container {
   background-color: #fff6;
-  padding: 1rem;
+  padding: 1.25rem 1.75rem;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -519,7 +519,7 @@ blockquote {
 .button.is-success {
   background-color: #c9c9c9;
   border-color: #2b2b2b;
-  color: #2b2b2b;
+  color: #b9b0b0;
 }
 
 .button:hover {
@@ -800,7 +800,7 @@ blockquote {
 }
 
 .menu-burger {
-  color: #777878;
+  color: whitesmoke;
   -webkit-user-select: none;
   cursor: pointer;
   -webkit-transition: .4s;
