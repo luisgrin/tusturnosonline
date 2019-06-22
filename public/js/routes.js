@@ -329,13 +329,85 @@ const Carga = {
   name: 'carga',
   mounted: function(){
     this.$root.message = ''
-    this.$root.loading = false
+    this.$root.loading = true
+    this.$http.get('/api/atributos', {}, {emulateJSON:true}).then(function(res){
+      this.$root.loading = false
+      this.atributos = res.data
+    })
   },
   methods: {
+    buscarCliente:function({type,target}){
+      clearInterval(this.clock)
+      this.clock = setTimeout(() => {
+        this.$root.message = ''
+        this.$root.processing = true
+        this.$http.get('/api/clientes/buscar/' + target.value, {}, {emulateJSON:true}).then(function(res){
+          this.$root.processing = false
+          this.suggests = res.data
+        })
+      },500)
+    },
+    setCliente: function(index){
+      if(this.suggests[index]){
+        this.$root.message = ''
+        this.$root.processing = true
+        this.$http.get('/api/clientes/atributos/' + this.suggests[index].id, {}, {emulateJSON:true}).then(function(res){
+          this.$root.processing = false
+          this.data = res.data
+          this.item = this.suggests[index]
+          this.selection = this.item
+          this.suggests = []
+        })
+      }
+    },
+    remove:function({type,target}){
+      if(!this.$root.processing){
+        if(confirm("Una vez confirmado los datos no se podrán recuperar. ¿Estás seguro que deseas eliminar esta fórmula?")){
+          this.$root.processing = true
+          if(target.id){
+            this.$http.delete('/api/atributos/' + target.id, {}, {emulateJSON:true}).then(function(res){
+              if(res.data){
+                this.$root.snackbar('success','El atributo ha sido eliminado de forma permanente.')
+                var data2 = []
+                this.data.forEach((item) => {
+                  if(item.id != target.id){
+                    data2.push(item)
+                  }
+                })       
+
+                this.data = data2         
+              }
+              this.$root.processing = false
+            })
+          }
+        }
+      }
+    },
+    add:function({type,target}){
+      this.$root.processing = true
+      this.$http.post('/api/atributo', this.item, {emulateJSON:true}).then(function(res){
+        if(res.data.id){
+          this.$root.snackbar('success','Se ha agregado correctamente el <b>atributo</b>.')
+          this.data.push(res.data)
+          this.item = {}
+        }
+        this.$root.processing = false
+      })
+    },
+    more:function({type,target}){
+      if(target.id){
+        this.$router.push('/color/' + target.id)
+      }
+    }
   },
   data: function() {
     return{
-      data:{}
+      clock:0,
+      attributos:[],
+      suggests:[],
+      selection:{},
+      data:[],
+      item:{}
     }
   }
 }

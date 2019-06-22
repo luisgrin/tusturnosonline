@@ -483,6 +483,10 @@ blockquote {
   text-shadow: 0 2px 2px #e3e3e3e6;
 }
 
+.is-carga > .column {
+  min-height: 40vh;
+}
+
 .button {
   border-radius: 30px;
   min-height: 40px;

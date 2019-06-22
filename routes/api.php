@@ -44,6 +44,8 @@ $api->version('v1', function (Router $api) {
             }
         ]);
 
+        /* cruds */
+
         $api->get('clientes', function() {
             $data = App\Cliente::where('user_id',Auth::user()->id)->get();
             return response()->json($data);
@@ -80,7 +82,9 @@ $api->version('v1', function (Router $api) {
                 ->delete();
             return response()->json($deleted);
         });
+
         /**/
+
         $api->get('atributos', function() {
             $data = App\Atributo::where('user_id',Auth::user()->id)->get();
             return response()->json($data);
@@ -102,6 +106,7 @@ $api->version('v1', function (Router $api) {
             }
             return response()->json($item);
         });
+
         $api->post('atributo/{id}', function($id) {
             $data = App\Atributo::find($id);
             if(empty($data) OR !$data->save($request->all())){
@@ -116,7 +121,35 @@ $api->version('v1', function (Router $api) {
                 ->delete();
             return response()->json($deleted);
         });
+
+
+        /* carga de datos */
+
+        $api->get('clientes/buscar/{keyword}', function($keyword) {
+            $data = App\Cliente::where('user_id', Auth::user()->id)
+                ->where('nom', 'like', '%' . $keyword . '%')
+                ->take(10)
+                ->get();
+            return response()->json($data);
+        });
+
+        $api->get('atributos/buscar/{keyword}', function($keyword) {
+            $data = App\Atributo::where('user_id', Auth::user()->id)
+                ->where('nom', 'like', '%' . $keyword . '%')
+                ->take(10)
+                ->get();
+            return response()->json($data);
+        });
+
+        $api->get('clientes/atributos/{id}', function($id) {
+            $data = App\ClienteAtributo::where('cliente_id', $id)
+                ->get();
+            return response()->json($data);
+        });
+
     });
+
+    /* métodos públicos que distribuyen datos públicos de la aplicación */
 
     $api->post('navitems', function() {
         $footer = App\Opcion::where('nom','APP_FOOTER')->first();
@@ -135,7 +168,6 @@ $api->version('v1', function (Router $api) {
         }
         return response()->json($section);
     });
-
 
     $api->get('hello', function() {
         return response()->json([
