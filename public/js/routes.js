@@ -374,7 +374,6 @@ const Carga = {
                     data2.push(item)
                   }
                 })       
-
                 this.data = data2         
               }
               this.$root.processing = false
