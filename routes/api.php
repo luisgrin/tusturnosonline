@@ -49,6 +49,13 @@ $api->version('v1', function (Router $api) {
             return response()->json($data);
         });
 
+        $api->get('clientes/{id}', function($id) {
+            $data = App\Cliente::where('user_id',Auth::user()->id)
+                ->where('id',$id)
+                ->first();    
+            return response()->json($data);
+        });
+
         $api->post('cliente', function(Request $request) {
             $data = $request->all();
             $data['user_id'] = Auth::user()->id;
@@ -59,28 +66,21 @@ $api->version('v1', function (Router $api) {
             return response()->json($item);
         });
 
-        $api->delete('cliente/{id}', function($id) {
-            $deleted = App\Cliente::where('user_id', Auth::user()->id)
-                ->where('id',$id)
-                ->delete();
-            return response()->json($deleted);
-        });
-
         $api->post('cliente/{id}', function($id) {
             $data = App\Cliente::find($id);
             if(empty($data) OR !$data->save($request->all())){
                 throw new HttpException(500);
             }
             return response()->json($data);
-        });            
+        });  
 
-        $api->get('clientes/{id}', function($id) {
-            $data = App\Cliente::where('user_id',Auth::user()->id)
+        $api->delete('cliente/{id}', function($id) {
+            $deleted = App\Cliente::where('user_id', Auth::user()->id)
                 ->where('id',$id)
-                ->first();    
-            return response()->json($data);
+                ->delete();
+            return response()->json($deleted);
         });
-
+        /**/
         $api->get('atributos', function() {
             $data = App\Atributo::where('user_id',Auth::user()->id)->get();
             return response()->json($data);
@@ -91,6 +91,30 @@ $api->version('v1', function (Router $api) {
                 ->where('id',$id)
                 ->first();    
             return response()->json($data);
+        });
+
+        $api->post('atributo', function(Request $request) {
+            $data = $request->all();
+            $data['user_id'] = Auth::user()->id;
+            $item = new App\Atributo($data);
+            if(!$item->save()) {
+                throw new HttpException(500);
+            }
+            return response()->json($item);
+        });
+        $api->post('atributo/{id}', function($id) {
+            $data = App\Atributo::find($id);
+            if(empty($data) OR !$data->save($request->all())){
+                throw new HttpException(500);
+            }
+            return response()->json($data);
+        });  
+
+        $api->delete('atributo/{id}', function($id) {
+            $deleted = App\Atributo::where('user_id', Auth::user()->id)
+                ->where('id',$id)
+                ->delete();
+            return response()->json($deleted);
         });
     });
 

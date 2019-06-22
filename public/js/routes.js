@@ -178,12 +178,12 @@ const Clientes = {
   methods: {
     remove:function({type,target}){
       if(!this.$root.processing){
-        if(confirm("Una vez confirmado los datos no se podrán recuperar. ¿Estás seguro que deseas eliminar esta fórmula?")){
+        if(confirm("¡Atención! La eliminación es permanente.\nUna vez confirmado los datos no se podrán recuperar. ¿Estás seguro que deseas eliminar este cliente?")){
           this.$root.processing = true
           if(target.id){
             this.$http.delete('/api/cliente/' + target.id, {}, {emulateJSON:true}).then(function(res){
               if(res.data){
-                this.$root.snackbar('success','Se ha eliminado correctamente la fórmula propia.')
+                this.$root.snackbar('success','El cliente ha sido eliminado de forma permanente.')
                 var data2 = []
                 this.data.forEach((item) => {
                   if(item.id != target.id){
@@ -249,15 +249,59 @@ const Atributos = {
   name: 'atributos',
   mounted: function(){
     this.$root.message = ''
-    this.$root.loading = false
+    this.$root.loading = true
+    this.$http.get('/api/atributos', {}, {emulateJSON:true}).then(function(res){
+      this.$root.loading = false
+      this.data = res.data
+    })
   },
   methods: {
+    remove:function({type,target}){
+      if(!this.$root.processing){
+        if(confirm("Una vez confirmado los datos no se podrán recuperar. ¿Estás seguro que deseas eliminar esta fórmula?")){
+          this.$root.processing = true
+          if(target.id){
+            this.$http.delete('/api/atributos/' + target.id, {}, {emulateJSON:true}).then(function(res){
+              if(res.data){
+                this.$root.snackbar('success','El atributo ha sido eliminado de forma permanente.')
+                var data2 = []
+                this.data.forEach((item) => {
+                  if(item.id != target.id){
+                    data2.push(item)
+                  }
+                })       
+
+                this.data = data2         
+              }
+              this.$root.processing = false
+            })
+          }
+        }
+      }
+    },
+    add:function({type,target}){
+      this.$root.processing = true
+      this.$http.post('/api/atributo', this.item, {emulateJSON:true}).then(function(res){
+        if(res.data.id){
+          this.$root.snackbar('success','Se ha agregado correctamente el <b>atributo</b>.')
+          this.data.push(res.data)
+          this.item = {}
+        }
+        this.$root.processing = false
+      })
+    },
+    more:function({type,target}){
+      if(target.id){
+        this.$router.push('/color/' + target.id)
+      }
+    }
   },
   data: function() {
     return{
-      data:{}
+      data:[],
+      item:{}
     }
-  }
+  }  
 }
 
 const Atributo = {
@@ -265,7 +309,11 @@ const Atributo = {
   name: 'atributo',
   mounted: function(){
     this.$root.message = ''
-    this.$root.loading = false
+    this.$root.loading = true
+    this.$http.get('/api/atributos/' + location.pathname.split('/').reverse()[0], {}, {emulateJSON:true}).then(function(res){
+      this.$root.loading = false
+      this.data = res.data
+    })
   },
   methods: {
   },

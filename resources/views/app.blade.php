@@ -188,6 +188,7 @@
       </div>
     </div>      
   </script>
+
   <script type="text/x-template" id="clientes">
     <div class="has-action-space">
       <div class="container is-padded-top">
@@ -280,7 +281,6 @@
     </div>
   </script>
 
-
   <script type="text/x-template" id="atributos">
     <div class="has-action-space">
       <div class="container is-padded-top">
@@ -288,6 +288,10 @@
           <div class="columns is-vcentered">
             <div class="column has-text-centered">
               <h3>🔖 CRM Atributo</h3>
+              <label class="is-size-5">
+                <span v-if="data.length">Estos son tus atributos</span>
+                <span v-if="!data.length">Todavía no tienes atributos. Crea uno ahora.</span>
+              </label>
             </div>
           </div>
           <div class="has-text-centered is-grid">
@@ -295,22 +299,25 @@
               <div class="columns is-hidden-mobile">
                 <div class="column has-text-centered">Nombre</div>
                 <div class="column"></div>
-                <div class="column"></div>
               </div>
-              <div class="columns" v-for="cliente in data">
+              <div class="columns" v-for="item in data">
                 <div class="column">
-                  <div class="input has-text-weight-semibold has-text-style-normal is-size-6" v-html="cliente.id"></div>
+                  <router-link :to="'/atributos/' + item.id">
+                  <div class="input is-size-6" v-html="item.nom"></div>
+                  </router-link>
                 </div>
                 <div class="column">
-                  <div class="input is-size-6" v-html="cliente.nom"></div>
+                  <a class="input has-text-centered has-background-danger has-text-style-normal" @click="remove" :id="item.id">Eliminar</a>
+                </div>
+                <hr class="is-hidden-tablet" />
+              </div>
+              <div class="columns">
+                <div class="column">
+                  <input v-model="item.nom" type="text" class="input is-size-6" />
                 </div>
                 <div class="column">
-                  <router-link :to="'/clientes/' + cliente.id" class="input has-text-centered has-text-style-normal">Ver mas</router-link>
+                  <a class="input has-text-centered has-background-success has-text-style-normal" @click="add">Agregar</a>
                 </div>
-                <div class="column">
-                  <a class="input has-text-centered has-background-danger has-text-style-normal" @click="remove" :id="cliente.id">Eliminar</a>
-                </div>
-                <hr class="is-hidden-tablet"></div>
               </div>
             </div>
           </div>
@@ -320,6 +327,7 @@
         <div class="columns is-vcentered wp-action-space fadeIn">
           <div class="column">
             <div class="control has-text-centered">
+              <router-link class="button" to="/account">👥 Volver a Menú Principal</router-link>
               <router-link class="button" to="/clientes">👥 Volver a CRM Cliente</router-link>
             </div>
           </div>    

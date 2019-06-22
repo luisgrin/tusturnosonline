@@ -780,7 +780,7 @@ blockquote {
 }
 
 .menu-bg {
-  background-color: white;
+  background-color: #ff0036;
   pointer-events: none;
   -webkit-transition: .3s;
   transition: .3s;
@@ -838,21 +838,26 @@ blockquote {
 
 .menu-items a:not(.button) {
   font-family: 'Source Sans Pro', monospace;
-  font-size: 20px;
-  font-weight: 400;  
-  color: #b9b9b9;
+  font-size: 18px;
+  line-height: 20px;
+  padding: 0.25rem 0;
+  font-weight: 600;  
+  /*color: #363636;*/
+  color: white;
   display: block;
   text-transform: uppercase;
   transition: color 0.5s linear;
 }
 
 .menu-items a:not(.button) span {
-  opacity: 0.25;
+  font-size: 20px;
+  opacity: 0.75;
+  line-height: 20px;
   transition: opacity 0.5s linear;
 }
 
 .menu-items a:not(.button):hover {
-  color: black;
+  color: yellow;
 }
 
 .menu-items a:not(.button):hover span {
@@ -860,8 +865,9 @@ blockquote {
 }
 
 .menu-items hr {
-  background-color: whitesmoke;
+  background-color: #e60000;
   margin: 0.75rem 0;
+  height: 1px;
 }
 .menu-items img{
   max-width: 15rem;
