@@ -377,7 +377,8 @@ blockquote {
 
 .hero-text h1 {
   color: white;
-  font-size: 22px;
+  font-size: 30px;
+  font-weight: bold;  
 }
 
 .hero-picture .title,

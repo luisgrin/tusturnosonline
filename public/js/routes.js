@@ -49,7 +49,7 @@ const SignIn = {
             this.$root.snackbar('success','La sesión fue iniciada correctamente. Redirigiendo...')
             setTimeout(function(){
               app.$router.push('/account')  
-            },3000)
+            },1000)
           } else {
             this.$root.snackbar('error',res.data.message)
           }
@@ -359,6 +359,14 @@ const Account = {
 
 const EditAccount = {
   template: '#editaccount',
+  mounted: function(){
+    this.$root.message = ''
+    this.$root.loading = true
+    this.$http.get('/api/auth/me', {}, {emulateJSON:true}).then(function(res){
+      this.$root.loading = false
+      this.data = res.data
+    })
+  },  
   methods : {
     onFileChange(e) {
       var files = e.target.files || e.dataTransfer.files;
@@ -651,12 +659,6 @@ router.beforeEach(function (to, from, next) {
 
 router.afterEach(function (to, from, next) {
   setTimeout(function() {
-    var ref = to.path.split('/').join('_')
-    var token = $.parseJSON(localStorage.getItem("token")) || {}
-    $('.navbar-brand').removeClass('is-active')
-    $('.navbar-end .navbar-tabs li').removeClass('is-active')
-    $('.navbar-end .navbar-tabs ul').find('a[href="' + to.path + '"]').parent().addClass('is-active')
-    $('.navbar-menu, .navbar-burger').removeClass('is-active')
     $('.ui-snackbar').removeClass('ui-snackbar--is-active').addClass('ui-snackbar--is-inactive')
     if(to.meta.customNavbar){
       $('.custom-navbar .title').html(to.meta.title)
@@ -699,6 +701,7 @@ const app = new Vue({ router: router,
     }
   },
   mounted: function() {
+    this.loading = false
   },
   created: function () {
     this.$http.post('/api/navitems', {}, {emulateJSON:true}).then(function(res){

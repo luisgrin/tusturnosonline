@@ -36,17 +36,17 @@
             <div class="menu-burger">🍔</div>
             <div class="menu-items">
               <a href="/"><img src="/img/logo.png"></a>
+              <div v-if="$root.token().token" class="menu-links">
+                <a href="/account"><span>🏁</span> Volver a Menú Principal</a>
+                <a href="/clientes"><span>👥</span> CRM Cliente</a>
+                <a href="/atributos"><span>🔖</span> CRM Atributo</a>
+                <a href="/carga"><span>📙</span> Carga</a>
+                <hr>
+                <a href="/edit"><span>👤</span> Mi cuenta</a>
+                <a href="/password"><span>🔑</span> Cambiar contraseña</a>
+                <hr>
+              </div>
               <div class="menu-links">
-                <p v-if="$root.token().token">
-                  <a href="/account"><span>🏁</span> Volver a Menú Principal</a>
-                  <a href="/clientes"><span>👥</span> CRM Cliente</a>
-                  <a href="/atributos"><span>🔖</span> CRM Atributo</a>
-                  <a href="/carga"><span>📙</span> Carga</a>
-                  <hr>
-                  <a href="/edit"><span>👤</span> Mi cuenta</a>
-                  <a href="/password"><span>🔑</span> Cambiar contraseña</a>
-                  <hr>
-                </p>
                 <a v-for="navitem in $root.navitems" :href="navitem.slug" v-html="navitem.title"></a>
               </div>
               <a href="#" v-if="$root.token().token" @click="$root.endSessionWithConfirm()" class="button">Cerrar sesión</a>
@@ -89,7 +89,7 @@
         </div>
       </nav>
       
-      <keep-alive exclude="quote,color,account,formularcolor,formularcolordatos,formularcolorcotizacion,basededatos,cotizacionesrealizadas,cargarformulaspropias,formulapropia,historico,contact">
+      <keep-alive exclude="account,clientes,cliente,atributos,atributo,contact">
         <router-view :key="$route.fullPath"></router-view>
       </keep-alive>
 
@@ -390,13 +390,7 @@
                 <div class="field">
                   <label class="label">Nombre</label>
                   <div class="control">
-                    <input v-model="data.first_name" class="input" type="text" placeholder="Nombre" :value="$root.token().first_name" autofocus required>
-                  </div>
-                </div>
-                <div class="field">
-                  <label class="label">Apellido</label>
-                  <div class="control">
-                    <input v-model="data.last_name" class="input" type="text" placeholder="Apellido" :value="$root.token().last_name" required>
+                    <input v-model="data.name" class="input" type="text" placeholder="Nombre"  autofocus required>
                   </div>
                 </div>
               </div>
@@ -405,7 +399,7 @@
             <div class="field">
               <label class="label">Email</label>
               <div class="control">
-                <input v-model="data.email" class="input" type="email" placeholder="micuenta@gmail.com" :value="$root.token().email" required>
+                <input v-model="data.email" class="input" type="email" placeholder="micuenta@gmail.com" required>
               </div>
               <p class="help is-danger is-hidden">El email no es válido</p>
             </div>
@@ -490,7 +484,7 @@
       <div class="container is-padded-top" v-if="$root.token().token">
         <div class="inline-background hero-system fadeIn">
           <div class="content hero fadeIn">
-            <h3>Ya tienes una sesión iniciada</h3> 
+            <h3>Tu sesión se encuentra activa.</h3> 
             <p>¿Qué deseas hacer?</p>
             <div class="columns has-text-centered is-vcentered">
               <div class="column is-hidden-mobile"></div>
@@ -561,7 +555,7 @@
       <div class="container is-padded-top" v-if="$root.token().token">
         <div class="inline-background hero-system fadeIn">
           <div class="content hero fadeIn">
-            <h3>Ya tienes una sesión iniciada</h3> 
+            <h3>Ya tienes una sesión activa</h3> 
             <p>¿Qué deseas hacer?</p>
             <div class="columns has-text-centered is-vcentered">
               <div class="column is-hidden-mobile"></div>
