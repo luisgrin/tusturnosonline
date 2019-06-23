@@ -373,7 +373,7 @@ const Carga = {
         if(confirm("Una vez confirmado los datos no se podrán recuperar. ¿Estás seguro que deseas eliminar esta fórmula?")){
           this.$root.processing = true
           if(target.id){
-            this.$http.delete('/api/atributos/' + target.id, {}, {emulateJSON:true}).then(function(res){
+            this.$http.delete('/api/clienteatributo/' + target.id, {}, {emulateJSON:true}).then(function(res){
               if(res.data){
                 this.$root.snackbar('success','El atributo ha sido eliminado de forma permanente.')
                 var data2 = []
@@ -400,7 +400,24 @@ const Carga = {
         }
         this.$root.processing = false
       })
-    }
+    },
+    submit : function({type, target}){
+      this.$root.processing = true
+      this.$http.post('/api/clienteatributo', {cliente_id:this.item.id,crm_atributo_id:this.selection.atributo_id,valor:this.selection.valor}, {emulateJSON:true}).then(function(res){
+        this.data.push({
+          atributo:{
+            nom:$('#atributo').find(':selected').text()
+          },
+          valor:res.data.valor,
+          id:res.data.id
+        })
+        this.$root.processing = false
+        this.$root.snackbar('success','Se agregó atributo a cliente')
+      }, function(error){
+        this.$root.snackbar('error',error.statusText)
+      })
+      return false
+    }    
   },
   data: function() {
     return{

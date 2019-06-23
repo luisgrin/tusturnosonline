@@ -150,6 +150,20 @@ $api->version('v1', function (Router $api) {
             return response()->json($data);
         });
 
+        $api->post('clienteatributo', function(Request $request) {
+            $data = $request->all();
+            $item = new App\ClienteAtributo($data);
+            if(!$item->save()) {
+                throw new HttpException(500);
+            }
+            return response()->json($item);
+        });
+
+        $api->delete('clienteatributo/{id}', function($id) {
+            $deleted = App\ClienteAtributo::where('id',$id)
+                ->delete();
+            return response()->json($deleted);
+        });
     });
 
     /* métodos públicos que distribuyen datos públicos de la aplicación */

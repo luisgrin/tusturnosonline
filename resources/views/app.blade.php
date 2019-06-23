@@ -37,7 +37,7 @@
             <div class="menu-items">
               <a href="/"><img src="/img/logo.png"></a>
               <div v-if="$root.token().token" class="menu-links">
-                <a href="/account"><span>🏁</span> Volver a Menú Principal</a>
+                <a href="/account"><span>🏁</span> 🏁 Volver a Menú Principal</a>
                 <a href="/clientes"><span>👥</span> CRM Cliente</a>
                 <a href="/atributos"><span>🔖</span> CRM Atributo</a>
                 <a href="/carga"><span>📙</span> Carga</a>
@@ -203,32 +203,30 @@
             </div>
           </div>
           <div class="has-text-centered is-grid">
-            <div v-if="data.length">
-              <div class="columns is-hidden-mobile">
-                <div class="column has-text-centered">Nombre</div>
-                <div class="column"></div>
+            <div class="columns is-hidden-mobile">
+              <div class="column has-text-centered">Nombre</div>
+              <div class="column"></div>
+            </div>
+            <div class="columns" v-for="item in data">
+              <div class="column">
+                <router-link :to="'/clientes/' + item.id">
+                <div class="input" v-html="item.nom"></div>
+                </router-link>
               </div>
-              <div class="columns" v-for="item in data">
-                <div class="column">
-                  <router-link :to="'/clientes/' + item.id">
-                  <div class="input" v-html="item.nom"></div>
-                  </router-link>
-                </div>
-                <div class="column">
-                  <router-link :to="'/carga#'+item.id" class="input has-text-centered has-background-success has-text-style-normal">Ver mas</a>
-                </div>
-                <div class="column">
-                  <a class="input has-text-centered has-background-danger has-text-style-normal" @click="remove" :id="item.id">Eliminar</a>
-                </div>
-                <hr class="is-hidden-tablet" />
+              <div class="column">
+                <router-link :to="'/carga#'+item.id" class="input has-text-centered has-background-success has-text-style-normal">Ver mas</a>
               </div>
-              <div class="columns">
-                <div class="column">
-                  <input v-model="item.nom" type="text" class="input" />
-                </div>
-                <div class="column">
-                  <a class="input has-text-centered has-background-success has-text-style-normal" @click="add">Agregar</a>
-                </div>
+              <div class="column">
+                <a class="input has-text-centered has-background-danger has-text-style-normal" @click="remove" :id="item.id">Eliminar</a>
+              </div>
+              <hr class="is-hidden-tablet" />
+            </div>
+            <div class="columns">
+              <div class="column">
+                <input v-model="item.nom" type="text" class="input" />
+              </div>
+              <div class="column">
+                <a class="input has-text-centered has-background-success has-text-style-normal" @click="add">Agregar</a>
               </div>
             </div>
           </div>
@@ -239,6 +237,7 @@
           <div class="column">
             <div class="control has-text-centered">
               <router-link class="button" to="/account">🏁 Volver a Menú Principal</router-link>
+              <router-link class="button" to="/atributos">🔖 CRM Atributo</router-link>
             </div>
           </div>    
         </div>
@@ -298,29 +297,27 @@
             </div>
           </div>
           <div class="has-text-centered is-grid">
-            <div v-if="data.length">
-              <div class="columns is-hidden-mobile">
-                <div class="column has-text-centered">Nombre</div>
-                <div class="column"></div>
+            <div class="columns is-hidden-mobile">
+              <div class="column has-text-centered">Nombre</div>
+              <div class="column"></div>
+            </div>
+            <div class="columns" v-for="item in data">
+              <div class="column">
+                <router-link :to="'/atributos/' + item.id">
+                <div class="input" v-html="item.nom"></div>
+                </router-link>
               </div>
-              <div class="columns" v-for="item in data">
-                <div class="column">
-                  <router-link :to="'/atributos/' + item.id">
-                  <div class="input" v-html="item.nom"></div>
-                  </router-link>
-                </div>
-                <div class="column">
-                  <a class="input has-text-centered has-background-danger has-text-style-normal" @click="remove" :id="item.id">Eliminar</a>
-                </div>
-                <hr class="is-hidden-tablet" />
+              <div class="column">
+                <a class="input has-text-centered has-background-danger has-text-style-normal" @click="remove" :id="item.id">Eliminar</a>
               </div>
-              <div class="columns">
-                <div class="column">
-                  <input v-model="item.nom" type="text" class="input" />
-                </div>
-                <div class="column">
-                  <a class="input has-text-centered has-background-success has-text-style-normal" @click="add">Agregar</a>
-                </div>
+              <hr class="is-hidden-tablet" />
+            </div>
+            <div class="columns">
+              <div class="column">
+                <input v-model="item.nom" type="text" class="input" />
+              </div>
+              <div class="column">
+                <a class="input has-text-centered has-background-success has-text-style-normal" @click="add">Agregar</a>
               </div>
             </div>
           </div>
@@ -330,8 +327,8 @@
         <div class="columns is-vcentered wp-action-space fadeIn">
           <div class="column">
             <div class="control has-text-centered">
-              <router-link class="button" to="/account">👥 Volver a Menú Principal</router-link>
-              <router-link class="button" to="/clientes">👥 Volver a CRM Cliente</router-link>
+              <router-link class="button" to="/account">🏁 Volver a Menú Principal</router-link>
+              <router-link class="button" to="/clientes">👥 CRM Cliente</router-link>
             </div>
           </div>    
         </div>
@@ -356,7 +353,7 @@
                     <label class="label">Nombre</label>
                   </div>
                   <div class="column">
-                    <input v-model="cliente.nom" class="input" type="text" placeholder="Ingrese un nombre" required>
+                    <input v-model="cliente.nom" class="input" type="text" placeholder="Ingrese un atributo" required>
                   </div>
                 </div>
               </form>
@@ -386,7 +383,7 @@
               <input type="submit" id="submitbutton" hidden>
               <div class="columns is-vcentered">
                 <div class="column">
-                  <input v-model="selection.nom" @keyup="buscarCliente" class="input" :class="{'is-loading' : $root.processing}" type="text" placeholder="Ingrese un nombre" required>
+                  <input v-model="selection.nom" @keyup="buscarCliente" class="input" :class="{'is-loading' : $root.processing}" type="text" placeholder="Ingrese un cliente" required>
                   <div v-show="suggests.length" class="list is-hoverable">
                     <a class="list-item" v-for="(item,index) in suggests" @click="more(item)">
                       <span v-html="item.nom"></span>
@@ -397,11 +394,11 @@
             </form>
           </div>
           <div class="column is-8">
-            <form v-show="Object.keys(item).length" class="form is-dark has-text-left" @submit.prevent="submit">
+            <form v-show="item.id" class="form is-dark has-text-left" @submit.prevent="submit">
               <input type="submit" id="submitbutton" hidden>
               <div class="columns is-vcentered">
                 <div class="column">
-                  <select v-model="selection.atributo_id" class="input select">
+                  <select v-model="selection.atributo_id" class="input select" id="atributo">
                     <option value="">Seleccione atributo</option>
                     <option v-for="item in $root.atributos" :value="item.id" v-html="item.nom"></option>
                   </select>
@@ -416,7 +413,7 @@
             </form>
           </div>
         </div>
-        <div v-show="Object.keys(item).length" class=" has-text-centered is-dark is-grid">
+        <div v-show="item.id" class=" has-text-centered is-dark is-grid">
           <div class="columns is-centered is-vcentered" v-for="item in data">
             <div class="column">
               <div class="input" v-html="item.atributo.nom"></div>
