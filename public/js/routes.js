@@ -328,13 +328,19 @@ const Carga = {
   template: '#carga',
   name: 'carga',
   mounted: function(){
-    this.$root.message = ''
-    this.$root.loading = true
-    this.$http.get('/api/atributos', {}, {emulateJSON:true}).then(function(res){
-      this.$root.loading = false
-      this.atributos = res.data
-    })
-  },
+    var id = location.hash.replace('#','')
+    if(!this.$root.atributos.length){
+      this.$root.message = ''
+      this.$root.loading = true
+      this.$http.get('/api/atributos', {}, {emulateJSON:true}).then(function(res){
+        this.$root.loading = false
+        this.$root.atributos = res.data
+      })
+    }
+    if(!isNaN(id)){
+      this.checkItem(id)
+    }
+  },  
   methods: {
     buscarCliente:function({type,target}){
       clearInterval(this.clock)
@@ -347,18 +353,20 @@ const Carga = {
         })
       },500)
     },
-    setCliente: function(index){
-      if(this.suggests[index]){
-        this.$root.message = ''
-        this.$root.processing = true
-        this.$http.get('/api/clientes/atributos/' + this.suggests[index].id, {}, {emulateJSON:true}).then(function(res){
-          this.$root.processing = false
-          this.data = res.data
-          this.item = this.suggests[index]
-          this.selection = this.item
-          this.suggests = []
-        })
-      }
+    more:function(item){
+      location.hash = item.id
+      this.item = item
+      //this.$router.push('/carga/'+id)
+    },
+    checkItem: function(id){
+      this.$root.processing = true
+      this.$http.get('/api/clientes/atributos/' + id, {}, {emulateJSON:true}).then(function(res){
+        this.$root.processing = false
+        this.data = res.data.atributos
+        this.item = res.data
+        this.selection = res.data
+        this.suggests = []
+      })
     },
     remove:function({type,target}){
       if(!this.$root.processing){
@@ -373,8 +381,8 @@ const Carga = {
                   if(item.id != target.id){
                     data2.push(item)
                   }
-                })       
-                this.data = data2         
+                })
+                this.data = data2
               }
               this.$root.processing = false
             })
@@ -392,11 +400,6 @@ const Carga = {
         }
         this.$root.processing = false
       })
-    },
-    more:function({type,target}){
-      if(target.id){
-        this.$router.push('/color/' + target.id)
-      }
     }
   },
   data: function() {
@@ -406,7 +409,8 @@ const Carga = {
       suggests:[],
       selection:{},
       data:[],
-      item:{}
+      item:{},
+      hash:''
     }
   }
 }
@@ -761,14 +765,10 @@ const app = new Vue({ router: router,
     loading: true,
     processing:false,
     navitems:{},
+    atributos:[],
     messageType:'default',
     message:'',
     filters:filters
-  },
-  watch: {
-    '$route' (to, from) {
-      this.checkFlags(to)
-    }
   },
   mounted: function() {
     this.loading = false

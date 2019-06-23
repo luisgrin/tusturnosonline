@@ -142,7 +142,10 @@ $api->version('v1', function (Router $api) {
         });
 
         $api->get('clientes/atributos/{id}', function($id) {
-            $data = App\ClienteAtributo::where('cliente_id', $id)
+            $data = App\Cliente::where('user_id',Auth::user()->id)
+                ->where('id',$id)
+                ->first();    
+            $data->atributos = App\ClienteAtributo::where('cliente_id', $id)
                 ->get();
             return response()->json($data);
         });

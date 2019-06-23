@@ -89,7 +89,7 @@
         </div>
       </nav>
       
-      <keep-alive exclude="account,clientes,cliente,atributos,carga,atributo,contact">
+      <keep-alive exclude="account,clientes,cliente,atributos,atributo,contact,carga">
         <router-view :key="$route.fullPath"></router-view>
       </keep-alive>
 
@@ -213,6 +213,9 @@
                   <router-link :to="'/clientes/' + item.id">
                   <div class="input" v-html="item.nom"></div>
                   </router-link>
+                </div>
+                <div class="column">
+                  <router-link :to="'/carga#'+item.id" class="input has-text-centered has-background-success has-text-style-normal">Ver mas</a>
                 </div>
                 <div class="column">
                   <a class="input has-text-centered has-background-danger has-text-style-normal" @click="remove" :id="item.id">Eliminar</a>
@@ -378,15 +381,14 @@
     <div class="container is-padded-top">
       <div class="content hero-system fadeIn">
         <div class="columns is-carga is-centered is-vcentered">
-          <div class="column">
-            <h4>Cliente</h4>
+          <div class="column is-4">
             <form class="form is-dark has-text-left">
               <input type="submit" id="submitbutton" hidden>
               <div class="columns is-vcentered">
                 <div class="column">
                   <input v-model="selection.nom" @keyup="buscarCliente" class="input" :class="{'is-loading' : $root.processing}" type="text" placeholder="Ingrese un nombre" required>
                   <div v-show="suggests.length" class="list is-hoverable">
-                    <a class="list-item" v-for="(item,index) in suggests" @click="setCliente(index)">
+                    <a class="list-item" v-for="(item,index) in suggests" @click="more(item)">
                       <span v-html="item.nom"></span>
                     </a>
                   </div>
@@ -394,50 +396,38 @@
               </div>
             </form>
           </div>
-          <div class="column">
-            <div v-show="Object.keys(item).length">
-              <h4>Nuevo atributo</h4>
-              <form class="form is-dark is-condensed is-basededatos has-text-left" @submit.prevent="submit">
-                <input type="submit" id="submitbutton" hidden>
-                <div class="columns is-vcentered">
-                  <div class="column">
-                    <select v-model="selection.atributo_id" class="input select">
-                      <option value="">Seleccione atributo</option>
-                      <option v-for="item in atributos" :value="item.id" v-html="item.nom"></option>
-                    </select>
-                  </div>
-                  <div class="column">
-                    <input v-model="selection.valor" class="input" type="text" placeholder="Ingrese un valor" required>
-                  </div>
+          <div class="column is-8">
+            <form v-show="Object.keys(item).length" class="form is-dark has-text-left" @submit.prevent="submit">
+              <input type="submit" id="submitbutton" hidden>
+              <div class="columns is-vcentered">
+                <div class="column">
+                  <select v-model="selection.atributo_id" class="input select">
+                    <option value="">Seleccione atributo</option>
+                    <option v-for="item in $root.atributos" :value="item.id" v-html="item.nom"></option>
+                  </select>
                 </div>
-                <div class="columns">
-                  <div class="column">
-                    <button type="submit" class="button is-success is-fullwidth" :class="{'is-loading' : $root.processing}">Agregar</button>
-                  </div>
+                <div class="column">
+                  <input v-model="selection.valor" class="input" type="text" placeholder="Ingrese un valor" required>
                 </div>
-              </form>
-            </div>
-          </div>
-        </div>
-        <div class="columns is-centered is-vcentered">
-          <div v-show="Object.keys(item).length">
-            <h4>Atributos</h4>
-            <div class="has-text-centered is-dark is-grid">
-              <div v-if="data.length">
-                <div class="columns" v-for="item in data">
-                  <div class="column">
-                    <div class="input" v-html="item.atributo.nom"></div>
-                  </div>
-                  <div class="column">
-                    <div class="input" v-html="item.valor"></div>
-                  </div>
-                  <div class="column">
-                    <a class="input has-text-centered has-background-danger has-text-style-normal" @click="remove" :id="item.id">Eliminar</a>
-                  </div>
-                  <hr class="is-hidden-tablet" />
+                <div class="column">
+                  <button type="submit" class="input has-background-success has-text-centered" :class="{'is-loading' : $root.processing}">Agregar</button>
                 </div>
               </div>
+            </form>
+          </div>
+        </div>
+        <div v-show="Object.keys(item).length" class=" has-text-centered is-dark is-grid">
+          <div class="columns is-centered is-vcentered" v-for="item in data">
+            <div class="column">
+              <div class="input" v-html="item.atributo.nom"></div>
             </div>
+            <div class="column">
+              <div class="input" v-html="item.valor"></div>
+            </div>
+            <div class="column">
+              <a class="input has-text-centered has-background-danger has-text-style-normal" @click="remove" :id="item.id">Eliminar</a>
+            </div>
+            <hr class="is-hidden-tablet" />
           </div>
         </div>
       </div>

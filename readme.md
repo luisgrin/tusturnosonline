@@ -15,13 +15,20 @@ What I made is really simple: an integration of these three packages and a setup
 ## Installation
 
 1. run `composer install`;
-2. run `cat .env.example > .env' and edit your environment variables;
+2. run ` ' and edit your environment variables;
 
-Once the project creation procedure will be completed and the database access properly adjusted, run the `php artisan migrate` command to install the required tables.
+Once the project creation procedure will be completed and the database access properly adjusted, run the 
+
+`php artisan migrate` command to install the required tables.
 
 Then seed the options and sections tables
 `cat database/seed_opciones.sql | mysql -u root -p tusturnosonline`
 `cat database/seed_secciones.sql | mysql -u root -p tusturnosonline`
+
+
+`php artisan key:generate`
+
+`php artisan serve`
 
 ## Usage
 
