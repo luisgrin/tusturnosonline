@@ -483,6 +483,11 @@ blockquote {
   text-shadow: 0 2px 2px #e3e3e3e6;
 }
 
+.is-carga {
+  box-shadow: 0 10px 10px #a4a4a4;
+  border-radius: 7px;
+  padding: 0.5rem 0.25rem;
+}
 .is-carga > .column {
   /*min-height: 40vh;*/
 }
