@@ -37,7 +37,7 @@
             <div class="menu-items">
               <a href="/"><img src="/img/logo.png"></a>
               <div v-if="$root.token().token" class="menu-links">
-                <a href="/account"><span>🏁</span> 🏁 Volver a Menú Principal</a>
+                <a href="/account"><span>🏁</span> Menú Principal</a>
                 <a href="/clientes"><span>👥</span> CRM Cliente</a>
                 <a href="/atributos"><span>🔖</span> CRM Atributo</a>
                 <a href="/carga"><span>📙</span> Carga</a>
@@ -208,16 +208,16 @@
               <div class="column"></div>
             </div>
             <div class="columns" v-for="item in data">
-              <div class="column">
+              <div class="column is-6">
                 <router-link :to="'/clientes/' + item.id">
-                <div class="input" v-html="item.nom"></div>
+                  <div class="input" v-html="item.nom"></div>
                 </router-link>
               </div>
               <div class="column">
-                <router-link :to="'/carga#'+item.id" class="input has-text-centered has-background-success has-text-style-normal">Ver mas</a>
+                <router-link :to="'/carga#'+item.id" class="input has-text-centered has-text-white has-background-success has-text-style-normal">Ver mas</a>
               </div>
               <div class="column">
-                <a class="input has-text-centered has-background-danger has-text-style-normal" @click="remove" :id="item.id">Eliminar</a>
+                <a class="input has-text-centered has-background-danger has-text-white has-text-style-normal" @click="remove" :id="item.id">Eliminar</a>
               </div>
               <hr class="is-hidden-tablet" />
             </div>
@@ -226,7 +226,7 @@
                 <input v-model="item.nom" type="text" class="input" />
               </div>
               <div class="column">
-                <a class="input has-text-centered has-background-success has-text-style-normal" @click="add">Agregar</a>
+                <a class="input has-text-centered has-background-success has-text-white has-text-style-normal" @click="add">Agregar</a>
               </div>
             </div>
           </div>
@@ -236,7 +236,7 @@
         <div class="columns is-vcentered wp-action-space fadeIn">
           <div class="column">
             <div class="control has-text-centered">
-              <router-link class="button" to="/account">🏁 Volver a Menú Principal</router-link>
+              <router-link class="button" to="/account">🏁 Menú Principal</router-link>
               <router-link class="button" to="/atributos">🔖 CRM Atributo</router-link>
             </div>
           </div>    
@@ -274,7 +274,7 @@
         <div class="columns is-vcentered wp-action-space fadeIn">
           <div class="column">
             <div class="control has-text-centered">
-              <router-link class="button" to="/account">🏁 Volver a Menú Principal</router-link>
+              <router-link class="button" to="/account">🏁 Menú Principal</router-link>
               <button type="button" @click="$('#submitbutton').click()" class="button" :class="{'is-loading' : $root.loading}">💾 Guardar valores</button>
             </div>
           </div>    
@@ -302,22 +302,30 @@
               <div class="column"></div>
             </div>
             <div class="columns" v-for="item in data">
-              <div class="column">
+              <div class="column is-6">
                 <router-link :to="'/atributos/' + item.id">
-                <div class="input" v-html="item.nom"></div>
+                  <div class="input" v-html="item.nom"></div>
                 </router-link>
               </div>
               <div class="column">
-                <a class="input has-text-centered has-background-danger has-text-style-normal" @click="remove" :id="item.id">Eliminar</a>
+                <div class="input" v-html="item.tipo"></div>
+              </div>
+              <div class="column">
+                <a class="input has-text-centered has-background-danger has-text-white has-text-style-normal" @click="remove" :id="item.id">Eliminar</a>
               </div>
               <hr class="is-hidden-tablet" />
             </div>
             <div class="columns">
-              <div class="column">
+              <div class="column is-6">
                 <input v-model="item.nom" type="text" class="input" />
               </div>
               <div class="column">
-                <a class="input has-text-centered has-background-success has-text-style-normal" @click="add">Agregar</a>
+                <select v-model="item.tipo" class="input select">
+                  <option v-for="item in $root.tipodatos" :value="item.nom" v-html="item.val"></option>
+                </select>
+              </div>
+              <div class="column">
+                <a class="input has-text-centered has-background-success has-text-white has-text-style-normal" @click="add">Agregar</a>
               </div>
             </div>
           </div>
@@ -327,7 +335,7 @@
         <div class="columns is-vcentered wp-action-space fadeIn">
           <div class="column">
             <div class="control has-text-centered">
-              <router-link class="button" to="/account">🏁 Volver a Menú Principal</router-link>
+              <router-link class="button" to="/account">🏁 Menú Principal</router-link>
               <router-link class="button" to="/clientes">👥 CRM Cliente</router-link>
             </div>
           </div>    
@@ -365,7 +373,7 @@
         <div class="columns is-vcentered wp-action-space fadeIn">
           <div class="column">
             <div class="control has-text-centered">
-              <router-link class="button" to="/account">🏁 Volver a Menú Principal</router-link>
+              <router-link class="button" to="/account">🏁 Menú Principal</router-link>
               <button type="button" @click="$('#submitbutton').click()" class="button" :class="{'is-loading' : $root.loading}">💾 Guardar valores</button>
             </div>
           </div>    
@@ -407,7 +415,7 @@
                   <input v-model="selection.valor" class="input" type="text" placeholder="Ingrese un valor" required>
                 </div>
                 <div class="column">
-                  <button type="submit" class="input has-background-success has-text-centered" :class="{'is-loading' : $root.processing}">Agregar</button>
+                  <button type="submit" class="input has-background-success has-text-white has-text-centered" :class="{'is-loading' : $root.processing}">Agregar</button>
                 </div>
               </div>
             </form>
@@ -422,7 +430,7 @@
               <div class="input" v-html="item.valor"></div>
             </div>
             <div class="column">
-              <a class="input has-text-centered has-background-danger has-text-style-normal" @click="remove" :id="item.id">Eliminar</a>
+              <a class="input has-text-centered has-text-white has-background-danger has-text-style-normal" @click="remove" :id="item.id">Eliminar</a>
             </div>
             <hr class="is-hidden-tablet" />
           </div>
@@ -485,7 +493,7 @@
                 <a href="/recover-password" class="button is-text">😱 Olvidé mi clave</a>
               </div>
               <div class="control">
-                <a href="/account" class="button is-text">🏁 Volver a Menú Principal</a>
+                <a href="/account" class="button is-text">🏁 Menú Principal</a>
               </div>
             </div>
           </form>
@@ -527,7 +535,7 @@
                 <a href="/edit" class="button is-text">👤 Mi Cuenta</a>
               </div>
               <div class="control">
-                <a href="/account" class="button is-text">🏁 Volver a Menú Principal</a>
+                <a href="/account" class="button is-text">🏁 Menú Principal</a>
               </div>
             </div>
           </form>

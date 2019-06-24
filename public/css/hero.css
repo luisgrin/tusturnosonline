@@ -35,9 +35,11 @@ blockquote {
   border-color: #08f36d!important;
 }
 
+/*
 .button:focus, .button.is-focused {
   color: #fff;
-}
+}*/
+
 
 .tosprompt {
   opacity: 0;
@@ -65,7 +67,7 @@ blockquote {
   border: 2px solid #dce4ec;
   padding: 10px 15px;
   border-radius: 4px;
-  color: #2c3e50;
+  color: #674a04;
   height: 45px;
 }
 
@@ -484,9 +486,10 @@ blockquote {
 }
 
 .is-carga {
-  box-shadow: 0 10px 10px #a4a4a4;
+  box-shadow: 0 1px 4px #a4a4a4;
   border-radius: 7px;
   padding: 0.5rem 0.25rem;
+  padding-top: 0.45rem;
 }
 .is-carga > .column {
   /*min-height: 40vh;*/
@@ -660,12 +663,21 @@ blockquote {
 .is-dark .input {
   border:none;
   color: white;
-  background-color: #5f4c3e;
+  background-color: #e6e3e1;
+  color: #674a04;
   transition: background-color .3s ease-in;
 }
 
+.is-dark .input span {
+  color: #674a04;
+}
+
 .is-dark .input:focus {
-  background-color: #3f342c;
+  background-color: #ffec01;
+}
+
+.is-dark .input:focus span {
+  color: #674a04;
 }
 
 .is-col-left {
@@ -701,9 +713,6 @@ blockquote {
 }
 
 .is-dark .select {
-  color: white!important;
-  background-color: #5f4c3e;
-  padding-right: 2rem;
   width: 100%;
   box-shadow: inset 0 -2px 2px rgba(0,0,0,0.25);
   -webkit-appearance: none; 
@@ -745,37 +754,32 @@ blockquote {
 }
 
 .is-dark ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color:    whitesmoke;
+    color:    #674a04;
 }
 .is-dark :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-   color:    whitesmoke;
+   color:    #674a03;
    opacity:  1;
 }
 .is-dark ::-moz-placeholder { /* Mozilla Firefox 19+ */
-   color:    whitesmoke;
+   color:    #674a04;
    opacity:  1;
 }
 .is-dark :-ms-input-placeholder { /* Internet Explorer 10-11 */
-   color:    whitesmoke;
+   color:    #674a04;
 }
 .is-dark ::-ms-input-placeholder { /* Microsoft Edge */
-   color:    whitesmoke;
+   color:    #674a04;
 }
 
 .is-dark ::placeholder { /* Most modern browsers support this now. */
-   color:    whitesmoke;
+   color:    #674a04;
 }
 
 .input:focus, .select:focus, .textarea:focus {
   box-shadow: none;
-  /*
-  color: white!important;
-  background-color: #c67d48;*/
 }
 
-
 /* menu */
-
 
 .menu, .menu-bg, .menu-burger {
   position: absolute;

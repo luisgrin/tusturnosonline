@@ -261,7 +261,7 @@ const Atributos = {
         if(confirm("Una vez confirmado los datos no se podrán recuperar. ¿Estás seguro que deseas eliminar esta fórmula?")){
           this.$root.processing = true
           if(target.id){
-            this.$http.delete('/api/atributos/' + target.id, {}, {emulateJSON:true}).then(function(res){
+            this.$http.delete('/api/atributo/' + target.id, {}, {emulateJSON:true}).then(function(res){
               if(res.data){
                 this.$root.snackbar('success','El atributo ha sido eliminado de forma permanente.')
                 var data2 = []
@@ -280,6 +280,9 @@ const Atributos = {
       }
     },
     add:function({type,target}){
+      if(!this.item.tipo){
+        return this.$root.snackbar('error','Ingrese tipo de dato')
+      }
       this.$root.processing = true
       this.$http.post('/api/atributo', this.item, {emulateJSON:true}).then(function(res){
         if(res.data.id){
@@ -785,6 +788,22 @@ const app = new Vue({ router: router,
     atributos:[],
     messageType:'default',
     message:'',
+    tipodatos:[{
+      nom:'entero',
+      val:'Entero'
+    },{
+      nom:'decimal',
+      val:'Decimal'
+    },{
+      nom:'fecha',
+      val:'Fecha'
+    },{
+      nom:'direccion_google',
+      val:'Dirección'
+    },{
+      nom:'caracter',
+      val:'Caracter'
+    }],
     filters:filters
   },
   mounted: function() {

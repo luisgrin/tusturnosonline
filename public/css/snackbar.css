@@ -95,7 +95,7 @@
 .ui-snackbar__action,
 .ui-snackbar__message {
  display:table-cell;
- font-size:15px;
+ font-size:16px;
 }
 .ui-snackbar__action {
  color:#fff;

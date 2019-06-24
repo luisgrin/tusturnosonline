@@ -24,11 +24,8 @@ Once the project creation procedure will be completed and the database access pr
 Then seed the options and sections tables
 `cat database/seed_opciones.sql | mysql -u root -p tusturnosonline`
 `cat database/seed_secciones.sql | mysql -u root -p tusturnosonline`
-
-
-`php artisan key:generate`
-
-`php artisan serve`
+`php artisan key:generate` will generate the app key. Then run 
+`php artisan serve` 
 
 ## Usage
 
