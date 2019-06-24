@@ -370,7 +370,7 @@ blockquote {
 .hero-text {
   display: inline-block;
   position: absolute;
-  top: 50vh;
+  top: 40vh;
   left: 1rem;
   right: 1rem;
   max-width: 500px;
@@ -448,6 +448,9 @@ blockquote {
   /*color: #636363 !important;*/
 }
 
+.navbar-item {
+  background-color: white;
+}
 .navbar-item img {
   max-height: 3.5rem;
   height: 3.5rem;
@@ -856,8 +859,7 @@ blockquote {
   line-height: 20px;
   padding: 0.25rem 0;
   font-weight: 500;  
-  /*color: #363636;*/
-  color: orange;
+  color: whitesmoke;
   display: block;
   text-transform: uppercase;
   transition: color 0.5s linear;
@@ -867,7 +869,7 @@ blockquote {
   font-size: 20px;
   opacity: 0.75;
   line-height: 20px;
-  transition: opacity 0.5s linear;
+  transition: opacity 0.25s linear;
 }
 
 .menu-items a:not(.button):hover {
