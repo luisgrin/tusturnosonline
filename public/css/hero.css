@@ -852,12 +852,12 @@ blockquote {
 
 .menu-items a:not(.button) {
   font-family: 'Source Sans Pro', monospace;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 20px;
   padding: 0.25rem 0;
-  font-weight: 600;  
+  font-weight: 500;  
   /*color: #363636;*/
-  color: white;
+  color: orange;
   display: block;
   text-transform: uppercase;
   transition: color 0.5s linear;
@@ -871,7 +871,7 @@ blockquote {
 }
 
 .menu-items a:not(.button):hover {
-  color: yellow;
+  color: white;
 }
 
 .menu-items a:not(.button):hover span {

@@ -490,9 +490,6 @@
                 <a href="/password" class="button is-text">🔑 Cambiar contraseña</a>
               </div>
               <div class="control">
-                <a href="/recover-password" class="button is-text">😱 Olvidé mi clave</a>
-              </div>
-              <div class="control">
                 <a href="/account" class="button is-text">🏁 Menú Principal</a>
               </div>
             </div>
