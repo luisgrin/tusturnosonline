@@ -164,6 +164,29 @@ $api->version('v1', function (Router $api) {
                 ->delete();
             return response()->json($deleted);
         });
+
+        /* mi cuenta */
+
+        $api->post('fotoperfil', function(Request $request) {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ]);
+
+            $imageName = time().'.'.request()->image->getClientOriginalExtension();
+
+            $request->image->move(public_path('upload'), $imageName);
+
+            $data = $request->all();
+            $item = App\User::find(Auth::user()->id);
+            $item->foto = $imageName;
+
+            if(!$item->save()) {
+                throw new HttpException(500);
+            }
+
+            return response()->json($item);
+
+        });
     });
 
     /* métodos públicos que distribuyen datos públicos de la aplicación */

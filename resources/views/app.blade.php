@@ -197,7 +197,7 @@
             <div class="column has-text-centered">
               <h3>👥 CRM Cliente</h3>
               <label class="is-size-5">
-                <span v-if="data.length">Estos son tus clientes</span>
+                <!--span v-if="data.length">Estos son tus clientes</span-->
                 <span v-if="!data.length">Todavía no tienes clientes</span>
               </label>
             </div>
@@ -291,14 +291,15 @@
             <div class="column has-text-centered">
               <h3>🔖 CRM Atributo</h3>
               <label class="is-size-5">
-                <span v-if="data.length">Estos son tus atributos</span>
+                <!--span v-if="data.length">Estos son tus atributos</span-->
                 <span v-if="!data.length">Todavía no tienes atributos. Crea uno ahora.</span>
               </label>
             </div>
           </div>
           <div class="has-text-centered is-grid">
             <div class="columns is-hidden-mobile">
-              <div class="column has-text-centered">Nombre</div>
+              <div class="column is-6 has-text-centered">Nombre</div>
+              <div class="column has-text-centered">Tipo dato</div>
               <div class="column"></div>
             </div>
             <div class="columns" v-for="item in data">
@@ -391,7 +392,7 @@
               <input type="submit" id="submitbutton" hidden>
               <div class="columns is-vcentered">
                 <div class="column">
-                  <input v-model="selection.nom" @keyup="buscarCliente" class="input" :class="{'is-loading' : $root.processing}" type="text" placeholder="Ingrese un cliente" required>
+                  <input v-model="selection.nom" @keyup="buscarCliente" @focus="focusNom" @blur="blurNom" class="input" :class="{'is-loading' : $root.processing}" type="text" placeholder="Ingrese un cliente" required>
                   <div v-show="suggests.length" class="list is-hoverable">
                     <a class="list-item" v-for="(item,index) in suggests" @click="more(item)">
                       <span v-html="item.nom"></span>
@@ -446,8 +447,8 @@
           <h3 class="is-uppercase">👤 Mi Cuenta</h3>
           <p class="is-uppercase">Mantiene tus datos al día.</p>
           <div class="badge account-picture">
-            <input hidden="true" id="uploads" type="file" @change="onFileChange" name="uploads[]" optional="true" accept="image/*">
-            <div class="is-circle picture" v-on:click="clickImage($root.token().id)" :style="'background-image:url(' + $root.token().picture + ')'" data-balloon="Upload a profile is-picture" data-balloon-pos="right"></div>
+            <input hidden="true" id="uploads" type="file" @change="onFileChange" name="image" optional="true" accept="image/*">
+            <div class="is-circle picture" v-on:click="clickImage()" :style="'background-image:url(/upload/' + data.foto + ')'"></div>
           </div>
           <form class="form has-text-left" @submit.prevent="submit">
             <div class="field is-horizontal">

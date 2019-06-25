@@ -359,7 +359,13 @@ const Carga = {
     more:function(item){
       location.hash = item.id
       this.item = item
-      //this.$router.push('/carga/'+id)
+    },
+    focusNom:function({type,target}){
+      this.nom = target.value
+      target.value = ''
+    },
+    blurNom:function({type,target}){
+      target.value = this.nom
     },
     checkItem: function(id){
       this.$root.processing = true
@@ -425,6 +431,7 @@ const Carga = {
   data: function() {
     return{
       clock:0,
+      nom:'',
       attributos:[],
       suggests:[],
       selection:{},
@@ -471,10 +478,8 @@ const EditAccount = {
     },
     createImage(file,code) {
       var reader = new FileReader();
-      var code = this.code
       reader.onload = (e) => {
-        var $id = $('#img'+code);
-        $id.css({
+        $('.picture').css({
           'background-image': 'url(' + e.target.result + ')',
           'background-size': 'cover'
         });
@@ -486,27 +491,26 @@ const EditAccount = {
     removeImage: function (e) {
       this.image = '';
     }, 
-    clickImage : function(code){
+    clickImage : function(){
       this.upload = true
-      this.code = code
       $("#uploads").click()
       return false
     },
     uploadImage : function(file){
-      this.upload = true
-      var code = this.code
+
       var formData = new FormData();
-      formData.append('uploads[]', file);
+      formData.append('image', file);
       var token = $.parseJSON(localStorage.getItem("token")) || {}
       var self = this
 
-      this.$root.loading = true
+      this.upload = true
+      this.$root.processing = true
       this.$root.snackbar('success','Cargando imagen...')
       //loading
       //$('.profile'+type+'--link').text("Subiendo...");
       $.ajax({
         type:'post',
-        url: '/api/account/profile-picture',
+        url: '/api/fotoperfil',
         data:formData,
         beforeSend: function (xhr) { 
           xhr.setRequestHeader('Authorization', 'Bearer ' + token.token); 
@@ -540,20 +544,20 @@ const EditAccount = {
             var token = $.parseJSON(localStorage.getItem("token")) || {}
             token.picture = res.url
             localStorage.setItem("token", JSON.stringify(token))
-            self.$root.loading = false
+            self.$root.processing = false
             self.$root.snackbar('success','Image has been correctly uploaded.')
           }
         },
         error: function(data){
-          self.$root.loading = false
+          self.$root.processing = false
           self.$root.snackbar('error','Image has not been uploaded.')
           console.log("Hubo un error al subir el archivo");
         }
       })
     },    
     submit : function({type, target}){
-      if(!this.$root.loading){
-        this.$root.loading = true
+      if(!this.$root.processing){
+        this.$root.processing = true
         this.$http.post('/api/account/update', this.data, {emulateJSON:true}).then(function(res){
           this.data = res.data
           var token = $.parseJSON(localStorage.getItem("token")) || {}
@@ -563,12 +567,12 @@ const EditAccount = {
           token.email = this.data.email
           localStorage.setItem("token", JSON.stringify(token))
 
-          this.$root.loading = false
+          this.$root.processing = false
           this.$root.snackbar('success','Cuenta actualizada.')
 
           //helper.is_loaded()
         }, function(error){
-          this.$root.loading = false
+          this.$root.processing = false
           this.$root.snackbar('error',error.statusText)
         })
       }
