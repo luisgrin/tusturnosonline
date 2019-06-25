@@ -723,7 +723,6 @@ blockquote {
 
 .is-dark .select {
   width: 100%;
-  box-shadow: inset 0 -2px 2px rgba(0,0,0,0.25);
   -webkit-appearance: none; 
   -moz-appearance: none;
   appearance: none;
@@ -803,7 +802,7 @@ blockquote {
 }
 
 .menu-bg {
-  background-color: #ff0036;
+  background-color: #7fb6fe;
   pointer-events: none;
   -webkit-transition: .3s;
   transition: .3s;
@@ -887,7 +886,7 @@ blockquote {
 }
 
 .menu-items hr {
-  background-color: #e60000;
+  background-color: #3fcfef;
   margin: 0.75rem 0;
   height: 1px;
 }
@@ -2161,6 +2160,9 @@ footer li:before {
 @media screen and (max-width: 769px) {
   h1,h2,h3,h4,h5,h6 {
     font-size: 125%;
+  }
+  .menu-items.fs {
+    left: 2rem;
   }
   .has-action-space {
     padding-bottom: 12rem;

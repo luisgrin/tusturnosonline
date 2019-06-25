@@ -16,6 +16,8 @@ $api = app(Router::class);
 
 $api->version('v1', function (Router $api) {
 
+    /* auth public methods */
+
     $api->group(['prefix' => 'auth'], function(Router $api) {
         $api->post('signup', 'App\\Api\\V1\\Controllers\\SignUpController@signUp');
         $api->post('login', 'App\\Api\\V1\\Controllers\\LoginController@login');
@@ -28,12 +30,17 @@ $api->version('v1', function (Router $api) {
         $api->get('me', 'App\\Api\\V1\\Controllers\\UserController@me');
     });
 
+    /* auth area */
+
     $api->group(['middleware' => 'jwt.auth'], function(Router $api) {
+
         $api->get('protected', function() {
             return response()->json([
                 'message' => 'Access to protected resources granted! You are seeing this text as you provided the token correctly.'
             ]);
         });
+
+        /* auth refresh */
 
         $api->get('refresh', [
             'middleware' => 'jwt.refresh',
@@ -68,9 +75,9 @@ $api->version('v1', function (Router $api) {
             return response()->json($item);
         });
 
-        $api->post('cliente/{id}', function($id) {
+        $api->post('cliente/{id}', function(Request $request,$id) {
             $data = App\Cliente::find($id);
-            if(empty($data) OR !$data->save($request->all())){
+            if(empty($data) OR !$data->update($request->all())){
                 throw new HttpException(500);
             }
             return response()->json($data);
@@ -107,9 +114,9 @@ $api->version('v1', function (Router $api) {
             return response()->json($item);
         });
 
-        $api->post('atributo/{id}', function($id) {
+        $api->post('atributo/{id}', function(Request $request,$id) {
             $data = App\Atributo::find($id);
-            if(empty($data) OR !$data->save($request->all())){
+            if(empty($data) OR !$data->update($request->all())){
                 throw new HttpException(500);
             }
             return response()->json($data);
@@ -121,7 +128,6 @@ $api->version('v1', function (Router $api) {
                 ->delete();
             return response()->json($deleted);
         });
-
 
         /* carga de datos */
 
@@ -152,6 +158,43 @@ $api->version('v1', function (Router $api) {
 
         $api->post('clienteatributo', function(Request $request) {
             $data = $request->all();
+            extract($data);
+
+            $atributo = App\Atributo::where('id',$crm_atributo_id)
+                ->first(); 
+
+            switch($atributo->tipo){
+                case 'entero':
+                    if(!is_numeric($valor) OR strlen($valor) != 1) {
+                        return response()->json(['error' => 'El valor debe ser un entero.']);
+                    }
+                    break;
+
+                case 'decimal':
+                    if(!preg_match('/^[0-9]+(\.[0-9]{1,2})?$/', $valor)) {
+                        return response()->json(['error' => 'El valor debe ser un decimal.']);
+                    }
+                    break;
+
+                case 'fecha':
+                    if(DateTime::createFromFormat('Y-m-d H:i:s', $valor) !== FALSE) {
+                        return response()->json(['error' => 'El valor debe ser una fecha.']);
+                    }                
+                    break;
+
+                case 'direccion_google':
+                    if(!preg_match('/^(?:\\d+ [a-zA-Z ]+, ){2}[a-zA-Z ]+$/', $valor)) {
+                        return response()->json(['error' => 'El valor debe ser una dirección.']);
+                    }
+                    break;
+
+                case 'caracter':
+                    if(is_numeric($valor) OR strlen($valor) != 1) {
+                        return response()->json(['error' => 'El valor debe ser un caracter.']);
+                    }
+                    break;
+            }
+
             $item = new App\ClienteAtributo($data);
             if(!$item->save()) {
                 throw new HttpException(500);
@@ -185,11 +228,10 @@ $api->version('v1', function (Router $api) {
             }
 
             return response()->json($item);
-
         });
     });
 
-    /* métodos públicos que distribuyen datos públicos de la aplicación */
+    /* public methods */
 
     $api->post('navitems', function() {
         $footer = App\Opcion::where('nom','APP_FOOTER')->first();

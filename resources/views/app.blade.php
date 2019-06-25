@@ -358,12 +358,17 @@
               <form class="form is-dark is-condensed is-basededatos has-text-left" @submit.prevent="submit">
                 <input type="submit" id="submitbutton" hidden>
                 <div class="columns is-vcentered">
-                  <div class="column is-4">
+                  <div class="column">
                     <label class="label">Nombre</label>
                   </div>
                   <div class="column">
-                    <input v-model="cliente.nom" class="input" type="text" placeholder="Ingrese un atributo" required>
+                    <input v-model="data.nom" class="input" type="text" placeholder="Ingrese un atributo" required>
                   </div>
+                  <div class="column">
+                    <select v-model="data.tipo" class="input select">
+                      <option v-for="item in $root.tipodatos" :value="item.nom" v-html="item.val"></option>
+                    </select>
+                  </div>                  
                 </div>
               </form>
             </div>
@@ -787,7 +792,7 @@
               </p>
               <form class="form has-text-left" @submit.prevent="submit">
                 <div class="field">
-                  <select class="select" v-model="data.reason">
+                  <select class="input select" v-model="data.reason">
                     <option value="">Elige motivo de la consulta</option>
                     <option value="formulaciones">Formulaciones</option>
                     <option value="marketing">Marketing</option>

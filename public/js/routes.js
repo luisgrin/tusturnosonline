@@ -49,7 +49,7 @@ const SignIn = {
             this.$root.snackbar('success','La sesión fue iniciada correctamente. Redirigiendo...')
             setTimeout(function(){
               app.$router.push('/account')  
-            },1000)
+            },3000)
           } else {
             this.$root.snackbar('error',res.data.message)
           }
@@ -177,25 +177,23 @@ const Clientes = {
   },
   methods: {
     remove:function({type,target}){
-      if(!this.$root.processing){
-        if(confirm("¡Atención! La eliminación es permanente.\nUna vez confirmado los datos no se podrán recuperar. ¿Estás seguro que deseas eliminar este cliente?")){
-          this.$root.processing = true
-          if(target.id){
-            this.$http.delete('/api/cliente/' + target.id, {}, {emulateJSON:true}).then(function(res){
-              if(res.data){
-                this.$root.snackbar('success','El cliente ha sido eliminado de forma permanente.')
-                var data2 = []
-                this.data.forEach((item) => {
-                  if(item.id != target.id){
-                    data2.push(item)
-                  }
-                })       
+      if(confirm("¡Atención! La eliminación es permanente.\nUna vez confirmado los datos no se podrán recuperar. ¿Estás seguro que deseas eliminar este cliente?")){
+        this.$root.processing = true
+        if(target.id){
+          this.$http.delete('/api/cliente/' + target.id, {}, {emulateJSON:true}).then(function(res){
+            if(res.data){
+              this.$root.snackbar('success','El cliente ha sido eliminado de forma permanente.')
+              var data2 = []
+              this.data.forEach((item) => {
+                if(item.id != target.id){
+                  data2.push(item)
+                }
+              })       
 
-                this.data = data2         
-              }
-              this.$root.processing = false
-            })
-          }
+              this.data = data2         
+            }
+            this.$root.processing = false
+          })
         }
       }
     },
@@ -236,6 +234,19 @@ const Cliente = {
     })
   },
   methods: {
+    submit : function({type, target}){
+      this.$root.processing = true
+      this.$http.post('/api/cliente/' + this.data.id, this.data, {emulateJSON:true}).then(function(res){
+        this.$router.push('/clientes')
+        setTimeout(() => {
+          if(res.data.id){
+            this.$root.snackbar('success','Cliente actualizado')
+          } else {
+            this.$root.snackbar('success','Error al actualizar registro')
+          }
+        },300)
+      })
+    }
   },
   data: function() {
     return{
@@ -257,25 +268,23 @@ const Atributos = {
   },
   methods: {
     remove:function({type,target}){
-      if(!this.$root.processing){
-        if(confirm("Una vez confirmado los datos no se podrán recuperar. ¿Estás seguro que deseas eliminar esta fórmula?")){
-          this.$root.processing = true
-          if(target.id){
-            this.$http.delete('/api/atributo/' + target.id, {}, {emulateJSON:true}).then(function(res){
-              if(res.data){
-                this.$root.snackbar('success','El atributo ha sido eliminado de forma permanente.')
-                var data2 = []
-                this.data.forEach((item) => {
-                  if(item.id != target.id){
-                    data2.push(item)
-                  }
-                })       
+      if(confirm("Una vez confirmado los datos no se podrán recuperar. ¿Estás seguro que deseas eliminar esta fórmula?")){
+        this.$root.processing = true
+        if(target.id){
+          this.$http.delete('/api/atributo/' + target.id, {}, {emulateJSON:true}).then(function(res){
+            if(res.data){
+              this.$root.snackbar('success','El atributo ha sido eliminado de forma permanente.')
+              var data2 = []
+              this.data.forEach((item) => {
+                if(item.id != target.id){
+                  data2.push(item)
+                }
+              })       
 
-                this.data = data2         
-              }
-              this.$root.processing = false
-            })
-          }
+              this.data = data2         
+            }
+            this.$root.processing = false
+          })
         }
       }
     },
@@ -319,6 +328,17 @@ const Atributo = {
     })
   },
   methods: {
+    submit : function({type, target}){
+      this.$root.processing = true
+      this.$http.post('/api/atributo/' + this.data.id, this.data, {emulateJSON:true}).then(function(res){
+        this.$router.push('/atributos')
+        if(res.data.id){
+          this.$root.snackbar('success','Cliente actualizado')
+        } else {
+          this.$root.snackbar('success','Error al actualizar registro')
+        }
+      })
+    }
   },
   data: function() {
     return{
@@ -383,7 +403,7 @@ const Carga = {
           this.$root.processing = true
           if(target.id){
             this.$http.delete('/api/clienteatributo/' + target.id, {}, {emulateJSON:true}).then(function(res){
-              if(res.data){
+              if(res.data.id){
                 this.$root.snackbar('success','El atributo ha sido eliminado de forma permanente.')
                 var data2 = []
                 this.data.forEach((item) => {
@@ -392,6 +412,8 @@ const Carga = {
                   }
                 })
                 this.data = data2
+              } else {
+                this.$root.snackbar('error',res.data.error)
               }
               this.$root.processing = false
             })
@@ -412,7 +434,12 @@ const Carga = {
     },
     submit : function({type, target}){
       this.$root.processing = true
-      this.$http.post('/api/clienteatributo', {cliente_id:this.item.id,crm_atributo_id:this.selection.atributo_id,valor:this.selection.valor}, {emulateJSON:true}).then(function(res){
+      var data = {
+        cliente_id:this.item.id,
+        crm_atributo_id:this.selection.atributo_id,
+        valor:this.selection.valor
+      }
+      this.$http.post('/api/clienteatributo', data, {emulateJSON:true}).then(function(res){
         this.data.push({
           atributo:{
             nom:$('#atributo').find(':selected').text()
