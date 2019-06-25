@@ -440,15 +440,19 @@ const Carga = {
         valor:this.selection.valor
       }
       this.$http.post('/api/clienteatributo', data, {emulateJSON:true}).then(function(res){
-        this.data.push({
-          atributo:{
-            nom:$('#atributo').find(':selected').text()
-          },
-          valor:res.data.valor,
-          id:res.data.id
-        })
+        if(res.data.id){
+          this.data.push({
+            atributo:{
+              nom:$('#atributo').find(':selected').text()
+            },
+            valor:res.data.valor,
+            id:res.data.id
+          })
+          this.$root.snackbar('success','Se agregó atributo a cliente')
+        } else {
+          this.$root.snackbar('error',res.data.error)
+        }
         this.$root.processing = false
-        this.$root.snackbar('success','Se agregó atributo a cliente')
       }, function(error){
         this.$root.snackbar('error',error.statusText)
       })
