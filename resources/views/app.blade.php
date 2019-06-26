@@ -23,72 +23,57 @@
 </head>
 <body>
   <div id="app">
-    <div v-show="$root.loading" class="spinner-outer fadeIn"><div class="spinner" data-layer="4"><div class="spinner-container"><div class="spinner-rotator"><div class="spinner-left"><div class="spinner-circle"></div></div><div class="spinner-right"><div class="spinner-circle"></div></div></div></div><div class="spinner-message" v-html="$root.message"></div></div></div>
-    
-    <div v-show="!$root.loading">
-      <nav class="navbar is-fixed-top hidden-loading">
-        <div class="container">
-          <div class="navbar-brand">
-            <a class="navbar-item" @click="homeClick" href="#">
-              <img src="/img/logo.png" alt="Tusturnosonline">
-            </a>
-            <div class="menu-bg"></div>
-            <div class="menu-burger">🍔</div>
-            <div class="menu-items">
-              <a href="/"><img src="/img/logo.png"></a>
-              <div v-if="$root.token().token" class="menu-links">
-                <a href="/account"><span>🏁</span> Menú Principal</a>
-                <a href="/clientes"><span>👥</span> CRM Cliente</a>
-                <a href="/atributos"><span>🔖</span> CRM Atributo</a>
-                <a href="/carga"><span>📙</span> Carga</a>
-                <hr>
-                <a href="/edit"><span>👤</span> Mi cuenta</a>
-                <a href="/password"><span>🔑</span> Cambiar contraseña</a>
-                <hr>
-              </div>
-              <div class="menu-links">
-                <a v-for="navitem in $root.navitems" :href="navitem.slug" v-html="navitem.title"></a>
-              </div>
-              <a href="#" v-if="$root.token().token" @click="$root.endSessionWithConfirm()" class="button">Cerrar sesión</a>
-              <a href="/sign-in" v-if="!$root.token().token" class="button">Iniciar sesión</a>
-            </div>    
+    <div v-show="$root.loading" class="spinner-outer fadeIn">
+      <div class="spinner" data-layer="4">
+        <div class="spinner-container">
+          <div class="spinner-rotator">
+            <div class="spinner-left">
+              <div class="spinner-circle"></div>
+            </div>
+            <div class="spinner-right">
+              <div class="spinner-circle"></div>
+            </div>
           </div>
         </div>
-      </nav>
+        <div class="spinner-message" v-html="$root.message"></div>
+      </div>
+    </div>
 
-      <nav class="navbar custom-navbar is-fixed-top">
-        <div class="container">
-          <div class="section-tag-container">
-            <div class="section-tag columns is-mobile reset-margin">
-              <div class="column has-text-right">
-                <img class="icon">
-              </div>
-              <div class="column fadeIn">
-                <h3 class="title"></h3>
-              </div>
-            </div>
-          </div>
-          <div class="navbar-brand">
-            <a class="navbar-item" @click="homeClick" href="#">
+    <div v-show="!$root.loading" class="hidden-loading">
+      <div class="menu">
+        <div class="menu-container columns">
+          <div class="column has-text-left">
+            <a class="menu-logo" @click="homeClick" href="#">
               <img src="/img/logo.png" alt="Tusturnosonline">
             </a>
           </div>
-          <div class="navbar-menu">
-            <div class="navbar-end">
-              <div class="navbar-tabs is-right">
-                <ul>
-                  <li>
-                    <a href="/account" class="weberplast">
-                      <img src="/img/weberplast.png" width="140">
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
+
+          <div class="column menu-primary">
+            <div class="menu-bg"></div>
+            <div class="menu-burger">☰</div>
           </div>
+
+          <div class="menu-items">
+            <a href="/"><img src="/img/logo.png"></a>
+            <div v-if="$root.token().token" class="menu-links has-text-left">
+              <a href="/account"><span>🏁</span> Menú Principal</a>
+              <a href="/clientes"><span>👥</span> CRM Cliente</a>
+              <a href="/atributos"><span>🔖</span> CRM Atributo</a>
+              <a href="/carga"><span>📙</span> Carga</a>
+              <hr>
+              <a href="/edit"><span>👤</span> Mi cuenta</a>
+              <a href="/password"><span>🔑</span> Cambiar contraseña</a>
+              <hr>
+            </div>
+            <div class="menu-links">
+              <a v-for="navitem in $root.navitems" :href="navitem.slug" v-html="navitem.title"></a>
+            </div>
+            <a href="#" v-if="$root.token().token" @click="$root.endSessionWithConfirm()" class="button">Cerrar sesión</a>
+            <a href="/sign-in" v-if="!$root.token().token" class="button">Iniciar sesión</a>
+          </div>    
         </div>
-      </nav>
-      
+      </div>
+
       <keep-alive exclude="account,clientes,cliente,atributos,atributo,contact,carga">
         <router-view :key="$route.fullPath"></router-view>
       </keep-alive>
