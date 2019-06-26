@@ -418,10 +418,17 @@
               <div class="input" v-html="item.atributo.nom"></div>
             </div>
             <div class="column">
-              <div class="input" v-html="item.valor"></div>
+              <input v-model="item.valor" class="input" type="text" @focus="focusAtributo" @blur="blurAtributo">
             </div>
             <div class="column">
-              <a class="input has-text-centered has-text-white has-background-danger has-text-style-normal" @click="remove" :id="item.id">Eliminar</a>
+              <div class="columns">
+                <div class="column is-hidden">
+                  <a class="input has-text-centered has-text-white has-background-success has-text-style-normal" @click="updateAtributo(item)">Guardar</a>
+                </div>
+                <div class="column">
+                  <a class="input has-text-centered has-text-white has-background-danger has-text-style-normal" @click="removeAtributo" :id="item.id">Eliminar</a>
+                </div>
+              </div>
             </div>
             <hr class="is-hidden-tablet" />
           </div>

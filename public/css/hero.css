@@ -345,7 +345,7 @@ blockquote {
   background-color: #f8f8f8;
   border-radius: 7px;
   padding: 0.5rem 0.25rem;
-  padding-top: 0.35rem;
+  padding-top: 0.25rem;
 }
 .is-carga > .column {
   /*min-height: 40vh;*/
@@ -1149,14 +1149,16 @@ blockquote {
   margin-bottom: 0;
 }
 
-.is-grid .columns, 
-.is-weberbox .columns {
+.is-grid .columns {
   padding: 0;
   margin: 0;
 }
 
-.is-grid .column, 
-.is-weberbox .column {
+.is-grid > .columns {
+  margin-bottom: -0.5rem;
+}
+
+.is-grid .column {
   padding: 0.25rem;
   margin: 0;
 }

@@ -407,7 +407,18 @@ const Carga = {
         this.suggests = []
       })
     },
-    remove:function({type,target}){
+    add:function({type,target}){
+      this.$root.processing = true
+      this.$http.post('/api/atributo', this.item, {emulateJSON:true}).then(function(res){
+        if(res.data.id){
+          this.$root.snackbar('success','Se ha agregado correctamente el <b>atributo</b>.')
+          this.data.push(res.data)
+          this.item = {}
+        }
+        this.$root.processing = false
+      })
+    },    
+    removeAtributo:function({type,target}){
       if(!this.$root.processing){
         if(confirm("Una vez confirmado los datos no se podrán recuperar. ¿Estás seguro que deseas eliminar esta fórmula?")){
           this.$root.processing = true
@@ -431,16 +442,26 @@ const Carga = {
         }
       }
     },
-    add:function({type,target}){
+    focusAtributo: function({type,target}){
+      $(target).parent().next().find('.column:first-child').removeClass('is-hidden')
+      $(target).parent().next().find('.column:last-child').addClass('is-hidden')
+    },
+    blurAtributo: function({type,target}){
+      setTimeout(() => {
+        $(target).parent().next().find('.column:first-child').addClass('is-hidden')
+        $(target).parent().next().find('.column:last-child').removeClass('is-hidden')
+      },200)
+    },
+    updateAtributo: function(item){
       this.$root.processing = true
-      this.$http.post('/api/atributo', this.item, {emulateJSON:true}).then(function(res){
-        if(res.data.id){
-          this.$root.snackbar('success','Se ha agregado correctamente el <b>atributo</b>.')
-          this.data.push(res.data)
-          this.item = {}
+      this.$http.post('/api/clienteatributo/'+item.id, {crm_atributo_id:item.crm_atributo_id,valor:item.valor}, {emulateJSON:true}).then(function(res){
+        if(res.data.error){
+          this.$root.snackbar('error',res.data.error)
+        } else {
+          this.$root.snackbar('success','Se ha agregado guardado el <b>atributo</b>.')
         }
         this.$root.processing = false
-      })
+      })      
     },
     submit : function({type, target}){
       this.$root.processing = true
@@ -477,6 +498,7 @@ const Carga = {
       attributos:[],
       suggests:[],
       selection:{},
+      atributo:{},
       data:[],
       item:{},
       hash:''
@@ -774,11 +796,12 @@ router.beforeEach(function (to, from, next) {
   document.title = to.meta.title;
   var token = $.parseJSON(localStorage.getItem("token")) || {}
 
+  /*
   if(token.token){
     setTimeout(() => {
       filters.refreshToken()  
     },3000)
-  }
+  }*/
 
   setTimeout(function() {
     var body = $("html, body");

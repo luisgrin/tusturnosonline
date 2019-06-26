@@ -11,6 +11,44 @@ use App\Cliente;
 use App\Atributo;
 use App\ClienteAtributo;
 
+
+function validate_atribute($id,$valor){
+    $atributo = App\Atributo::where('id',$id)
+        ->first(); 
+    switch($atributo->tipo){
+        case 'entero':
+            if(!preg_match('/^[0-9]{1,20}$/', $valor)) {
+                return ['error' => 'El valor debe ser un entero.'];
+            }
+            break;
+
+        case 'decimal':
+            if(!preg_match('/^[0-9]+(\.[0-9]{1,2})?$/', $valor)) {
+                return ['error' => 'El valor debe ser un decimal.'];
+            }
+            break;
+
+        case 'fecha':
+            if(DateTime::createFromFormat('Y-m-d H:i:s', $valor) !== FALSE) {
+                return ['error' => 'El valor debe ser una fecha.'];
+            }                
+            break;
+
+        case 'direccion_google':
+            if(!preg_match('/(.*) (\d)/', $valor)) {
+                return ['error' => 'El valor debe ser una dirección.'];
+            }
+            break;
+
+        case 'caracter':
+            if(is_numeric($valor) OR strlen($valor) != 1) {
+                return ['error' => 'El valor debe ser un caracter.'];
+            }
+            break;
+
+    }    
+    return [];
+}
 /** @var Router $api */
 $api = app(Router::class);
 
@@ -161,44 +199,33 @@ $api->version('v1', function (Router $api) {
             extract($data);
 
             $valor = trim($valor);
+            $validacion = \validate_atribute($crm_atributo_id,$valor);
 
-            $atributo = App\Atributo::where('id',$crm_atributo_id)
-                ->first(); 
-
-            switch($atributo->tipo){
-                case 'entero':
-                    if(!preg_match('/^[0-9]{1,20}$/', $valor)) {
-                        return response()->json(['error' => 'El valor debe ser un entero.']);
-                    }
-                    break;
-
-                case 'decimal':
-                    if(!preg_match('/^[0-9]+(\.[0-9]{1,2})?$/', $valor)) {
-                        return response()->json(['error' => 'El valor debe ser un decimal.']);
-                    }
-                    break;
-
-                case 'fecha':
-                    if(DateTime::createFromFormat('Y-m-d H:i:s', $valor) !== FALSE) {
-                        return response()->json(['error' => 'El valor debe ser una fecha.']);
-                    }                
-                    break;
-
-                case 'direccion_google':
-                    if(!preg_match('/(.*) (\d)/', $valor)) {
-                        return response()->json(['error' => 'El valor debe ser una dirección.']);
-                    }
-                    break;
-
-                case 'caracter':
-                    if(is_numeric($valor) OR strlen($valor) != 1) {
-                        return response()->json(['error' => 'El valor debe ser un caracter.']);
-                    }
-                    break;
+            if(count($validacion)){
+                return response()->json($validacion);
             }
 
             $item = new App\ClienteAtributo($data);
             if(!$item->save()) {
+                throw new HttpException(500);
+            }
+            return response()->json($item);
+        });
+
+
+        $api->post('clienteatributo/{id}', function(Request $request, $id) {
+            $data = $request->all();
+            extract($data);
+
+            $valor = trim($valor);
+            $validacion = \validate_atribute($crm_atributo_id,$valor);
+
+            if(count($validacion)){
+                return response()->json($validacion);
+            }
+
+            $item = App\ClienteAtributo::find($id);
+            if(!$item->update($data)) {
                 throw new HttpException(500);
             }
             return response()->json($item);
