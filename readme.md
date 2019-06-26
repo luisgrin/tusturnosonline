@@ -14,18 +14,40 @@ What I made is really simple: an integration of these three packages and a setup
 
 ## Installation
 
-1. run `composer install`;
-2. run ` ' and edit your environment variables;
+### 1. Run composer install
+```bash
+composer install
+```
 
+### 2. Edit your environment variables
+```bash
+cat .env.example > .env
+nano .env
+```
+
+### 3. Migration
 Once the project creation procedure will be completed and the database access properly adjusted, run the 
+migrate command to install the required tables.
 
-`php artisan migrate` command to install the required tables.
+```bash
+php artisan migrate
+```
 
-Then seed the options and sections tables
-`cat database/seed_opciones.sql | mysql -u root -p tusturnosonline`
-`cat database/seed_secciones.sql | mysql -u root -p tusturnosonline`
-`php artisan key:generate` will generate the app key. Then run 
-`php artisan serve` 
+### 4. Seed the blog and configuration tables
+```bash
+cat database/seed_opciones.sql | mysql -u root -p tusturnosonline
+cat database/seed_secciones.sql | mysql -u root -p tusturnosonline
+```
+
+### 4. Generate app key
+```bash
+php artisan key:generate
+```
+
+### 5. Serve the project
+```bash
+php artisan serve
+```
 
 ## Usage
 
