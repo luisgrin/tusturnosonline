@@ -160,6 +160,8 @@ $api->version('v1', function (Router $api) {
             $data = $request->all();
             extract($data);
 
+            $valor = trim($valor);
+
             $atributo = App\Atributo::where('id',$crm_atributo_id)
                 ->first(); 
 

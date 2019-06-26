@@ -413,7 +413,7 @@ const Carga = {
           this.$root.processing = true
           if(target.id){
             this.$http.delete('/api/clienteatributo/' + target.id, {}, {emulateJSON:true}).then(function(res){
-              if(res.data.id){
+              if(res.data){
                 this.$root.snackbar('success','El atributo ha sido eliminado de forma permanente.')
                 var data2 = []
                 this.data.forEach((item) => {
