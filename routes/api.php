@@ -239,6 +239,17 @@ $api->version('v1', function (Router $api) {
 
         /* mi cuenta */
 
+        $api->post('updateme', function(Request $request) {
+            $data = App\User::find(Auth::user()->id)
+                ->first();
+
+            if(empty($data) OR !$data->update($request->all())){
+                throw new HttpException(500);
+            }
+
+            return response()->json($data);
+        });
+
         $api->post('fotoperfil', function(Request $request) {
             $request->validate([
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'

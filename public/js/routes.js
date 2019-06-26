@@ -622,7 +622,7 @@ const EditAccount = {
     submit : function({type, target}){
       if(!this.$root.processing){
         this.$root.processing = true
-        this.$http.post('/api/account/update', this.data, {emulateJSON:true}).then(function(res){
+        this.$http.post('/api/updateme', this.data, {emulateJSON:true}).then(function(res){
           this.data = res.data
           var token = $.parseJSON(localStorage.getItem("token")) || {}
 

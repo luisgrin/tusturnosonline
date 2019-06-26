@@ -443,55 +443,61 @@
         <div class="content fadeIn">
           <h3 class="is-uppercase">👤 Mi Cuenta</h3>
           <p class="is-uppercase">Mantiene tus datos al día.</p>
-          <div class="badge account-picture">
-            <input hidden="true" id="uploads" type="file" @change="onFileChange" name="image" optional="true" accept="image/*">
-            <div class="is-circle picture" v-on:click="clickImage()" :style="'background-image:url(/upload/' + data.foto + ')'"></div>
+          <div class="columns">
+            <div class="column is-2">
+              <div class="badge account-picture">
+                <input hidden="true" id="uploads" type="file" @change="onFileChange" name="image" optional="true" accept="image/*">
+                <div class="is-circle picture" v-on:click="clickImage()" :style="'background-image:url(/upload/' + data.foto + ')'"></div>
+              </div>
+            </div>
+            <div class="column">
+              <form class="form has-text-left" @submit.prevent="submit">
+                <div class="field is-horizontal">
+                  <div class="field-body">
+                    <div class="field">
+                      <label class="label">Nombre</label>
+                      <div class="control">
+                        <input v-model="data.name" class="input" type="text" placeholder="Nombre"  autofocus required>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Email</label>
+                  <div class="control">
+                    <input v-model="data.email" class="input" type="email" placeholder="micuenta@gmail.com" required>
+                  </div>
+                  <p class="help is-danger is-hidden">El email no es válido</p>
+                </div>
+
+                <!--div class="field is-horizontal">
+                  <div class="field-body">
+                    <div class="field">
+                      <label class="label">Bio</label>
+                      <div class="control">
+                        <textarea v-model="data.first_name" class="textarea" name="bio" placeholder="Escribe tu biografía aquí."></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div-->
+
+                <div class="field">
+                  <div class="control">
+                    <button class="button is-success is-fullwidth" :class="{'is-loading' : $root.loading}">💾 Actualizar</button>
+                  </div>
+                </div>    
+                <div class="field">
+                  <div class="control">
+                    <a href="/password" class="button is-text">🔑 Cambiar contraseña</a>
+                  </div>
+                  <div class="control">
+                    <a href="/account" class="button is-text">🏁 Menú Principal</a>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
-          <form class="form has-text-left" @submit.prevent="submit">
-            <div class="field is-horizontal">
-              <div class="field-body">
-                <div class="field">
-                  <label class="label">Nombre</label>
-                  <div class="control">
-                    <input v-model="data.name" class="input" type="text" placeholder="Nombre"  autofocus required>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="field">
-              <label class="label">Email</label>
-              <div class="control">
-                <input v-model="data.email" class="input" type="email" placeholder="micuenta@gmail.com" required>
-              </div>
-              <p class="help is-danger is-hidden">El email no es válido</p>
-            </div>
-
-            <!--div class="field is-horizontal">
-              <div class="field-body">
-                <div class="field">
-                  <label class="label">Bio</label>
-                  <div class="control">
-                    <textarea v-model="data.first_name" class="textarea" name="bio" placeholder="Escribe tu biografía aquí."></textarea>
-                  </div>
-                </div>
-              </div>
-            </div-->
-
-            <div class="field">
-              <div class="control">
-                <button class="button is-success is-fullwidth" :class="{'is-loading' : $root.loading}">💾 Actualizar</button>
-              </div>
-            </div>    
-            <div class="field">
-              <div class="control">
-                <a href="/password" class="button is-text">🔑 Cambiar contraseña</a>
-              </div>
-              <div class="control">
-                <a href="/account" class="button is-text">🏁 Menú Principal</a>
-              </div>
-            </div>
-          </form>
         </div>
       </div>
     </div>
