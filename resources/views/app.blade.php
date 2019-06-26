@@ -412,7 +412,7 @@
             </form>
           </div>
         </div>
-        <div v-show="item.id" class=" has-text-centered is-dark is-grid">
+        <div v-show="item.id" class=" has-text-centered is-dark is-grid is-vcondensed">
           <div class="columns is-centered is-vcentered" v-for="item in data">
             <div class="column">
               <div class="input" v-html="item.atributo.nom"></div>

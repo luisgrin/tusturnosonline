@@ -1154,7 +1154,7 @@ blockquote {
   margin: 0;
 }
 
-.is-grid > .columns {
+.is-vcondensed > .columns {
   margin-bottom: -0.5rem;
 }
 
