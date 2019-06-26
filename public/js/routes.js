@@ -332,11 +332,13 @@ const Atributo = {
       this.$root.processing = true
       this.$http.post('/api/atributo/' + this.data.id, this.data, {emulateJSON:true}).then(function(res){
         this.$router.push('/atributos')
-        if(res.data.id){
-          this.$root.snackbar('success','Cliente actualizado')
-        } else {
-          this.$root.snackbar('success','Error al actualizar registro')
-        }
+        setTimeout(() => {
+          if(res.data.id){
+            this.$root.snackbar('success','Cliente actualizado')
+          } else {
+            this.$root.snackbar('success','Error al actualizar registro')
+          }
+        },1000)
       })
     }
   },
@@ -386,6 +388,14 @@ const Carga = {
     },
     blurNom:function({type,target}){
       target.value = this.nom
+    },
+    setPH:function({type,target}){
+      var nom = $('#atributo').find(':selected').text()
+      this.$root.tipodatos.forEach((tipodato) => {
+        if(nom===tipodato.val){
+          this.placeholder = tipodato.placeholder
+        }
+      })
     },
     checkItem: function(id){
       this.$root.processing = true
@@ -463,6 +473,7 @@ const Carga = {
     return{
       clock:0,
       nom:'',
+      placeholder:'Ingrese un valor',
       attributos:[],
       suggests:[],
       selection:{},
@@ -825,19 +836,24 @@ const app = new Vue({ router: router,
     message:'',
     tipodatos:[{
       nom:'entero',
-      val:'Entero'
+      val:'Entero',
+      placeholder:'ej. 1,2,3 ...'
     },{
       nom:'decimal',
-      val:'Decimal'
+      val:'Decimal',
+      placeholder:'ej. 1.44, 7.67, 10.00 ...'
     },{
       nom:'fecha',
-      val:'Fecha'
+      val:'Fecha',
+      placeholder:'ej. 1984-01-01, 01/01/1984 ... '
     },{
       nom:'direccion_google',
-      val:'Dirección'
+      val:'Dirección',
+      placeholder:'ej. Libertad 1225, Av. Fundadores 2440, ...'
     },{
       nom:'caracter',
-      val:'Caracter'
+      val:'Caracter',
+      placeholder:'ej. A, B, C ...'
     }],
     filters:filters
   },

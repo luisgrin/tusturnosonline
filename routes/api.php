@@ -165,7 +165,7 @@ $api->version('v1', function (Router $api) {
 
             switch($atributo->tipo){
                 case 'entero':
-                    if(!is_numeric($valor) OR strlen($valor) != 1) {
+                    if(!preg_match('/^[0-9]{1,20}$/', $valor)) {
                         return response()->json(['error' => 'El valor debe ser un entero.']);
                     }
                     break;
@@ -183,7 +183,7 @@ $api->version('v1', function (Router $api) {
                     break;
 
                 case 'direccion_google':
-                    if(!preg_match('/^(?:\\d+ [a-zA-Z ]+, ){2}[a-zA-Z ]+$/', $valor)) {
+                    if(!preg_match('/(.*) (\d)/', $valor)) {
                         return response()->json(['error' => 'El valor debe ser una dirección.']);
                     }
                     break;

@@ -418,7 +418,7 @@
                   </select>
                 </div>
                 <div class="column">
-                  <input v-model="selection.valor" class="input" type="text" placeholder="Ingrese un valor" required>
+                  <input v-model="selection.valor" class="input" type="text" :placeholder="placeholder" required>
                 </div>
                 <div class="column">
                   <button type="submit" class="input has-background-success has-text-white has-text-centered" :class="{'is-loading' : $root.processing}">Agregar</button>
@@ -549,7 +549,7 @@
 
   <script type="text/x-template" id="login">
     <div>
-      <div class="container is-padded-top" v-if="$root.token().token">
+      <div class="container is-padded-top" v-show="$root.token().token">
         <div class="inline-background hero-system fadeIn">
           <div class="content hero fadeIn">
             <h3>Tu sesión se encuentra activa.</h3> 

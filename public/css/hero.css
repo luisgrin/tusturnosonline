@@ -1314,6 +1314,12 @@ blockquote {
   left: -5px;
 }
 
+.picture {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 .hero-status .is-circle {
   text-align: center;
   margin-top: 10px;
