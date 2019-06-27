@@ -173,7 +173,7 @@ const Clientes = {
     this.$http.get('/api/clientes', {}, {emulateJSON:true}).then(function(res){
       this.$root.loading = false
       this.data = res.data
-    })
+    }, errorCallback)
   },
   methods: {
     remove:function({type,target}){
@@ -374,7 +374,11 @@ const Carga = {
         this.$root.processing = true
         this.$http.get('/api/clientes/buscar/' + target.value, {}, {emulateJSON:true}).then(function(res){
           this.$root.processing = false
-          this.suggests = res.data
+          if(res.data.length){
+            this.suggests = res.data
+          } else {
+            this.$root.snackbar('error','Todavía no tenes clientes. Accede a CRM Cliente y crea uno.')
+          }
         }, errorCallback)
       },500)
     },

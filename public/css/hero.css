@@ -652,6 +652,23 @@ blockquote {
   transition: background-color 0.25 linear;
 }
 
+.menu-current {
+  display: inline-block;
+  margin-top: 0.25rem;
+  padding: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border:1px solid #d4d4d4;
+  box-shadow: 0 1px 2px #d4d4d4;
+  border-radius: 8px;
+}
+
+.menu-current h4 {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 0;
+}
+
 .menu-container {
   position: relative;
   max-width: 800px;
@@ -665,7 +682,6 @@ blockquote {
 
 .menu-logo img {
   max-height: 3.5rem;
-  height: 3.5rem;
 }
 
 .menu.active {
@@ -1378,16 +1394,7 @@ blockquote {
   color:#ffeb00;
 }
 
-.is-section-text {
-  position: fixed;
-  top: 0.75rem;
-  left: 55%;
-  height: 88px;
-}
 
-.is-section-text h4{
-  margin-bottom: 0;
-}
 
 .is-shady {
   animation: flyintoright .4s backwards;
@@ -2020,7 +2027,7 @@ footer li:before {
 }
 
 @media screen and (min-width: 769px) {
-  .is-section-text {
+  .menu-current {
     left: 33%;
   }
   .readmore-container {

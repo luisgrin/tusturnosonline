@@ -41,46 +41,46 @@
 
     <div v-show="!$root.loading" class="hidden-loading">
       <div class="menu">
-        <div class="menu-container columns">
+        <div class="menu-container columns is-mobile">
           <div class="column has-text-left">
             <a class="menu-logo" @click="homeClick" href="#">
               <img src="/img/logo.png" alt="Tusturnosonline">
             </a>
           </div>
 
-          <div class="column menu-primary">
-            <div class="menu-bg"></div>
-            <div class="menu-burger">☰</div>
+          <div class="column">
+            <div class="menu-current has-text-left">
+              <h4 id="title"></h4>
+              <p id="info"></p>
+            </div>
           </div>
-
-          <div class="menu-items">
-            <a href="/"><img src="/img/logo.png"></a>
-            <div v-if="$root.token().token" class="menu-links has-text-left">
-              <a href="/account"><span>🏁</span> Menú Principal</a>
-              <a href="/clientes"><span>👥</span> CRM Cliente</a>
-              <a href="/atributos"><span>🔖</span> CRM Atributo</a>
-              <a href="/carga"><span>📙</span> Carga</a>
-              <hr>
-              <a href="/edit"><span>👤</span> Mi cuenta</a>
-              <a href="/password"><span>🔑</span> Cambiar contraseña</a>
-              <hr>
-            </div>
-            <div class="menu-links">
-              <a v-for="navitem in $root.navitems" :href="navitem.slug" v-html="navitem.title"></a>
-            </div>
-            <a href="#" v-if="$root.token().token" @click="$root.endSessionWithConfirm()" class="button">Cerrar sesión</a>
-            <a href="/sign-in" v-if="!$root.token().token" class="button">Iniciar sesión</a>
-          </div>    
         </div>
+
+        <div class="menu-primary">
+          <div class="menu-bg"></div>
+          <div class="menu-burger">☰</div>
+        </div>
+
+        <div class="menu-items">
+          <a href="/"><img src="/img/logo.png"></a>
+          <div v-if="$root.token().token" class="menu-links has-text-left">
+            <a href="/account"><span>🏁</span> Menú Principal</a>
+            <a href="/clientes"><span>👥</span> CRM Cliente</a>
+            <a href="/atributos"><span>🔖</span> CRM Atributo</a>
+            <a href="/carga"><span>📙</span> Carga</a>
+            <hr>
+            <a href="/edit"><span>👤</span> Mi cuenta</a>
+            <a href="/password"><span>🔑</span> Cambiar contraseña</a>
+            <hr>
+          </div>
+          <div class="menu-links">
+            <a v-for="navitem in $root.navitems" :href="navitem.slug" v-html="navitem.title"></a>
+          </div>
+          <a href="#" v-if="$root.token().token" @click="$root.endSessionWithConfirm()" class="button">Cerrar sesión</a>
+          <a href="/sign-in" v-if="!$root.token().token" class="button">Iniciar sesión</a>
+        </div>    
       </div>
       
-      <div class="content is-section-text fadeIn columns is-vcentered">
-        <div class="has-text-left">
-          <h4 id="title"></h4>
-          <p id="info"></p>
-        </div>
-      </div>
-
       <keep-alive exclude="account,clientes,cliente,atributos,atributo,contact,carga">
         <router-view :key="$route.fullPath"></router-view>
       </keep-alive>
