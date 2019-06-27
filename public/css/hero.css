@@ -654,7 +654,7 @@ blockquote {
 
 .menu-current {
   display: inline-block;
-  margin-top: 0.25rem;
+  margin-top: 0.15rem;
   padding: 0.75rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -679,7 +679,6 @@ blockquote {
 .menu-secondary {
   display: none;
 }
-
 .menu-logo img {
   max-height: 3.5rem;
 }

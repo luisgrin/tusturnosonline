@@ -41,8 +41,8 @@
 
     <div v-show="!$root.loading" class="hidden-loading">
       <div class="menu">
-        <div class="menu-container columns is-mobile">
-          <div class="column has-text-left">
+        <div class="menu-container columns is-mobile is-vcentered">
+          <div class="column is-one-third-mobile is-one-quarter-tablet has-text-left">
             <a class="menu-logo" @click="homeClick" href="#">
               <img src="/img/logo.png" alt="Tusturnosonline">
             </a>
