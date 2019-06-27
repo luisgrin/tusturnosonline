@@ -245,7 +245,7 @@ const Cliente = {
             this.$root.snackbar('success','Error al actualizar registro')
           }
         },300)
-      })
+      }, errorCallback)
     }
   },
   data: function() {
@@ -264,7 +264,7 @@ const Atributos = {
     this.$http.get('/api/atributos', {}, {emulateJSON:true}).then(function(res){
       this.$root.loading = false
       this.data = res.data
-    })
+    }, errorCallback)
   },
   methods: {
     remove:function({type,target}){
@@ -284,7 +284,7 @@ const Atributos = {
               this.data = data2         
             }
             this.$root.processing = false
-          })
+          }, errorCallback)
         }
       }
     },
@@ -300,7 +300,7 @@ const Atributos = {
           this.item = {}
         }
         this.$root.processing = false
-      })
+      }, errorCallback)
     },
     more:function({type,target}){
       if(target.id){
@@ -325,7 +325,7 @@ const Atributo = {
     this.$http.get('/api/atributos/' + location.pathname.split('/').reverse()[0], {}, {emulateJSON:true}).then(function(res){
       this.$root.loading = false
       this.data = res.data
-    })
+    }, errorCallback)
   },
   methods: {
     submit : function({type, target}){
@@ -339,7 +339,7 @@ const Atributo = {
             this.$root.snackbar('success','Error al actualizar registro')
           }
         },1000)
-      })
+      }, errorCallback)
     }
   },
   data: function() {
@@ -360,7 +360,7 @@ const Carga = {
       this.$http.get('/api/atributos', {}, {emulateJSON:true}).then(function(res){
         this.$root.loading = false
         this.$root.atributos = res.data
-      })
+      }, errorCallback)
     }
     if(!isNaN(id)){
       this.checkItem(id)
@@ -375,7 +375,7 @@ const Carga = {
         this.$http.get('/api/clientes/buscar/' + target.value, {}, {emulateJSON:true}).then(function(res){
           this.$root.processing = false
           this.suggests = res.data
-        })
+        }, errorCallback)
       },500)
     },
     more:function(item){
@@ -405,7 +405,7 @@ const Carga = {
         this.item = res.data
         this.selection = res.data
         this.suggests = []
-      })
+      }, errorCallback)
     },
     add:function({type,target}){
       this.$root.processing = true
@@ -416,7 +416,7 @@ const Carga = {
           this.item = {}
         }
         this.$root.processing = false
-      })
+      }, errorCallback)
     },    
     removeAtributo:function({type,target}){
       if(!this.$root.processing){
@@ -437,7 +437,7 @@ const Carga = {
                 this.$root.snackbar('error',res.data.error)
               }
               this.$root.processing = false
-            })
+            }, errorCallback)
           }
         }
       }
@@ -461,7 +461,7 @@ const Carga = {
           this.$root.snackbar('success','Se ha agregado guardado el <b>atributo</b>.')
         }
         this.$root.processing = false
-      })      
+      }, errorCallback)      
     },
     submit : function({type, target}){
       this.$root.processing = true
@@ -484,9 +484,7 @@ const Carga = {
           this.$root.snackbar('error',res.data.error)
         }
         this.$root.processing = false
-      }, function(error){
-        this.$root.snackbar('error',error.statusText)
-      })
+      }, errorCallback)
       return false
     }    
   },
@@ -530,7 +528,7 @@ const EditAccount = {
     this.$http.get('/api/auth/me', {}, {emulateJSON:true}).then(function(res){
       this.$root.loading = false
       this.data = res.data
-    })
+    }, errorCallback)
   },  
   methods : {
     onFileChange(e) {
@@ -635,10 +633,7 @@ const EditAccount = {
           this.$root.snackbar('success','Cuenta actualizada.')
 
           //helper.is_loaded()
-        }, function(error){
-          this.$root.processing = false
-          this.$root.snackbar('error',error.statusText)
-        })
+        }, errorCallback)
       }
     }
   },
@@ -780,15 +775,15 @@ const router = new VueRouter({
     {path: '/session-ended', component: SessionEnded, meta : { title: 'Sesión finalizada'}},
     {path: '/session-expired', component: SessionExpired, meta : { title: 'Sesión expirada'}},
     {path: '/contact', component: Contact, meta : { title: 'Contacto'}},    
-    {path: '/clientes', component: Clientes, meta : { title: 'Clientes', requiresAuth: true}},
-    {path: '/clientes/*', component: Cliente, meta : { title: 'Cliente', requiresAuth: true}},
-    {path: '/atributos', component: Atributos, meta : { title: 'Atributos', requiresAuth: true}},
-    {path: '/atributos/*', component: Atributo, meta : { title: 'Atributos', requiresAuth: true}},
-    {path: '/carga', component: Carga, meta : { title: 'Carga', requiresAuth: true}},
-    {path: '/account', component: Account, meta : { title: 'Tusturnosonline', requiresAuth: true}},
-    {path: '/edit', component: EditAccount,  meta : { title: 'Mi cuenta', requiresAuth: true}},
-    {path: '/password', component: ChangePassword,  meta : { title: 'Cambiar contraseña', requiresAuth: true}},
-    {path: "*", component: Section, meta : { title: ''}}
+    {path: '/clientes', component: Clientes, meta : { title: '👥 CRM Cliente', info:'Estos son tus clientes', requiresAuth: true}},
+    {path: '/clientes/*', component: Cliente, meta : { title: '👥 CRM Cliente', info:'Cliente', requiresAuth: true}},
+    {path: '/atributos', component: Atributos, meta : { title: '🔖 CRM Atributo', info:'Estos son tus atributos', requiresAuth: true}},
+    {path: '/atributos/*', component: Atributo, meta : { title: '🔖 CRM Atributo', info:'Atributo', requiresAuth: true}},
+    {path: '/carga', component: Carga, meta : { title: '📙 Carga', info:'Gestión de clientes', requiresAuth: true}},
+    {path: '/account', component: Account, meta : { title: '🏁 Menú Principal', info:'Menú de acciones principales', requiresAuth: true}},
+    {path: '/edit', component: EditAccount,  meta : { title: '👤 Mi Cuenta', info:'Mantén tus datos al día', requiresAuth: true}},
+    {path: '/password', component: ChangePassword,  meta : { title: '🔑 Cambiar contraseña', info:'Introduce ambas claves', requiresAuth: true}},
+    {path: "*", component: Section, meta : { title: '...'}}
   ]
 });
 
@@ -813,7 +808,7 @@ router.beforeEach(function (to, from, next) {
     if(token.token) {
       next()
     } else {
-      next('/')
+      next('/session-expired')
     }    
   } else {
     next()
@@ -823,12 +818,10 @@ router.beforeEach(function (to, from, next) {
 router.afterEach(function (to, from, next) {
   setTimeout(function() {
     $('.ui-snackbar').removeClass('ui-snackbar--is-active').addClass('ui-snackbar--is-inactive')
-    if(to.meta.customNavbar){
-      $('.custom-navbar .title').html(to.meta.title)
-      $('.custom-navbar .icon').attr('src',to.meta.icon)
-      $('.custom-navbar').show()
-    } else {
-      $('.custom-navbar').hide()      
+    $('#title,#info').html('')
+    if(to.meta.title&&to.meta.info){
+      $('#title').html(to.meta.title)
+      $('#info').html(to.meta.info)
     }
     if(to.meta.requiresAuth){
       $('.footer, .scrollmap').hide()
@@ -849,34 +842,28 @@ Vue.http.interceptors.push(function(request, next) {
 
 const app = new Vue({ router: router,
   data : {
-    customNavbar: false,
-    hideSignIn:false,
     loading: true,
     processing:false,
+    customNavbar: {},
     navitems:{},
     atributos:[],
     messageType:'default',
     message:'',
     tipodatos:[{
       nom:'entero',
-      val:'Entero',
-      placeholder:'ej. 1,2,3 ...'
+      val:'Entero'
     },{
       nom:'decimal',
-      val:'Decimal',
-      placeholder:'ej. 1.44, 7.67, 10.00 ...'
+      val:'Decimal'
     },{
       nom:'fecha',
-      val:'Fecha',
-      placeholder:'ej. 1984-01-01, 01/01/1984 ... '
+      val:'Fecha'
     },{
       nom:'direccion_google',
-      val:'Dirección',
-      placeholder:'ej. Libertad 1225, Av. Fundadores 2440, ...'
+      val:'Dirección'
     },{
       nom:'caracter',
-      val:'Caracter',
-      placeholder:'ej. A, B, C ...'
+      val:'Caracter'
     }],
     filters:filters
   },
@@ -894,7 +881,6 @@ const app = new Vue({ router: router,
     }, function(error){
       if(error) this.snackbar('error','Error al solicitar datos de la aplicación.')
     }) 
-    this.checkFlags(this.$route)
   },
   methods : {
     token: function(){
@@ -931,12 +917,6 @@ const app = new Vue({ router: router,
       } else {
         body.stop().animate({scrollTop:$(document).height()}, 500, 'swing', function() {   
         })
-      }
-    },
-    checkFlags:function(route){
-      this.hideSignIn = false
-      if($.inArray(route.path,['/','/sign-in']) > -1){
-        this.hideSignIn = true
       }
     },
     snackbar : function(messageType,message,timeout){

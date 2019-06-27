@@ -1,3 +1,12 @@
+var errorCallback = function(error){
+  console.log(error.statusText)
+  if(error.statusText==='Unauthorized'){
+    localStorage.removeItem('token')
+    app.$router.push('/session-expired')
+  }
+  app.$root.loading = false
+  setTimeout(() => { app.$root.snackbar('error',error.statusText) },200)
+}
 var filters = {
   token: function(){
     return JSON.parse(localStorage.getItem("token")) || {}

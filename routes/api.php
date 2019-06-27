@@ -276,7 +276,6 @@ $api->version('v1', function (Router $api) {
     $api->post('navitems', function() {
         $footer = App\Opcion::where('nom','APP_FOOTER')->first();
         $navitems = App\Seccion::where('is_navitem',1)->select(['slug','title'])->get();
-
         return response()->json([
             'footer' => $footer->valor,
             'navitems' => $navitems,

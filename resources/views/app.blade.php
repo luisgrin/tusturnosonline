@@ -6,7 +6,7 @@
   <link rel="home" href="/">
   <!-- Page Meta -->
   <meta name="title" content="TusTurnosOnline.com">
-  <meta name="description" content="Obtené tus turnos con agilidad en TusTurnosOnline.com-">
+  <meta name="descriptionsession-" content="Obtené tus turnos con agilidad en TusTurnosOnline.com-">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
@@ -71,6 +71,13 @@
             <a href="#" v-if="$root.token().token" @click="$root.endSessionWithConfirm()" class="button">Cerrar sesión</a>
             <a href="/sign-in" v-if="!$root.token().token" class="button">Iniciar sesión</a>
           </div>    
+        </div>
+      </div>
+      
+      <div class="content is-section-text fadeIn columns is-vcentered">
+        <div class="has-text-left">
+          <h4 id="title"></h4>
+          <p id="info"></p>
         </div>
       </div>
 
@@ -178,19 +185,14 @@
     <div class="has-action-space">
       <div class="container is-padded-top">
         <div class="content hero-system is-dark fadeIn">
-          <div class="columns is-vcentered">
-            <div class="column has-text-centered">
-              <h3>👥 CRM Cliente</h3>
-              <label class="is-size-5">
-                <!--span v-if="data.length">Estos son tus clientes</span-->
-                <span v-if="!data.length">Todavía no tienes clientes</span>
-              </label>
-            </div>
-          </div>
           <div class="has-text-centered is-grid">
-            <div class="columns is-hidden-mobile">
-              <div class="column has-text-centered">Nombre</div>
-              <div class="column"></div>
+            <div class="columns">
+              <div class="column">
+                <input v-model="item.nom" type="text" class="input" />
+              </div>
+              <div class="column">
+                <a class="input has-text-centered has-background-success has-text-white has-text-style-normal" @click="add">Agregar</a>
+              </div>
             </div>
             <div class="columns" v-for="item in data">
               <div class="column is-6">
@@ -205,14 +207,6 @@
                 <a class="input has-text-centered has-background-danger has-text-white has-text-style-normal" @click="remove" :id="item.id">Eliminar</a>
               </div>
               <hr class="is-hidden-tablet" />
-            </div>
-            <div class="columns">
-              <div class="column">
-                <input v-model="item.nom" type="text" class="input" />
-              </div>
-              <div class="column">
-                <a class="input has-text-centered has-background-success has-text-white has-text-style-normal" @click="add">Agregar</a>
-              </div>
             </div>
           </div>
         </div>
@@ -272,20 +266,24 @@
     <div class="has-action-space">
       <div class="container is-padded-top">
         <div class="content hero-system is-dark fadeIn">
-          <div class="columns is-vcentered">
-            <div class="column has-text-centered">
-              <h3>🔖 CRM Atributo</h3>
-              <label class="is-size-5">
-                <!--span v-if="data.length">Estos son tus atributos</span-->
-                <span v-if="!data.length">Todavía no tienes atributos. Crea uno ahora.</span>
-              </label>
-            </div>
-          </div>
           <div class="has-text-centered is-grid">
-            <div class="columns is-hidden-mobile">
+            <!--div class="columns is-hidden-mobile">
               <div class="column is-6 has-text-centered">Nombre</div>
               <div class="column has-text-centered">Tipo dato</div>
               <div class="column"></div>
+            </div-->
+            <div class="columns">
+              <div class="column is-6">
+                <input v-model="item.nom" type="text" class="input" />
+              </div>
+              <div class="column">
+                <select v-model="item.tipo" class="input select">
+                  <option v-for="item in $root.tipodatos" :value="item.nom" v-html="item.val"></option>
+                </select>
+              </div>
+              <div class="column">
+                <a class="input has-text-centered has-background-success has-text-white has-text-style-normal" @click="add">Agregar</a>
+              </div>
             </div>
             <div class="columns" v-for="item in data">
               <div class="column is-6">
@@ -300,19 +298,6 @@
                 <a class="input has-text-centered has-background-danger has-text-white has-text-style-normal" @click="remove" :id="item.id">Eliminar</a>
               </div>
               <hr class="is-hidden-tablet" />
-            </div>
-            <div class="columns">
-              <div class="column is-6">
-                <input v-model="item.nom" type="text" class="input" />
-              </div>
-              <div class="column">
-                <select v-model="item.tipo" class="input select">
-                  <option v-for="item in $root.tipodatos" :value="item.nom" v-html="item.val"></option>
-                </select>
-              </div>
-              <div class="column">
-                <a class="input has-text-centered has-background-success has-text-white has-text-style-normal" @click="add">Agregar</a>
-              </div>
             </div>
           </div>
         </div>
@@ -440,63 +425,59 @@
   <script type="text/x-template" id="editaccount">
     <div class="hero-body is-pin">
       <div class="container has-text-left">
-        <div class="content fadeIn">
-          <h3 class="is-uppercase">👤 Mi Cuenta</h3>
-          <p class="is-uppercase">Mantiene tus datos al día.</p>
-          <div class="columns">
-            <div class="column is-2">
-              <div class="badge account-picture">
-                <input hidden="true" id="uploads" type="file" @change="onFileChange" name="image" optional="true" accept="image/*">
-                <div class="is-circle picture" v-on:click="clickImage()" :style="'background-image:url(/upload/' + data.foto + ')'"></div>
+        <div class="columns">
+          <div class="column is-2">
+            <div class="badge account-picture">
+              <input hidden="true" id="uploads" type="file" @change="onFileChange" name="image" optional="true" accept="image/*">
+              <div class="is-circle picture" v-on:click="clickImage()" :style="'background-image:url(/upload/' + data.foto + ')'"></div>
+            </div>
+          </div>
+          <div class="column">
+            <form class="form has-text-left" @submit.prevent="submit">
+              <div class="field is-horizontal">
+                <div class="field-body">
+                  <div class="field">
+                    <label class="label">Nombre</label>
+                    <div class="control">
+                      <input v-model="data.name" class="input" type="text" placeholder="Nombre"  autofocus required>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="column">
-              <form class="form has-text-left" @submit.prevent="submit">
-                <div class="field is-horizontal">
-                  <div class="field-body">
-                    <div class="field">
-                      <label class="label">Nombre</label>
-                      <div class="control">
-                        <input v-model="data.name" class="input" type="text" placeholder="Nombre"  autofocus required>
-                      </div>
+
+              <div class="field">
+                <label class="label">Email</label>
+                <div class="control">
+                  <input v-model="data.email" class="input" type="email" placeholder="micuenta@gmail.com" required>
+                </div>
+                <p class="help is-danger is-hidden">El email no es válido</p>
+              </div>
+
+              <!--div class="field is-horizontal">
+                <div class="field-body">
+                  <div class="field">
+                    <label class="label">Bio</label>
+                    <div class="control">
+                      <textarea v-model="data.first_name" class="textarea" name="bio" placeholder="Escribe tu biografía aquí."></textarea>
                     </div>
                   </div>
                 </div>
+              </div-->
 
-                <div class="field">
-                  <label class="label">Email</label>
-                  <div class="control">
-                    <input v-model="data.email" class="input" type="email" placeholder="micuenta@gmail.com" required>
-                  </div>
-                  <p class="help is-danger is-hidden">El email no es válido</p>
+              <div class="field">
+                <div class="control">
+                  <button class="button is-success is-fullwidth" :class="{'is-loading' : $root.loading}">💾 Actualizar</button>
                 </div>
-
-                <!--div class="field is-horizontal">
-                  <div class="field-body">
-                    <div class="field">
-                      <label class="label">Bio</label>
-                      <div class="control">
-                        <textarea v-model="data.first_name" class="textarea" name="bio" placeholder="Escribe tu biografía aquí."></textarea>
-                      </div>
-                    </div>
-                  </div>
-                </div-->
-
-                <div class="field">
-                  <div class="control">
-                    <button class="button is-success is-fullwidth" :class="{'is-loading' : $root.loading}">💾 Actualizar</button>
-                  </div>
-                </div>    
-                <div class="field">
-                  <div class="control">
-                    <a href="/password" class="button is-text">🔑 Cambiar contraseña</a>
-                  </div>
-                  <div class="control">
-                    <a href="/account" class="button is-text">🏁 Menú Principal</a>
-                  </div>
+              </div>    
+              <div class="field">
+                <div class="control">
+                  <a href="/password" class="button is-text">🔑 Cambiar contraseña</a>
                 </div>
-              </form>
-            </div>
+                <div class="control">
+                  <a href="/account" class="button is-text">🏁 Menú Principal</a>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -547,7 +528,7 @@
 
   <script type="text/x-template" id="login">
     <div>
-      <div class="container is-padded-top" v-show="$root.token().token">
+      <div class="container is-padded-top" v-if="$root.token().token">
         <div class="inline-background hero-system fadeIn">
           <div class="content hero fadeIn">
             <h3>Tu sesión se encuentra activa.</h3> 
