@@ -11,7 +11,6 @@ use App\Cliente;
 use App\Atributo;
 use App\ClienteAtributo;
 
-
 function validate_atribute($id,$valor){
     $atributo = App\Atributo::where('id',$id)
         ->first(); 
